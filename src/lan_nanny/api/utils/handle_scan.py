@@ -7,7 +7,7 @@
 import logging
 
 from lan_nanny.api.collects.devices import Devices
-from lan_nanny.api.collects.device_macs import DevicesMacs
+from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.collects.vendors import Vendors
 from lan_nanny.api.models.vendor import Vendor
 
@@ -17,7 +17,7 @@ class HandleScan:
     def __init__(self):
         self.device_col = Devices()
         self.devices = {}
-        self.device_macs_col = DevicesMacs()
+        self.device_macs_col = DeviceMacs()
         self.device_macs = {}
         self.vendors_col = Vendors()
         self.tasks = {
@@ -30,7 +30,7 @@ class HandleScan:
         self.devices = self.device_col.get_all()
         logging.debug("Hydrage: Loaded %s Devices" % len(self.devices))
         
-        self.device_macs = DevicesMacs.get_all()
+        self.device_macs = self.device_macs_col.get_all()
         logging.debug("Hydrage: Loaded %s Devices" % len(self.device_macs))
         
         self.vendors = self.vendors_col.get_all()
