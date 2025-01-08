@@ -1,6 +1,6 @@
 """
     Lan Nanny - Shared
-    Model Device
+    Model Device Mac
 
 """
 
@@ -18,8 +18,8 @@ FIELD_MAP = {
         'name': 'updated_ts',
         'type': 'datetime',
     },
-    "user_id": {
-        "name": "user_id",
+    "device_id": {
+        "name": "device_id",
         "type": "int",
         "api_writeable": True,
         "api_searchable": True
@@ -47,14 +47,9 @@ FIELD_MAP = {
         "type": "datetime",
         "api_searchable": True
     },
-    "last_alast_port_scanccess": {
+    "last_port_scanccess": {
         "name": "last_access",
         "type": "datetime",
-        "api_searchable": True
-    },
-    "port_scan_lock": {
-        "name": "port_scan_lock",
-        "type": "bool",
         "api_searchable": True
     },
     "identified": {

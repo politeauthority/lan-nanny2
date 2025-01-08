@@ -5,7 +5,8 @@
     /scan-submit
 
 """
-from flask import Blueprint, jsonify, Response
+from flask import Blueprint, jsonify, Response, request
+from lan_nanny.api.utils import api_util
 
 from lan_nanny.api.utils import auth
 
@@ -13,7 +14,8 @@ ctrl_scan_submit = Blueprint("scan-submit", __name__, url_prefix="/scan-submit")
 
 
 @auth.auth_request
-@ctrl_scan_submit.route("/scan-submit", methods=["POST"])
+@ctrl_scan_submit.route("", methods=["POST"])
+@ctrl_scan_submit.route("/", methods=["POST"])
 def scan_submit() -> Response:
     """Scan Submit
     """
@@ -21,6 +23,8 @@ def scan_submit() -> Response:
         "info": "Lan Nanny",
     }
     data["scan"] = {}
+    print(request.form)
+    import ipdb; ipdb.set_trace()
     return jsonify(data)
 
 

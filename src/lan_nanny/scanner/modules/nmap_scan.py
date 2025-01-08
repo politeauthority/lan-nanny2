@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 import logging
 import os
+import time
 import subprocess
 
 
@@ -15,6 +16,9 @@ class NmapScan:
     def __init__(self):
         self.tmp_space = "/tmp"
         self.export_file = ""
+        self.scan_start = None
+        self.scan_end = None
+        self.scan_total = None
         self.data = {
             "meta": {
                 "scan_type": "nmap"
@@ -27,10 +31,16 @@ class NmapScan:
         scan_cidr = "192.168.50.1-20"
         scan_options = []
         cmd = ["nmap", scan_cidr, "-oX", self.export_file]
-
-        print(f"Running scan {scan_cidr} options: {scan_options} export file: {self.export_file}")
+        logging.info(
+            f"Running scan {scan_cidr} options: {scan_options} export file: {self.export_file}")
+        self.scan_start = time.time()
         subprocess.check_output(cmd)
+        self.scan_end = time.time()
+        self.scan_total = self.scan_end - self.scan_start
+        logging.info("Finished Nmap scan in %s" % self.scan_total)
+        # logging.debu("Finished Nmap Scan")
         self.parse_scan()
+        return True
 
     def parse_scan(self) -> bool:
         """Parses an Nmap XML file, returnning da data structure of unique devices in a python3

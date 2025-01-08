@@ -1,14 +1,13 @@
 """
     Lan Nanny - Api
-    Collection
-    Devices
+    Collection DeviceMacs
 
 """
 from lan_nanny.api.collects.base_entity_metas import BaseEntityMetas
-from lan_nanny.api.models.device import Device
+from lan_nanny.api.models.device_mac import DeviceMac
 
 
-class Devices(BaseEntityMetas):
+class DeviceMacs(BaseEntityMetas):
 
     collection_name = "devices"
 
@@ -16,10 +15,10 @@ class Devices(BaseEntityMetas):
         """Store database conn/connection and model table_name as well as the model obj for the
         collections target model.
         """
-        super(Devices, self).__init__(conn, cursor)
-        self.table_name = Device().table_name
-        self.collect_model = Device
+        super(DeviceMacs, self).__init__(conn, cursor)
+        self.table_name = DeviceMac().table_name
+        self.collect_model = DeviceMac
         self.field_map = self.collect_model().field_map
         self.per_page = 20
 
-# End File: politeauthority/bookmarky-api/src/bookmarky/api/collects/bookmarks.py
+# End File: politeauthority/lan-nanny/src/lan_nannyy/api/collects/device_macs.py

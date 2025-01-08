@@ -4,6 +4,7 @@
 """
 import logging
 from logging.config import dictConfig
+import json
 import requests
 
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
@@ -30,8 +31,9 @@ class Scanner:
     def __init__(self):
         self.scan_data = {}
         self.api_url = "https://api.lan-nanny-dev.alix.lol"
-        self.api_client_id = ""
-        self.api_key = ""
+        self.api_client_id = "cnw5cas65q"
+        self.api_key = "0f7h-5muw-orfn-8g6h"
+        self.token = ""
 
     def run(self):
         """Primary entrypot for Scan"""
@@ -43,21 +45,55 @@ class Scanner:
     def run_nmap(self):
         logging.info("Starting NMap scan")
         nmap = NmapScan()
-        self.scan_data = nmap.run_scan()
+        nmap.run_scan()
+        self.scan_data = nmap.data
 
-    def scan_submit(self):
-        """Submit a Scan to the 
-        """
-        self.api_login()
-    
+    def scan_submit(self) -> bool:
+        """Submit a Scan to the Lan Nanny Api"""
+        logging.info("Starting to submit the Scan")
+        if not self.token:
+            logging.error("No Lan Nanny Api token found, cant continue")
+            logging.critical("Exiting")
+            exit(1)
+        if not self.scan_data:
+            logging.error("No Scan data to submit")
+            logging.critical("Exiting")
+            exit(1)
+        url = self.api_url + "/scan-submit"
+        headers = {
+            "Token": self.token,
+            "Content-Type": "application/json"
+        }
+        data = json.dumps(self.scan_data)
+        logging.info(f"Sending payload\n {self.scan_data}")
+        response = requests.post(url, headers=headers, data=data)
+        if response.status_code != 201:
+            msg = f"Failed to submit scan, got response code: {response.status_code}"
+            msg += "\n{response.text}"
+            logging.error(msg)
+        import ipdb; ipdb.set_trace()
+        return True
+
     def api_login(self) -> bool:
+        """Logs into the Lan Nanny Api. Setting a self.token variable if successfull."""
+        logging.info(f"Logging into to {self.api_url}")
         headers = {
             "X-Api-Key": self.api_key,
             "Client-Id": self.api_client_id,
             "Content-Type": "application/json"
         }
-        requests = requests.get(self.api_login, headers)
-        import ipdb; ipdb.set_trace()
+        url = self.api_url + "/auth"
+        request = requests.post(url, headers=headers)
+        if request.status_code != 200:
+            logging.critical(
+                f"Could not connect to api: {self.api_url} got code: {request.status_code}")
+            logging.critical("Exiting")
+            import ipdb; ipdb.set_trace()
+            exit(1)
+        response_json = request.json()
+        self.token = response_json["token"]
+        logging.info("Successfully got token from Lan Nanny Api")
+        return True
 
 if __name__ == "__main__":
     Scanner().run()
