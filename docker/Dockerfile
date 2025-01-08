@@ -33,7 +33,7 @@ RUN cd /app/ && pip install .
 
 
 # Add Scanning Utilities
-RUN apk update && apk add npm
+RUN apk update && apk add nmap
 
 CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0:80"]
 
