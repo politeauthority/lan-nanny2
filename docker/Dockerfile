@@ -35,7 +35,7 @@ RUN cd /app/ && pip install .
 # Add Scanning Utilities
 RUN apk update && apk add nmap
 
-CMD ["gunicorn", "web-app:app", "--chdir", "/app/lan-nanny/lan_nanny/api", "--bind=0.0.0.0:80"]
+CMD ["gunicorn", "web-app:app", "--chdir", "/work/lan_nanny/lan_nanny/api", "--bind=0.0.0.0:80"]
 
 # Development container tools
 FROM base as dev
