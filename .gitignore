@@ -1,6 +1,7 @@
 # Lan Nanny
 secrets.yaml
 docs/*
+docker/build-files
 *.bak
 .DS_Store
 

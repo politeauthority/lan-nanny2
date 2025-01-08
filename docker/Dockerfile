@@ -40,16 +40,16 @@ CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0
 # Development container tools
 FROM base as dev
 
-RUN apk add bash curl vim screen
+RUN apk add bash curl vim screen && mkdir -p /work/lan_lanny
 
-ADD build_files/src /work/lan_nanny/
+ADD ./build-files/src /work/lan_nanny/
 ADD ./scripts/run-dev /bin
 ADD ./scripts/run-production /bin
 ADD ./scripts/run-kill /bin
 ADD ./scripts/run-build /bin
 ADD ./scripts/dev-destroy /bin
 
-RUN pip install -r /app/requirements-dev.txt && mkdir /work
+RUN pip install -r /app/requirements-dev.txt && mkdir -p /work
 WORKDIR /work/
 
 ADD build-files/tests /work/tests

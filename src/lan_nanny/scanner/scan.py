@@ -3,6 +3,7 @@
 
 """
 
+
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
 
 
