@@ -4,5 +4,3 @@ resources:
   - api-deployment.yaml
   - api-svc.yaml
   - api-ingress.yaml
-
-  - scanner-deployment.yaml

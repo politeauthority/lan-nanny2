@@ -35,12 +35,12 @@ RUN cd /app/ && pip install .
 # Add Scanning Utilities
 RUN apk update && apk add nmap
 
-CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0:80"]
+CMD ["gunicorn", "web-app:app", "--chdir", "/app/lan-nanny/lan_nanny/api", "--bind=0.0.0.0:80"]
 
 # Development container tools
 FROM base as dev
 
-RUN apk add bash curl vim screen && mkdir -p /work/lan_lanny
+RUN apk add bash curl vim screen && mkdir -p /work/lan_nanny
 
 ADD ./build-files/src /work/lan_nanny/
 ADD ./scripts/run-dev /bin

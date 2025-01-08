@@ -14,45 +14,45 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-registry
-      initContainers:
-        - name: lan-nanny-migrations
-          image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-          env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: DB_HOST
-                  name: lan-nanny-creds
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: lan-nanny-creds
-                  key: DB_NAME
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: lan-nanny-creds
-                  key: DB_USER
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: lan-nanny-creds
-                  key: DB_PASS
-            - name: LOG_LEVEL
-              value: "DEBUG"
-            - name: LAN_NANNY_ENV
-              value: "prod"
-          resources:
-            requests:
-              memory: "250Mi"
-              cpu: "200m"
-            limits:
-              memory: "350Mi"
-              cpu: "250m"
-          command: ["python3", "/app/lan-nanny/migrations/migrate.py"]
+      # initContainers:
+      #   - name: lan-nanny-migrations
+      #     image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
+      #     imagePullPolicy: IfNotPresent
+      #     ports:
+      #       - containerPort: 80
+      #     env:
+      #       - name: DB_HOST
+      #         valueFrom:
+      #           secretKeyRef:
+      #             key: DB_HOST
+      #             name: lan-nanny-creds
+      #       - name: DB_NAME
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: lan-nanny-creds
+      #             key: DB_NAME
+      #       - name: DB_USER
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: lan-nanny-creds
+      #             key: DB_USER
+      #       - name: DB_PASS
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: lan-nanny-creds
+      #             key: DB_PASS
+      #       - name: LOG_LEVEL
+      #         value: "DEBUG"
+      #       - name: LAN_NANNY_ENV
+      #         value: "prod"
+      #     resources:
+      #       requests:
+      #         memory: "250Mi"
+      #         cpu: "200m"
+      #       limits:
+      #         memory: "350Mi"
+      #         cpu: "250m"
+      #     command: ["python3", "/app/lan-nanny/migrations/migrate.py"]
       containers:
         - name: lan-nanny-api
           image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
