@@ -8,7 +8,7 @@ import logging
 
 from flask import Blueprint, jsonify, request, Response
 
-from lan_nanny.api.collects.bookmarks import Bookmarks
+from lan_nanny.api.collects.devices import Bookmarks
 from lan_nanny.api.collects.tags import Tags
 from lan_nanny.api.collects.bookmark_tracks import BookmarkTracks
 from lan_nanny.api.models.tag import Tag

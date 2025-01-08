@@ -1,9 +1,9 @@
 """
-    Bookmarky Api
+    Lan Nanny - Api
     Model Device
 
 """
-from lan_nanny.shared.models.auto_feature import FIELD_MAP
+from lan_nanny.shared.models.device import FIELD_MAP
 from lan_nanny.api.models.base_entity_meta import BaseEntityMeta
 
 
@@ -26,4 +26,4 @@ class Device(BaseEntityMeta):
         else:
             return "<%s>" % (self.__class__.__name__)
 
-# End File: politeauthority/la-nanny/src/lan_nanny/api/models/device.py.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/api/models/device.py

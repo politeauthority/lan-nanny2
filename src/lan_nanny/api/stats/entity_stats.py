@@ -1,7 +1,7 @@
 """
 """
 
-from lan_nanny.api.collects.bookmarks import Bookmarks
+from lan_nanny.api.collects.devices import Bookmarks
 from lan_nanny.api.collects.bookmark_tags import BookmarkTags
 from lan_nanny.api.collects.users import Users
 from lan_nanny.api.collects.tags import Tags

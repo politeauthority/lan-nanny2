@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-    Bookmarky Api
+    Lan Nanny - Api
     Web App
     Primary web app entrpoint
 
@@ -34,20 +34,12 @@ from lan_nanny.api.controllers.collections.ctrl_users import ctrl_users
 from lan_nanny.api.controllers.models.ctrl_option import ctrl_option
 from lan_nanny.api.controllers.collections.ctrl_options import ctrl_options
 
-from lan_nanny.api.controllers.models.ctrl_bookmark import ctrl_bookmark
-from lan_nanny.api.controllers.collections.ctrl_bookmarks import ctrl_bookmarks
+from lan_nanny.api.controllers.models.ctrl_device import ctrl_device
+from lan_nanny.api.controllers.collections.ctrl_devices import ctrl_devices
 
-from lan_nanny.api.controllers.models.ctrl_bookmark_tag import ctrl_bookmark_tag
-from lan_nanny.api.controllers.models.ctrl_auto_feature import ctrl_auto_feature
-from lan_nanny.api.controllers.collections.ctrl_auto_features import ctrl_auto_features
 
-from lan_nanny.api.controllers.models.ctrl_directory import ctrl_directory
-from lan_nanny.api.controllers.collections.ctrl_directories import ctrl_directories
-from lan_nanny.api.controllers.models.ctrl_tag import ctrl_tag
-from lan_nanny.api.controllers.collections.ctrl_tags import ctrl_tags
 
-from lan_nanny.api.controllers.ctrl_stats import ctrl_stats
-from lan_nanny.api.controllers.ctrl_image import ctrl_image
+# from lan_nanny.api.controllers.ctrl_stats import ctrl_stats
 
 
 logging.config.dictConfig(log_config)
@@ -69,19 +61,12 @@ def register_blueprints(app: Flask) -> bool:
     app.register_blueprint(ctrl_option)
     app.register_blueprint(ctrl_options)
 
-    app.register_blueprint(ctrl_bookmark)
-    app.register_blueprint(ctrl_bookmarks)
-    app.register_blueprint(ctrl_bookmark_tag)
-    app.register_blueprint(ctrl_directory)
-    app.register_blueprint(ctrl_directories)
-    app.register_blueprint(ctrl_tag)
-    app.register_blueprint(ctrl_tags)
-    app.register_blueprint(ctrl_auto_feature)
-    app.register_blueprint(ctrl_auto_features)
+    app.register_blueprint(ctrl_device)
+    app.register_blueprint(ctrl_devices)
 
     app.register_blueprint(ctrl_interops)
-    app.register_blueprint(ctrl_stats)
-    app.register_blueprint(ctrl_image)
+    # app.register_blueprint(ctrl_stats)
+
 
     return True
 

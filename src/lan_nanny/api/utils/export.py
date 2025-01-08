@@ -5,7 +5,7 @@
 
 """
 from lan_nanny.api.utils import db
-from lan_nanny.api.collects.bookmarks import Bookmarks
+from lan_nanny.api.collects.devices import Bookmarks
 from lan_nanny.api.collects.directories import Directories
 from lan_nanny.api.collects.tags import Tags
 

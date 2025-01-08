@@ -7,7 +7,7 @@ import logging
 
 from lan_nanny.api.utils import glow
 from lan_nanny.api.collects.bookmark_tags import BookmarkTags
-from lan_nanny.api.collects.bookmarks import Bookmarks
+from lan_nanny.api.collects.devices import Bookmarks
 from lan_nanny.api.utils import db
 # from bookmarky.api.utils import glow
 

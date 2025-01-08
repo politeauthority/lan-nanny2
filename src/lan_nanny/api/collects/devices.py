@@ -1,7 +1,7 @@
 """
-    Bookmark Api
+    Lan Nanny - Api
     Collection
-    Bookmarks
+    Devices
 
 """
 from lan_nanny.api.collects.base_entity_metas import BaseEntityMetas
@@ -9,7 +9,7 @@ from lan_nanny.api.models.bookmark import Bookmark
 from lan_nanny.api.utils import glow
 
 
-class Bookmarks(BaseEntityMetas):
+class Devices(BaseEntityMetas):
 
     collection_name = "bookmarks"
 
