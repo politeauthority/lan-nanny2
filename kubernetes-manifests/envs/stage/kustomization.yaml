@@ -6,8 +6,8 @@ resources:
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: stage-latest
-    newTag: stage-0.0.0.18
+    # newTag: stage-latest
+    newTag: stage-0.0.0.19
 patches:
   - target:
       kind: Deployment
