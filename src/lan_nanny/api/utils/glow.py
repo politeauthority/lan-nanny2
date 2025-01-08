@@ -16,7 +16,7 @@ db = {
     "cursor": "",
     "HOST": os.environ.get("DB_HOST"),
     "PORT": os.environ.get("DB_PORT", 5432),
-    "NAME": os.environ.get("BOOKMARKY_DB_NAME"),
+    "NAME": os.environ.get("DB_NAME"),
     "USER": os.environ.get("DB_USER"),
     "PASS": os.environ.get("DB_PASS"),
 }

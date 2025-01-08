@@ -16,7 +16,7 @@ spec:
         - name: harbor-registry
       hostNetwork: true
       containers:
-        - name: lan-nanny-api
+        - name: lan-nanny-scanner
           image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
           imagePullPolicy: IfNotPresent
           env:

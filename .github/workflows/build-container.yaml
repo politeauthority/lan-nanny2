@@ -1,4 +1,4 @@
-name: Buil Api Container
+name: Build Container
 
 on:
   workflow_call:

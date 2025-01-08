@@ -105,11 +105,8 @@ class Migrate:
         logging.info("Running Migration #%s" % migration_no)
         this_migration = Migration()
         this_migration.number = migration_no
-        if glow.general["ENV"] == "dev":
-            APPLICATION_DIR = "/work/src/bookmarky/"
-        else:
-            APPLICATION_DIR = "/app/bookmarky/"
-
+        APPLICATION_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)))
+        APPLICATION_DIR = APPLICATION_DIR[:-10]
         migration_file = os.path.join(
             APPLICATION_DIR, "migrations/data/sql/up/%s.sql" % migration_no)
         with open(migration_file, 'r') as sql_file:
