@@ -42,9 +42,12 @@ FROM base as dev
 
 RUN apk add bash curl vim screen
 
+ADD build_files/src /work/lan_nanny/
 ADD ./scripts/run-dev /bin
 ADD ./scripts/run-production /bin
 ADD ./scripts/run-kill /bin
+ADD ./scripts/run-build /bin
+ADD ./scripts/dev-destroy /bin
 
 RUN pip install -r /app/requirements-dev.txt && mkdir /work
 WORKDIR /work/

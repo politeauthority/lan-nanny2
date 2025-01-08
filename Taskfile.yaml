@@ -52,16 +52,29 @@ tasks:
         NS=$"{{.K8S_NS_DEV}}"
         POD=$(kubectl get pods -l app=lan-nanny-scanner -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
         echo "Copying to pod $NS/$POD"
-        kubectl cp -n ${NS} -c lan-nanny-scanner src ${POD}:/work/src
+        kubectl cp -n ${NS} -c lan-nanny-scanner src/ ${POD}:/work/lan_nanny/
         echo "Coppied Polite-Lib source"
         echo "Building"
-        # kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/src && pip install ."
-
+        kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/lan_nanny/src && pip install ."
 
   dev-deploy:
     cmds:
       - |
         kustomize build kubernetes-manifests/envs/dev | kubectl apply -f -
+
+
+  stage-deploy:
+    cmds:
+      - |
+        kustomize build kubernetes-manifests/envs/stage | kubectl apply -f -
+
+  stage-destroy:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        kubectl delete -n {NS} deployment/lan-nanny-api
+        kubectl delete -n {NS} deployment/lan-nanny-scanner
+
 
   update-semver:
     cmds:
@@ -73,7 +86,7 @@ tasks:
         ((revision++))
         NEW_VERSION="$major.$minor.$patch.$revision"
 
-        echo "$CURRENT_VERSION > $NEW_VERSION"
+        echo "Updating: $CURRENT_VERSION > $NEW_VERSION"
 
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "VERSION"
         git add VERSION
@@ -99,8 +112,7 @@ tasks:
         # Update Kustomize Image Tags
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "kubernetes-manifests/envs/dev/kustomization.yaml"
         git add kubernetes-manifests/envs/dev/kustomization.yaml
-        echo "Updated Kustomize prod"
+        rm kubernetes-manifests/envs/dev/kustomization.yaml.bak
+        echo "Updated Kustomize Dev"
 
-        # sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "kubernetes-manifests/envs/stage/kustomization.yaml"
-        # echo "Updated kustomize stage"
-        # git add VERSION
+        echo "Updated $CURRENT_VERSION > $NEW_VERSION"

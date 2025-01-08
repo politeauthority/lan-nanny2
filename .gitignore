@@ -1,6 +1,6 @@
 # Lan Nanny
 secrets.yaml
-docs/db.txt
+docs/*
 *.bak
 .DS_Store
 

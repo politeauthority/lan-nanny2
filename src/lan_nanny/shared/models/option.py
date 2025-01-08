@@ -1,7 +1,6 @@
 """ 
-    Bookmarky Shared
-    Model
-    Fields Option
+    Lan Nanny - Shared
+    Model Option
 
 """
 
@@ -54,4 +53,4 @@ FIELD_MAP = {
     }
 }
 
-# End File: cver/src/shared/models/fields/option.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/shared/models/fields/option.py
