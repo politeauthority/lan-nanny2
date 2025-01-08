@@ -1,4 +1,4 @@
-# Lan Nanny v0.0.0.20
+# Lan Nanny v0.0.0.21
 
 ## Development
 ### Api
@@ -6,3 +6,5 @@
    - Adding Scan entity
    - Verify vendor scanving/ selection
    - Fix issue with DevMac
+### CICD
+ - [ ] Auto Deploy to `staging` namespace
