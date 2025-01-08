@@ -14,7 +14,7 @@ tasks:
         cp -r tests docker/build-files
         cp pyproject.toml docker/build-files
         cp tox.ini docker/build-files
-        docker build -t harbor.squid-ink.us/politeauthority/bookmarky-web \
+        docker build -t harbor.squid-ink.us/politeauthority/lan-nanny \
           --build-arg="DOCKER_REGISTRY=harbor.squid-ink.us/docker-hub" \
           --no-cache docker/
         rm -rf docker/build-files
