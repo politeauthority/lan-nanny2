@@ -26,12 +26,16 @@ RUN apk add --update --no-cache --virtual .build-deps \
     && apk add --no-cache libffi-dev \
     && apk add --no-cache --update --virtual .runtime-deps libgcc libstdc++ ca-certificates postgresql-dev gcc python3-dev musl-dev
 
-# Shitty polite-lub install
+# Shitty polite-lib install
 RUN /app/install-polite-lib.sh \
     && apk add git \
     && apk del .build-deps
 
 RUN cd /app/ && pip install .
+
+
+# Add Scanning Utilities
+RUN apk update && apk add npm
 
 CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0:80"]
 

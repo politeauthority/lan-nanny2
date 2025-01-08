@@ -19,3 +19,58 @@ tasks:
           --no-cache docker/
         rm -rf docker/build-files
     silent: False
+
+  dev-exec-api:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD=$(kubectl get pods -n ${NS} -l app=lan-nanny-api --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Execing to pod $POD"
+        kubectl exec -n ${NS} -it ${POD} -- sh
+
+  dev-deploy:
+    cmds:
+      - |
+        kustomize build kubernetes-manifests/envs/dev | kubectl apply -f -
+
+  update-semver:
+    cmds:
+      - |
+        # Read the version number from the file
+        set -e
+        CURRENT_VERSION=$(<"VERSION")
+        IFS='.' read -r major minor patch revision <<< "$CURRENT_VERSION"
+        ((revision++))
+        NEW_VERSION="$major.$minor.$patch.$revision"
+
+        echo "$CURRENT_VERSION > $NEW_VERSION"
+
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "VERSION"
+        git add VERSION
+        rm VERSION.bak
+        echo "Updated VERSION"
+
+        # Update Api Version
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "src/lan_nanny/api/version.py"
+        git add src/lan_nanny/api/version.py
+        echo "Updated src/bookmarky/api/version.py"
+
+        # // Update README.md
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "README.md"
+        git add README.md
+        rm README.md.bak
+        echo "Updated README.md"
+
+        # // Update pyproject.toml
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "pyproject.toml"
+        git add pyproject.toml
+        echo "Updated pyproject.toml"
+
+        # Update Kustomize Image Tags
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "kubernetes-manifests/envs/dev/kustomization.yaml"
+        git add kubernetes-manifests/envs/dev/kustomization.yaml
+        echo "Updated Kustomize prod"
+
+        # sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "kubernetes-manifests/envs/stage/kustomization.yaml"
+        # echo "Updated kustomize stage"
+        # git add VERSION

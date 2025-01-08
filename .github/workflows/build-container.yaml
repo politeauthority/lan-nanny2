@@ -44,7 +44,7 @@ jobs:
           IMAGE_ID=$(docker images --filter "reference=${SEARCH_IMAGE}" --format "{{.ID}}")
 
           # Get tag names
-          VERSION_FILE="src/lan-nanny/api/version.py"
+          VERSION_FILE="src/lan_nanny/api/version.py"
           VERSION=$(grep -o 'version = "[^"]*"' ${VERSION_FILE} | cut -d '"' -f 2)
           if [ "$TAG_PREFIX" = "prod" ]; then
             TAG_NAMED="latest"

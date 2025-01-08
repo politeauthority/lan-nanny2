@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lan-nany-api
+  name: lan-nanny-api
 spec:
   replicas: 1
   selector:
@@ -14,10 +14,8 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-registry
-      securityContext:
-        fsGroup: 1003
       initContainers:
-        - name: bookmarky-migrations
+        - name: lan-nanny-migrations
           image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -56,8 +54,8 @@ spec:
               cpu: "250m"
           command: ["python3", "/app/lan-nanny/migrations/migrate.py"]
       containers:
-        - name: bookmarky-api
-          image: harbor.squid-ink.us/politeauthority/bookmarky-api:latest
+        - name: lan-nanny-api
+          image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -71,7 +69,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: lan-nanny-creds
-                  key: NAME
+                  key: DB_NAME
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -89,7 +87,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: bookmarky-creds
+                  name: lan-nanny-creds
                   key: SECRET_KEY
           resources:
             requests:

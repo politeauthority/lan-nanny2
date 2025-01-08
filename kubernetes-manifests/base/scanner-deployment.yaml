@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lan-nanny-scanner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lan-nanny-scanner
+  template:
+    metadata:
+      labels:
+        app: lan-nanny-scanner
+    spec:
+      imagePullSecrets:
+        - name: harbor-registry
+      hostNetwork: true
+      containers:
+        - name: lan-nanny-api
+          image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: LOG_LEVEL
+              value: "DEBUG"
+            - name: LAN_NANNY_ENV
+              value: "prod"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: lan-nanny-creds
+                  key: SECRET_KEY
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
