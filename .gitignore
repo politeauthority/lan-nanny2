@@ -3,6 +3,7 @@ secrets.yaml
 docs/*
 docker/build-files
 *.bak
+tests/data
 .DS_Store
 
 # Byte-compiled / optimized / DLL files

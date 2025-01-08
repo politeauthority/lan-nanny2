@@ -4,17 +4,21 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lan_nanny"
-version = "0.0.0.12"
+version = "0.0.0.13"
 
 requires-python = ">=3.11"
 dependencies = [
     "gunicorn>=22.0.0",
     "Flask>=3.0.3",
-    "requests>=2.32.2",
     "psycopg2==2.9.9",
     "PyJWT==2.8.0",
     "sqlescapy==1.0.1",
-    "tldextract==5.1.2",
+    
+    # Scan Dependencaies
+    "requests==2.32.3",
+    "lxml==5.3.0",
+    "bs4==0.0.2",
+
 ]
 
 [tool.hatch.build.targets.sdist]
