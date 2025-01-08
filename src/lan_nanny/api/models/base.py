@@ -480,7 +480,6 @@ class Base:
                 {sql_fields}
             );
         """
-        print(sql)
         try:
             self.cursor.execute(sql)
             return True

@@ -117,7 +117,7 @@ class Migrate:
         except Exception as e:
             logging.critical(f"Migration {migration_no} failed: {e}")
             this_migration.success = False
-            self.this_migration.save()
+            this_migration.save()
             exit(1)
         logging.info("Applied Migration Up: %s" % migration_no)
         this_migration.success = True

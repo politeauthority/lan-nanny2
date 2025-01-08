@@ -36,7 +36,7 @@ tasks:
         kubectl cp -n ${NS} -c lan-nanny-api src ${POD}:/work/lan_nanny
         echo "Coppied Polite-Lib source"
         echo "Building"
-        # kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/src && pip install ."
+        kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/lan_nanny/src && pip install ."
 
   dev-exec-scanner:
     cmds:

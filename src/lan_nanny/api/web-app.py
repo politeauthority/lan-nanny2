@@ -21,7 +21,7 @@ from lan_nanny.api.utils import glow
 from lan_nanny.api.controllers.models.ctrl_api_key import ctrl_api_key
 from lan_nanny.api.controllers.collections.ctrl_api_keys import ctrl_api_keys
 from lan_nanny.api.controllers.ctrl_index import ctrl_index
-from lan_nanny.api.controllers.ctrl_inter_ops import ctrl_interops
+# from lan_nanny.api.controllers.ctrl_inter_ops import ctrl_interops
 # from cver.api.controllers.ctrl_collections.ctrl_migrations import ctrl_migrations
 # from cver.api.controllers.ctrl_models.ctrl_role import ctrl_role
 # from cver.api.controllers.ctrl_collections.ctrl_roles import ctrl_roles
@@ -64,7 +64,7 @@ def register_blueprints(app: Flask) -> bool:
     app.register_blueprint(ctrl_device)
     app.register_blueprint(ctrl_devices)
 
-    app.register_blueprint(ctrl_interops)
+    # app.register_blueprint(ctrl_interops)
     # app.register_blueprint(ctrl_stats)
 
 
