@@ -1,5 +1,5 @@
 """
-    Bookmarky Migrations
+    Lan Nanny Migrations
     Migrate
     Entrypont for Bookmarky migrations
 
@@ -19,7 +19,7 @@ from lan_nanny.api.models.migration import Migration
 # from bookmarky.migrate.data.data_misc import DataMisc
 
 
-CURRENT_MIGRATION = 9
+CURRENT_MIGRATION = 2
 
 dictConfig({
     'version': 1,
@@ -167,4 +167,4 @@ if __name__ == "__main__":
     Migrate().run()
 
 
-# End File: politeauthority/bookmarky-api/src/bookmarky/migrations/migrate.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/migrations/migrate.py

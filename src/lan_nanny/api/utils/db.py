@@ -14,6 +14,7 @@ def connect() -> bool:
     """Connect to a postgres database."""
     try:
         logging.info("Connecting to postgres at %s:%s" % (glow.db["HOST"], glow.db["PORT"]))
+        import ipdb; ipdb.set_trace()
         conn = psycopg2.connect(
             dbname=glow.db["NAME"],
             user=glow.db["USER"],

@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: lan-nany-api
+      app: lan-nanny-api
   template:
     metadata:
       labels:
-        app: lan-nany-api
+        app: lan-nanny-api
     spec:
       imagePullSecrets:
         - name: harbor-registry

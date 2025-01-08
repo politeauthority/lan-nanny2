@@ -10,8 +10,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app/
 
 # Copy the local src directory to the working directory in the container
-ADD ./build-files/pyproject.toml /app/
-ADD ./build-files/tox.ini /app/
 ADD ./build-files/src /app/
 ADD ./scripts/install-polite-lib.sh /app
 

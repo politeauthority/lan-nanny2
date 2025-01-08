@@ -1,6 +1,7 @@
 # Lan Nanny
 secrets.yaml
 docs/db.txt
+*.bak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

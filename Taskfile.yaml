@@ -12,9 +12,8 @@ tasks:
         mkdir docker/build-files
         cp -r src docker/build-files
         cp -r tests docker/build-files
-        cp pyproject.toml docker/build-files
-        cp tox.ini docker/build-files
         docker build -t harbor.squid-ink.us/politeauthority/lan-nanny \
+          --target dev \
           --build-arg="DOCKER_REGISTRY=harbor.squid-ink.us/docker-hub" \
           --no-cache docker/
         rm -rf docker/build-files
@@ -27,6 +26,20 @@ tasks:
         POD=$(kubectl get pods -n ${NS} -l app=lan-nanny-api --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
         echo "Execing to pod $POD"
         kubectl exec -n ${NS} -it ${POD} -- sh
+
+  dev-cp-api:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD=$(kubectl get pods -l app=lan-nanny-api -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Copying to pod $NS/$POD"
+        kubectl cp -n ${NS} -c lan-nanny-api src ${POD}:/work/src
+        echo "Coppied Polite-Lib source"
+        echo "Building"
+        # kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/src && pip install ."
+
+  dev-cp-api-src-fast:
+
 
   dev-deploy:
     cmds:
@@ -62,8 +75,8 @@ tasks:
         echo "Updated README.md"
 
         # // Update pyproject.toml
-        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "pyproject.toml"
-        git add pyproject.toml
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "src/pyproject.toml"
+        git add src/pyproject.toml
         echo "Updated pyproject.toml"
 
         # Update Kustomize Image Tags

@@ -14,11 +14,11 @@ global db
 db = {
     "conn": "",
     "cursor": "",
-    "HOST": os.environ.get("BOOKMARKY_DB_HOST"),
-    "PORT": os.environ.get("BOOKMARKY_DB_PORT", 5432),
+    "HOST": os.environ.get("DB_HOST"),
+    "PORT": os.environ.get("DB_PORT", 5432),
     "NAME": os.environ.get("BOOKMARKY_DB_NAME"),
-    "USER": os.environ.get("BOOKMARKY_DB_USER"),
-    "PASS": os.environ.get("BOOKMARKY_DB_PASS"),
+    "USER": os.environ.get("DB_USER"),
+    "PASS": os.environ.get("DB_PASS"),
 }
 
 # Load Cver Options
@@ -75,4 +75,4 @@ def start_session():
     return True
 
 
-# End File: politeauthority/bookmarky-api/src/bookmarky/api/utils/glow.py
+# End File: politeauthority/lan-nanny/src/lan-nanny/api/utils/glow.py

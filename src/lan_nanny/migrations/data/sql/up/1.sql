@@ -96,4 +96,4 @@ CREATE TABLE IF NOT EXISTS options (
     hide_value BOOLEAN
 );
 
--- End file: politeauthority/bookmarky-api/src/bookmarky/migrations/data/sql/up/1.sql
+-- End file: politeauthority/lan_nanny/src/lan-nanny/migrations/data/sql/up/1.sql
