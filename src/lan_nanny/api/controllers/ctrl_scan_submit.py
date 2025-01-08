@@ -5,8 +5,12 @@
     /scan-submit
 
 """
+import logging
+import json
+
 from flask import Blueprint, jsonify, Response, request
 from lan_nanny.api.utils import api_util
+from lan_nanny.api.utils.handle_scan import HandleScan
 
 from lan_nanny.api.utils import auth
 
@@ -23,10 +27,15 @@ def scan_submit() -> Response:
         "info": "Lan Nanny",
     }
     data["scan"] = {}
-    print(request.form)
-    import ipdb; ipdb.set_trace()
+    request_data = json.loads(request.get_data().decode('utf-8'))
+    logging.info("Got Scan Data:\n%s" % request_data)
+    if "scan" not in request_data:
+        data["status"] = "Error"
+        return jsonify(data, 400)
+    scan_data = request_data["scan"]
+    scan_handled = HandleScan().run(scan_data)
+    logging.info(f"Scan Handled: {scan_handled}")
     return jsonify(data)
-
 
 def _get_ids(rows) -> list:
     """Generate a list of Tag IDs from a result set."""

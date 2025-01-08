@@ -1,13 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: lan-nanny-dev
+namespace: lan-nanny-stage
 resources:
   - ../../base
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: stage-latest
-    # newTag: stage-0.0.0.16
+    newTag: 0.0.0.15
+    # newTag: stage-latest
 patches:
   - target:
       kind: Deployment
@@ -16,21 +16,6 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/imagePullPolicy
         value: Always
-      - op: add
-        path: /spec/template/spec/containers/0/command
-        value: ["tail", "-f", "/dev/null"]
-      - op: add
-        path: /spec/template/spec/containers/0/env/-
-        value:
-          name: JWT_EXPIRE_MINUTES
-          value: "5760"
-      - op: add
-        path: /spec/template/spec/containers/0/env/-
-        value:
-          name: LAN_NANNY_ENV
-          value: "dev"
-      - op: remove
-        path: /spec/template/spec/initContainers
       - op: remove
         path: /spec/template/spec/containers/0/livenessProbe
       - op: remove
@@ -38,13 +23,6 @@ patches:
   - target:
       kind: Deployment
       name: lan-nanny-scanner
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/0/imagePullPolicy
-        value: Always
-      - op: add
-        path: /spec/template/spec/containers/0/command
-        value: ["tail", "-f", "/dev/null"]
 
   - target:
       kind: Ingress
@@ -58,7 +36,7 @@ patches:
         value: nginx-public
       - op: replace
         path: /spec/rules/0/host
-        value: api.lan-nanny-dev.alix.lol
+        value: api.lan-nanny-stage.alix.lol
       - op: replace
         path: /spec/tls/0/hosts/0
-        value: api.lan-nanny-dev.alix.lol
+        value: api.lan-nanny-stage.alix.lol

@@ -23,7 +23,7 @@ def top_tags() -> Response:
     """
     RESULTS = 20
     data = {
-        "info": "Bookmarky",
+        "info": "Lan Nanny",
         "objects": []
     }
     sql = """

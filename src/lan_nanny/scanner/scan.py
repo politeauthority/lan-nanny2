@@ -4,7 +4,6 @@
 """
 import logging
 from logging.config import dictConfig
-import json
 import requests
 
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
@@ -42,11 +41,16 @@ class Scanner:
         self.run_nmap()
         self.scan_submit()
 
-    def run_nmap(self):
+    def run_nmap(self) -> bool:
+        """Runs an Nmap Scan and saves the parsed data to self.scan_sdata"""
         logging.info("Starting NMap scan")
         nmap = NmapScan()
-        nmap.run_scan()
+        if not nmap.run_scan():
+            logging.error("Nmap Scan failed")
+            logging.critical("Exiting")
+            exit(1)
         self.scan_data = nmap.data
+        return True
 
     def scan_submit(self) -> bool:
         """Submit a Scan to the Lan Nanny Api"""
@@ -59,18 +63,21 @@ class Scanner:
             logging.error("No Scan data to submit")
             logging.critical("Exiting")
             exit(1)
+        r_data = {
+            "scan": self.scan_data,
+        }
         url = self.api_url + "/scan-submit"
         headers = {
             "Token": self.token,
             "Content-Type": "application/json"
         }
-        data = json.dumps(self.scan_data)
-        logging.info(f"Sending payload\n {self.scan_data}")
-        response = requests.post(url, headers=headers, data=data)
+        logging.info(f"Sending payload\n {r_data}")
+        response = requests.post(url, headers=headers, json=r_data)
         if response.status_code != 201:
             msg = f"Failed to submit scan, got response code: {response.status_code}"
-            msg += "\n{response.text}"
+            msg += f"\n{response.text}"
             logging.error(msg)
+            exit(1)
         import ipdb; ipdb.set_trace()
         return True
 

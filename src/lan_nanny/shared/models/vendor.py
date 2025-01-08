@@ -18,9 +18,9 @@ FIELD_MAP = {
         'name': 'updated_ts',
         'type': 'datetime',
     },
-    "names": {
-        "name": "vendor_id",
-        "type": "list",
+    "name": {
+        "name": "name",
+        "type": "name",
         "api_writeable": True,
         "api_searchable": True
     },

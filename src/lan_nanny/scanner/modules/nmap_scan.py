@@ -70,6 +70,7 @@ class NmapScan:
             device = {
                 "ipv4": "",
                 "mac_addr": "",
+                "vendor": ""
             }
             addresses = host.find_all('address')
 
@@ -79,6 +80,7 @@ class NmapScan:
                     device["ipv4"] = addresses[1].attrs["addr"]
                 elif "addrtype" in addy_atrrs and addy_atrrs["addrtype"] == "mac":
                     device["mac"] = addresses[1].attrs["addr"]
+                    device["vendor"] = addresses[1].attrs["vendor"]
             if not device["mac"]:
                 logging.error("Device has not mac_address. {address}")
                 continue
