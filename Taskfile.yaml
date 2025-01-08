@@ -75,7 +75,6 @@ tasks:
         kubectl delete -n {NS} deployment/lan-nanny-api
         kubectl delete -n {NS} deployment/lan-nanny-scanner
 
-
   update-semver:
     cmds:
       - |
