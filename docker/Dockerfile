@@ -2,7 +2,7 @@
 ARG DOCKER_REGISTRY="docker.io/library"
 
 # Use the official Python 3.10 image with Alpine 3.16 as the base image
-FROM docker.io/library/python:3.11-alpine3.16 as base
+FROM python:3.11-alpine3.16 as base
 
 ENV PYTHONUNBUFFERED 1
 
