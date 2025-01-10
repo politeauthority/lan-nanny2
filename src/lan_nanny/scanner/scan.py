@@ -8,6 +8,7 @@ from logging.config import dictConfig
 import requests
 
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
+from lan_nanny.scanner.utils import glow
 
 dictConfig({
     'version': 1,
@@ -30,9 +31,9 @@ class Scanner:
 
     def __init__(self):
         self.scan_data = {}
-        self.api_url = "https://api.lan-nanny-dev.alix.lol"
-        self.api_client_id = "cnw5cas65q"
-        self.api_key = "0f7h-5muw-orfn-8g6h"
+        self.api_url = glow.api["API_URL"]
+        self.api_client_id = glow.api["API_CLIENT_ID"]
+        self.api_key = glow.api["API_KEY"]
         self.token = ""
 
     def run(self):

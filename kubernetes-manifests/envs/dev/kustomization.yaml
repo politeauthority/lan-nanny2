@@ -8,7 +8,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: stage-latest
-    newTag: stage-0.0.0.24
+    newTag: stage-0.0.0.25
 patches:
   - target:
       kind: Deployment
