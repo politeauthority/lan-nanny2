@@ -17,9 +17,6 @@ patches:
         path: /spec/template/spec/containers/0/imagePullPolicy
         value: Always
       - op: add
-        path: /spec/template/spec/containers/0/command
-        value: ["tail", "-f", "/dev/null"]
-      - op: add
         path: /spec/template/spec/containers/0/env/-
         value:
           name: JWT_EXPIRE_MINUTES
@@ -29,17 +26,17 @@ patches:
         value:
           name: LAN_NANNY_ENV
           value: "stage"
-      - op: remove
-        path: /spec/template/spec/containers/0/livenessProbe
-      - op: remove
-        path: /spec/template/spec/containers/0/readinessProbe
-  - target:
-      kind: Deployment
-      name: lan-nanny-scanner
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/0/imagePullPolicy
-        value: Always
+      # - op: remove
+      #   path: /spec/template/spec/containers/0/livenessProbe
+      # - op: remove
+      #   path: /spec/template/spec/containers/0/readinessProbe
+  # - target:
+  #     kind: Deployment
+  #     name: lan-nanny-scanner
+  #   patch: |-
+  #     - op: add
+  #       path: /spec/template/spec/containers/0/imagePullPolicy
+  #       value: Always
 
   - target:
       kind: Ingress
