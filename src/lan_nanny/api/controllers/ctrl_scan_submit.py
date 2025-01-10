@@ -9,7 +9,7 @@ import logging
 import json
 
 from flask import Blueprint, jsonify, Response, request
-from lan_nanny.api.utils import api_util
+# from lan_nanny.api.utils import api_util
 from lan_nanny.api.utils.handle_scan import HandleScan
 
 from lan_nanny.api.utils import auth
@@ -36,6 +36,7 @@ def scan_submit() -> Response:
     scan_handled = HandleScan().run(scan_data)
     logging.info(f"Scan Handled: {scan_handled}")
     return jsonify(data)
+
 
 def _get_ids(rows) -> list:
     """Generate a list of Tag IDs from a result set."""

@@ -1,6 +1,7 @@
 """
     Lan Nanny - Scanner
-
+    Scan
+    Main entrypoint to the Scan portion of Lan Nanny
 """
 import logging
 from logging.config import dictConfig

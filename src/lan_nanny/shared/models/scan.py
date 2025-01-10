@@ -1,6 +1,6 @@
 """
     Lan Nanny - Shared
-    Model Device
+    Model Scan
 
 """
 
@@ -18,53 +18,40 @@ FIELD_MAP = {
         'name': 'updated_ts',
         'type': 'datetime',
     },
-    "last_ip": {
-        "name": "last_ip",
+    "scan_agent": {
+        "name": "scan_agent",
         "type": "str",
         "api_writeable": True,
         "api_searchable": True
     },
-    "vendor_id": {
-        "name": "vendor_id",
+    "scan_type": {
+        "name": "scan_type",
+        "type": "str",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "hosts_found": {
+        "name": "hosts_found",
         "type": "int",
         "api_writeable": True,
         "api_searchable": True
     },
-    "ip": {
-        "name": "ip",
+    "scan_command": {
+        "name": "scan_command",
         "type": "str",
         "api_writeable": True,
         "api_searchable": True
     },
-    "last_seen": {
-        "name": "last_seen",
-        "type": "datetime",
+    "scan_time": {
+        "name": "scan_time",
+        "type": "int",
         "api_writeable": True,
         "api_searchable": True
     },
-    "first_seen": {
-        "name": "last_access",
-        "type": "datetime",
-        "api_searchable": True
-    },
-    "last_port_scan": {
-        "name": "last_port_scan",
-        "type": "datetime",
-        "api_searchable": True
-    },
-    "port_scan_lock": {
-        "name": "port_scan_lock",
-        "type": "bool",
-        "api_searchable": True
-    },
-    "identified": {
-        "name": "identified",
-        "type": "bool",
-        "api_searchable": True
-    },
-    "hide": {
-        "name": "hide",
-        "type": "bool",
+    "raw_data": {
+        "name": "raw_data",
+        "type": "json",
+        "api_writeable": True,
         "api_searchable": True
     },
 }
@@ -81,4 +68,4 @@ FIELD_MAP = {
 #     }
 # }
 
-# End File: politeauthority/bookmarky-api/src/bookmarky/shared/models/user.py
+# End File: politeauthority/lan-nanny/src/lan-nanny/shared/models/scan.py

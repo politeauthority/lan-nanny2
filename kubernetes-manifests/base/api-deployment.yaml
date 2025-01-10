@@ -25,21 +25,21 @@ spec:
       #         valueFrom:
       #           secretKeyRef:
       #             key: DB_HOST
-      #             name: lan-nanny-creds
+      #             name: lan-nanny-api-creds
       #       - name: DB_NAME
       #         valueFrom:
       #           secretKeyRef:
-      #             name: lan-nanny-creds
+      #             name: lan-nanny-api-creds
       #             key: DB_NAME
       #       - name: DB_USER
       #         valueFrom:
       #           secretKeyRef:
-      #             name: lan-nanny-creds
+      #             name: lan-nanny-api-creds
       #             key: DB_USER
       #       - name: DB_PASS
       #         valueFrom:
       #           secretKeyRef:
-      #             name: lan-nanny-creds
+      #             name: lan-nanny-api-creds
       #             key: DB_PASS
       #       - name: LOG_LEVEL
       #         value: "DEBUG"
@@ -64,21 +64,21 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: DB_HOST
-                  name: lan-nanny-creds
+                  name: lan-nanny-api-creds
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: lan-nanny-creds
+                  name: lan-nanny-api-creds
                   key: DB_NAME
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: lan-nanny-creds
+                  name: lan-nanny-api-creds
                   key: DB_USER
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: lan-nanny-creds
+                  name: lan-nanny-api-creds
                   key: DB_PASS
             - name: LOG_LEVEL
               value: "DEBUG"
@@ -87,7 +87,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: lan-nanny-creds
+                  name: lan-nanny-api-creds
                   key: SECRET_KEY
           resources:
             requests:

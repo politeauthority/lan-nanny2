@@ -18,6 +18,18 @@ FIELD_MAP = {
         'name': 'updated_ts',
         'type': 'datetime',
     },
+    "address": {
+        "name": "address",
+        "type": "str",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "last_ip": {
+        "name": "last_ip",
+        "type": "str",
+        "api_writeable": True,
+        "api_searchable": True
+    },
     "device_id": {
         "name": "device_id",
         "type": "int",
@@ -30,12 +42,6 @@ FIELD_MAP = {
         "api_writeable": True,
         "api_searchable": True
     },
-    "ip": {
-        "name": "ip",
-        "type": "str",
-        "api_writeable": True,
-        "api_searchable": True
-    },
     "last_seen": {
         "name": "last_seen",
         "type": "datetime",
@@ -43,13 +49,35 @@ FIELD_MAP = {
         "api_searchable": True
     },
     "first_seen": {
-        "name": "last_access",
+        "name": "first_seen",
         "type": "datetime",
         "api_searchable": True
     },
-    "last_port_scanccess": {
-        "name": "last_access",
+    "hide": {
+        "name": "hide",
         "type": "datetime",
+        "api_searchable": True
+    },
+    "last_port_scan": {
+        "name": "last_port_scan",
+        "type": "datetime",
+        "api_searchable": True
+    },
+    "port_scan_lock": {
+        "name": "port_scan_lock",
+        "type": "bool",
+        "api_searchable": True
+    },
+    "host_names": {
+        "name": "host_names",
+        "type": "str",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "kind_id": {
+        "name": "kind_id",
+        "type": "int",
+        "api_writeable": True,
         "api_searchable": True
     },
     "identified": {
@@ -57,10 +85,11 @@ FIELD_MAP = {
         "type": "bool",
         "api_searchable": True
     },
-    "hide": {
-        "name": "hide",
+
+    "deleted": {
+        "name": "deleted",
         "type": "bool",
-        "api_searchable": True
+        "api_writeable": True,
     },
 }
 

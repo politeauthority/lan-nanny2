@@ -28,14 +28,13 @@ CREATE TABLE IF NOT EXISTS device_macs (
     id SERIAL PRIMARY KEY,
     created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    user_id INTEGER NOT NULL,
+    address VARCHAR NOT NULL,
+    last_ip VARCHAR,
     device_id INTEGER,
     vendor_id INTEGER,
-    ip VARCHAR,
     last_seen TIMESTAMP,
     first_seen TIMESTAMP,
     hide BOOLEAN DEFAULT False,
-    icon VARCHAR,
     last_port_scan TIMESTAMP,
     port_scan_lock BOOLEAN,
     host_names VARCHAR,
@@ -49,6 +48,18 @@ CREATE TABLE IF NOT EXISTS vendors (
     created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS scans (
+    id SERIAL PRIMARY KEY,
+    created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    scan_agent VARCHAR NOT NULL,
+    scan_type VARCHAR NOT NULL,
+    hosts_found INTEGER NOT NULL,
+    scan_command VARCHAR,
+    scan_time INTEGER,
+    raw_data TEXT
 );
 
 
