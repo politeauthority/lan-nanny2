@@ -79,7 +79,6 @@ class Scanner:
             msg += f"\n{response.text}"
             logging.error(msg)
             exit(1)
-        import ipdb; ipdb.set_trace()
         return True
 
     def api_login(self) -> bool:
@@ -96,7 +95,6 @@ class Scanner:
             logging.critical(
                 f"Could not connect to api: {self.api_url} got code: {request.status_code}")
             logging.critical("Exiting")
-            import ipdb; ipdb.set_trace()
             exit(1)
         response_json = request.json()
         self.token = response_json["token"]

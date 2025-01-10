@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lan-nanny-scanner
+spec:
+  schedule: "*/4 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: harbor-registry
+          containers:
+          - name: lan-nanny-scanner
+            image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - python3 /app/lan_nanny/scanner/scan.py
+            env:
+              - name: LOG_LEVEL
+                value: "DEBUG"
+              - name: LAN_NANNY_ENV
+                value: "DEV"
+              - name: LAN_NANNY_API_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: lan-nanny-scanner-creds
+                    key: API_URL
+              - name: LAN_NANNY_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: lan-nanny-scanner-creds
+                    key: API_KEY
+              - name: LAN_NANNY_API_CLIENT_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: lan-nanny-scanner-creds
+                    key: API_CLIENT_ID
+          restartPolicy: OnFailure

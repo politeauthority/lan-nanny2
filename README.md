@@ -1,4 +1,4 @@
-# Lan Nanny v0.0.0.23
+# Lan Nanny v0.0.0.24
 
 ## Development
 ### Api
