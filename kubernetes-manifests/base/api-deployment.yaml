@@ -100,10 +100,10 @@ spec:
             httpGet:
               path: /healthz
               port: 80
-            initialDelaySeconds: 60
+            initialDelaySeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz
               port: 80
             initialDelaySeconds: 10
-            periodSeconds: 240
+            periodSeconds: 30

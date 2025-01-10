@@ -40,7 +40,7 @@ else:
 global api
 api = {
     "API_URL": os.environ.get("LAN_NANNY_API_URL"),
-    "API_CLIENT_ID": os.environ.get("LAN_NANNY_CLIENT_ID"),
+    "API_CLIENT_ID": os.environ.get("LAN_NANNY_API_CLIENT_ID"),
     "API_KEY": os.environ.get("LAN_NANNY_API_KEY"),
 }
 
