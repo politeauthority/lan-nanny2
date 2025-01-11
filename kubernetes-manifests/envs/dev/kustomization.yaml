@@ -1,0 +1,71 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: lan-nanny-dev
+resources:
+  - ../../base
+  - ./scanner-deployment.yaml
+  # - secrets.yaml
+images:
+  - name: harbor.squid-ink.us/politeauthority/lan-nanny
+    # newTag: stage-latest
+    newTag: stage-0.0.0.31
+patches:
+  - target:
+      kind: Deployment
+      name: lan-nanny-api
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: Always
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value: ["tail", "-f", "/dev/null"]
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: JWT_EXPIRE_MINUTES
+          value: "5760"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: LAN_NANNY_ENV
+          value: "dev"
+      # - op: remove
+      #   path: /spec/template/spec/initContainers
+      - op: remove
+        path: /spec/template/spec/containers/0/livenessProbe
+      - op: remove
+        path: /spec/template/spec/containers/0/readinessProbe
+  - target:
+      kind: Deployment
+      name: lan-nanny-scanner
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: Always
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value: ["tail", "-f", "/dev/null"]
+  - target:
+      kind: CronJob
+      name: lan-nanny-scanner
+    patch: |-
+      - op: add
+        path: /spec/suspend
+        value: true
+  - target:
+      kind: Ingress
+      name: lan-nanny-api
+    patch: |-
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt-prod
+      - op: replace
+        path: /spec/ingressClassName
+        value: nginx-public
+      - op: replace
+        path: /spec/rules/0/host
+        value: api.lan-nanny-dev.alix.lol
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: api.lan-nanny-dev.alix.lol

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Run dev-destroy
+# Destroys the build source
+set -e
+rm -rf /work/lan_nanny

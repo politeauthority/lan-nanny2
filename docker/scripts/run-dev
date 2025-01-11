@@ -1,0 +1,10 @@
+#!/bin/bash
+# Run the development web server
+set -e
+if [ "$LAN_NANNY_ENV" = "dev" ]; then
+    cd /work/src/lan_nanny/lan_nanny/api
+else
+	cd /app/lan_nanny/api
+fi
+
+python3 web-app.py

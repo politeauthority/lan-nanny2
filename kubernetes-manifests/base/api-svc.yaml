@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lan-nanny-api
+  labels:
+    app: lan-nanny-api
+    kubernetes.io/name: "lan-nanny-api"
+spec:
+  selector:
+    app: lan-nanny-api
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
