@@ -116,13 +116,13 @@ tasks:
         KUSTOMIZE_FILE="kubernetes-manifests/envs/stage/kustomization.yaml"
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" $KUSTOMIZE_FILE
         git add $KUSTOMIZE_FILE
-        rm KUSTOMIZE_FILE + ".bak"
+        # rm KUSTOMIZE_FILE + ".bak"
         echo "Updated Kustomize Stage"
 
         KUSTOMIZE_FILE="kubernetes-manifests/envs/prod/kustomization.yaml"
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" $KUSTOMIZE_FILE
         git add $KUSTOMIZE_FILE
-        rm KUSTOMIZE_FILE + ".bak"
+        # rm KUSTOMIZE_FILE + ".bak"
         echo "Updated Kustomize Prod"
 
         echo "Updated $CURRENT_VERSION > $NEW_VERSION"
