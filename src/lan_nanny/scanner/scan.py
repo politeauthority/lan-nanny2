@@ -75,7 +75,7 @@ class Scanner:
         }
         logging.info(f"Sending payload\n {r_data}")
         response = requests.post(url, headers=headers, json=r_data)
-        if response.status_code != 201:
+        if response.status_code != 200:
             msg = f"Failed to submit scan, got response code: {response.status_code}"
             msg += f"\n{response.text}"
             logging.error(msg)
