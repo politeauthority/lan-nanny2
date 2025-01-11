@@ -62,7 +62,6 @@ tasks:
       - |
         kustomize build kubernetes-manifests/envs/dev | kubectl apply -f -
 
-
   stage-deploy:
     cmds:
       - |
@@ -74,6 +73,11 @@ tasks:
         NS=$"{{.K8S_NS_DEV}}"
         kubectl delete -n {NS} deployment/lan-nanny-api
         kubectl delete -n {NS} deployment/lan-nanny-scanner
+
+  prod-deploy:
+    cmds:
+      - |
+        kustomize build kubernetes-manifests/envs/prod | kubectl apply -f -
 
   update-semver:
     cmds:

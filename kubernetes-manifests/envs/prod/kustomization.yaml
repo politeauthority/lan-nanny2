@@ -1,12 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: lan-nanny-stage
+namespace: lan-nanny
 resources:
   - ../../base
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: 0.0.0.27
+    newTag: 0.0.0.31
 patches:
   - target:
       kind: Deployment
@@ -20,9 +20,12 @@ patches:
       - op: remove
         path: /spec/template/spec/containers/0/readinessProbe
   - target:
-      kind: Deployment
+      kind: CronJob
       name: lan-nanny-scanner
-
+    patch: |-
+      - op: add
+        path: /spec/suspend
+        value: true
   - target:
       kind: Ingress
       name: lan-nanny-api
@@ -35,7 +38,7 @@ patches:
         value: nginx-public
       - op: replace
         path: /spec/rules/0/host
-        value: api.lan-nanny-stage.alix.lol
+        value: api.lan-nanny.alix.lol
       - op: replace
         path: /spec/tls/0/hosts/0
-        value: api.lan-nanny-stage.alix.lol
+        value: api.lan-nanny.alix.lol
