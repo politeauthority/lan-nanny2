@@ -4,6 +4,7 @@ metadata:
   name: lan-nanny-scanner
 spec:
   schedule: "*/4 * * * *"
+  suspend: false
   jobTemplate:
     spec:
       template:

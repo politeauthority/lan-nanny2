@@ -111,14 +111,18 @@ tasks:
         # Update Kustomize Image Tags
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" "kubernetes-manifests/envs/dev/kustomization.yaml"
         git add kubernetes-manifests/envs/dev/kustomization.yaml
-        rm kubernetes-manifests/envs/dev/kustomization.yaml.bak
         echo "Updated Kustomize Dev"
 
         KUSTOMIZE_FILE="kubernetes-manifests/envs/stage/kustomization.yaml"
         sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" $KUSTOMIZE_FILE
         git add $KUSTOMIZE_FILE
         rm KUSTOMIZE_FILE + ".bak"
-        echo "Updated Kustomize ${KUSTOMIZE_FILE}"
+        echo "Updated Kustomize Stage"
 
+        KUSTOMIZE_FILE="kubernetes-manifests/envs/prod/kustomization.yaml"
+        sed -i.bak "s/$CURRENT_VERSION/$NEW_VERSION/g" $KUSTOMIZE_FILE
+        git add $KUSTOMIZE_FILE
+        rm KUSTOMIZE_FILE + ".bak"
+        echo "Updated Kustomize Prod"
 
         echo "Updated $CURRENT_VERSION > $NEW_VERSION"

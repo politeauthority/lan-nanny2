@@ -1,7 +1,7 @@
 """
     Bookmarky Api
     Controller Model
-    Bookmark
+    Device
 
 """
 import logging
@@ -25,7 +25,7 @@ def get_model(bookmark_id: int = None) -> Response:
     """GET operation for a Device.
     GET /device
     """
-    logging.info("GET - /bookmark")
+    logging.info("GET - /device")
     data = ctrl_base.get_model(Device, bookmark_id)
     if not isinstance(data, dict):
         return data
@@ -34,37 +34,36 @@ def get_model(bookmark_id: int = None) -> Response:
 
 @ctrl_device.route("", methods=["POST"])
 @ctrl_device.route("/", methods=["POST"])
-@ctrl_device.route("/<bookmark_id>", methods=["POST"])
-@ctrl_device.route("/<bookmark_id>/", methods=["POST"])
+@ctrl_device.route("/<device_id>", methods=["POST"])
+@ctrl_device.route("/<device_id>/", methods=["POST"])
 @auth.auth_request
 def post_model(device_id: int = None):
-    """POST operation for a Bookmark model.
+    """POST operation for a Device model.
     POST /device
-    @todo: This needs to be locked down to only allow users to delete their own Tag relationships
     """
     data = {
         "user_id": glow.user["user_id"]
     }
-    logging.info("POST Bookmark")
+    logging.info("POST Devuce")
     if isinstance(device_id, str):
         try:
-            bookmark_id = int(device_id)
+            device_id = int(device_id)
         except ValueError:
             return {"status": "error"}, 400
     r_args = api_util.get_post_data()
     data.update(r_args)
-    response, return_code = ctrl_base.post_model(Device, bookmark_id, data)
+    response, return_code = ctrl_base.post_model(Device, device_id, data)
     if isinstance(response, Response):
         return response, return_code
     ret_data = response
     return jsonify(ret_data), return_code
 
 
-@ctrl_device.route("/<bookmark_id>", methods=["DELETE"])
+@ctrl_device.route("/<device_id>", methods=["DELETE"])
 @auth.auth_request
-def delete_model(bookmark_id: int = None):
+def delete_model(device_id: int = None):
     """DELETE operation for a Bookmark model.
-    DELETE /bookmark
+    DELETE /device_id
     Dont let a user delete a Bookmark they do not own, however we will send back a 404 in that
     event.
     @todo: Move BookmarkTag deletion logic down to the Tag model level, not the controller level so
@@ -72,11 +71,11 @@ def delete_model(bookmark_id: int = None):
     """
     data = {
         "status": "Error",
-        "message": "Could not find Bookmark ID: %s" % bookmark_id
+        "message": "Could not find Device ID: %s" % device_id
     }
     logging.debug("DELETE Bookmark")
     device = Device()
-    if not device.get_by_id(bookmark_id):
+    if not device.get_by_id(device_id):
         return jsonify(data), 404
     if device.user_id != glow.user["user_id"]:
         logging.warning("User %s tried to delete Bookmark beloning to User: %s" % (

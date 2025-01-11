@@ -102,6 +102,7 @@ class Scanner:
         logging.info("Successfully got token from Lan Nanny Api")
         return True
 
+
 if __name__ == "__main__":
     Scanner().run()
 

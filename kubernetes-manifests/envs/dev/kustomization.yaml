@@ -8,7 +8,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: stage-latest
-    newTag: stage-0.0.0.26
+    newTag: stage-0.0.0.27
 patches:
   - target:
       kind: Deployment
@@ -46,7 +46,13 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/command
         value: ["tail", "-f", "/dev/null"]
-
+  - target:
+      kind: CronJob
+      name: lan-nanny-scanner
+    patch: |-
+      - op: add
+        path: /spec/suspend
+        value: true
   - target:
       kind: Ingress
       name: lan-nanny-api

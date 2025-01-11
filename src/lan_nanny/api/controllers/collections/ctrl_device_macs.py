@@ -1,7 +1,7 @@
 """
     Lan Nanny - Api
     Controller Collection
-    Devices
+    Device Macs
 
 """
 
@@ -12,15 +12,15 @@ from lan_nanny.api.controllers.collections import ctrl_collection_base
 from lan_nanny.api.utils import auth
 
 
-ctrl_devices = Blueprint("devices", __name__, url_prefix="/devices")
+ctrl_device_macs = Blueprint("device_macs", __name__, url_prefix="/device-macs")
 
 
-@ctrl_devices.route("")
-@ctrl_devices.route("/")
+@ctrl_device_macs.route("")
+@ctrl_device_macs.route("/")
 @auth.auth_request
 def index():
-    """Get Devices"""
+    """Get Device Macs"""
     data = ctrl_collection_base.get(Devices)
     return jsonify(data)
 
-# End File: politeauthority/lan-nanny/src/lan_nanny/api/controllers/collections/ctrl_devices.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/api/controllers/collections/ctrl_device_macs.py
