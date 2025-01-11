@@ -11,6 +11,7 @@ spec:
         spec:
           imagePullSecrets:
             - name: harbor-registry
+          hostNetwork: true
           containers:
           - name: lan-nanny-scanner
             image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
