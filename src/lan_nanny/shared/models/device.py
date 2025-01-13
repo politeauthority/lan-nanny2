@@ -18,8 +18,8 @@ FIELD_MAP = {
         'name': 'updated_ts',
         'type': 'datetime',
     },
-    "last_ip": {
-        "name": "last_ip",
+    "name": {
+        "name": "name",
         "type": "str",
         "api_writeable": True,
         "api_searchable": True
@@ -43,7 +43,7 @@ FIELD_MAP = {
         "api_searchable": True
     },
     "first_seen": {
-        "name": "last_access",
+        "name": "first_seen",
         "type": "datetime",
         "api_searchable": True
     },
@@ -67,6 +67,15 @@ FIELD_MAP = {
         "type": "bool",
         "api_searchable": True
     },
+    "icon": {
+        "name": "icon",
+        "type": "str",
+        "api_searchable": True
+    },
+    "deleted": {
+        "name": "deleted",
+        "type": "bool",
+    },
 }
 
 
@@ -81,4 +90,4 @@ FIELD_MAP = {
 #     }
 # }
 
-# End File: politeauthority/bookmarky-api/src/bookmarky/shared/models/user.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/shared/models/device.py

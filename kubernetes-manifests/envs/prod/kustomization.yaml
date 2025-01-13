@@ -6,7 +6,7 @@ resources:
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: 0.0.0.31
+    newTag: 0.0.0.32
 patches:
   - target:
       kind: Deployment

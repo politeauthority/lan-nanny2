@@ -3,7 +3,7 @@
     Version
 
 """
-version = "0.0.0.31"
+version = "0.0.0.32"
 
 
 # End File: politeauthority/bookmarky-api/src/bookmarky/api/version.py

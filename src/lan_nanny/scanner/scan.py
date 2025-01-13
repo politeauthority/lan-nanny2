@@ -5,6 +5,8 @@
 """
 import logging
 from logging.config import dictConfig
+
+import arrow
 import requests
 
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
@@ -30,18 +32,26 @@ dictConfig({
 class Scanner:
 
     def __init__(self):
+        self.process_start = None
+        self.process_end = None
         self.scan_data = {}
         self.api_url = glow.api["API_URL"]
         self.api_client_id = glow.api["API_CLIENT_ID"]
         self.api_key = glow.api["API_KEY"]
         self.token = ""
 
-    def run(self):
+    def run(self) -> bool:
         """Primary entrypot for Scan"""
         print("Running Scanner")
+        self.process_start = arrow.utcnow()
         self.api_login()
         self.run_nmap()
         self.scan_submit()
+        self.process_end = arrow.utcnow()
+        elapsed = (self.process_end - self.process_start)
+        logging.info("Finished entire process in %s.%s seconds" % (
+            (elapsed.seconds, elapsed.microseconds)))
+        return True
 
     def run_nmap(self) -> bool:
         """Runs an Nmap Scan and saves the parsed data to self.scan_sdata"""
@@ -73,13 +83,15 @@ class Scanner:
             "Token": self.token,
             "Content-Type": "application/json"
         }
-        logging.info(f"Sending payload\n {r_data}")
+        # logging.info(f"Sending payload\n {r_data}")
+        logging.info("Sending scan payload")
         response = requests.post(url, headers=headers, json=r_data)
-        if response.status_code != 200:
+        if response.status_code != 201:
             msg = f"Failed to submit scan, got response code: {response.status_code}"
             msg += f"\n{response.text}"
             logging.error(msg)
             exit(1)
+        logging.info("Scan submitted successfully!")
         return True
 
     def api_login(self) -> bool:

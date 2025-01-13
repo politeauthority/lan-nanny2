@@ -1,6 +1,7 @@
 """
     Lan Nanny - Api
-    Collection Vendors
+    Collection
+    Vendors
 
 """
 from lan_nanny.api.collects.base_entity_metas import BaseEntityMetas
@@ -21,4 +22,4 @@ class Vendors(BaseEntityMetas):
         self.field_map = self.collect_model().field_map
         self.per_page = 20
 
-# End File: politeauthority/lan-nannyi/src/lan_nanny/api/collects/venors.py
+# End File: politeauthority/bookmarky-api/src/bookmarky/api/collects/vendors.py
