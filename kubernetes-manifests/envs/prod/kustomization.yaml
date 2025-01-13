@@ -22,10 +22,6 @@ patches:
   - target:
       kind: CronJob
       name: lan-nanny-scanner
-    patch: |-
-      - op: add
-        path: /spec/suspend
-        value: true
   - target:
       kind: Ingress
       name: lan-nanny-api

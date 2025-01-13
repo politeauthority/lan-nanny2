@@ -31,6 +31,7 @@ def get_model(device_mac_id: int = None) -> Response:
         return data
     return jsonify(data)
 
+
 @ctrl_device_mac.route("", methods=["POST"])
 @ctrl_device_mac.route("/", methods=["POST"])
 @ctrl_device_mac.route("/<device_mac_id>", methods=["POST"])
