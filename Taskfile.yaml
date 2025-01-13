@@ -79,6 +79,12 @@ tasks:
       - |
         kustomize build kubernetes-manifests/envs/prod | kubectl apply -f -
 
+  prod-logs-api:
+    cmds:
+      - |
+       stern deployment/lan-nanny-api -n lan-nanny
+
+
   update-semver:
     cmds:
       - |
