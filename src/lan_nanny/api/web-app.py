@@ -40,7 +40,7 @@ from lan_nanny.api.controllers.models.ctrl_device_mac import ctrl_device_mac
 from lan_nanny.api.controllers.collections.ctrl_device_macs import ctrl_device_macs
 from lan_nanny.api.controllers.models.ctrl_vendor import ctrl_vendor
 from lan_nanny.api.controllers.collections.ctrl_vendors import ctrl_vendors
-from lan_nanny.api.controllers.ctrl_scan_submit import ctrl_scan_submit
+from lan_nanny.api.controllers.ctrl_scan import ctrl_scan
 
 
 logging.config.dictConfig(log_config)
@@ -69,7 +69,7 @@ def register_blueprints(app: Flask) -> bool:
     app.register_blueprint(ctrl_vendor)
     app.register_blueprint(ctrl_vendors)
 
-    app.register_blueprint(ctrl_scan_submit)
+    app.register_blueprint(ctrl_scan)
 
     return True
 

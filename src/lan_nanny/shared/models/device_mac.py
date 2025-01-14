@@ -68,6 +68,12 @@ FIELD_MAP = {
         "type": "bool",
         "api_searchable": True
     },
+    "port_scan_enabled": {
+        "name": "port_scan_enabled",
+        "type": "bool",
+        "api_searchable": True,
+        "default": True
+    },
     "host_names": {
         "name": "host_names",
         "type": "str",
