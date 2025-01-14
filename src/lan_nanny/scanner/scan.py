@@ -62,6 +62,7 @@ class Scanner:
             logging.critical("Exiting")
             exit(1)
         self.scan_data = nmap.data
+        self.scan_meta = nmap.scan_meta
         return True
 
     def scan_submit(self) -> bool:
@@ -76,6 +77,7 @@ class Scanner:
             logging.critical("Exiting")
             exit(1)
         r_data = {
+            "meta": self.scan_meta,
             "scan": self.scan_data,
         }
         url = self.api_url + "/scan-submit"

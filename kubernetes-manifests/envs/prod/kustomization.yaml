@@ -6,22 +6,9 @@ resources:
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: 0.0.0.32
+    # newTag: latest
+    newTag: 0.0.0.33
 patches:
-  - target:
-      kind: Deployment
-      name: lan-nanny-api
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/0/imagePullPolicy
-        value: Always
-      - op: remove
-        path: /spec/template/spec/containers/0/livenessProbe
-      - op: remove
-        path: /spec/template/spec/containers/0/readinessProbe
-  - target:
-      kind: CronJob
-      name: lan-nanny-scanner
   - target:
       kind: Ingress
       name: lan-nanny-api

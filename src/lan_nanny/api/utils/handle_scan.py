@@ -8,18 +8,22 @@
 import logging
 
 import arrow
+from flask import request
 
-from lan_nanny.api.collects.devices import Devices
-from lan_nanny.api.collects.device_macs import DeviceMacs
-from lan_nanny.api.collects.vendors import Vendors
 from lan_nanny.api.models.device import Device
+from lan_nanny.api.collects.devices import Devices
 from lan_nanny.api.models.device_mac import DeviceMac
+from lan_nanny.api.collects.device_macs import DeviceMacs
+from lan_nanny.api.models.scan import Scan
+from lan_nanny.api.collects.vendors import Vendors
 from lan_nanny.api.models.vendor import Vendor
 
 
 class HandleScan:
 
     def __init__(self):
+        self.scan = Scan()
+        self.scan_data = {}
         self.device_col = Devices()
         self.devices = {}
         self.device_macs_col = DeviceMacs()
@@ -28,6 +32,16 @@ class HandleScan:
         self.tasks = {
             "created": {},
         }
+
+    def run(self, data: dict) -> bool:
+        """Run a single Scan's data through the system."""
+        logging.info("Starting Handle Scan")
+        self.scan_data = data
+        self.hydrate()
+        # logging.info("Recived Scan: %s" % data)
+        for host_mac, host_data in data["hosts"].items():
+            self.handle_host(host_data)
+        self.handle_finalize()
 
     def hydrate(self) -> bool:
         """To run this Host Scan we need to hydrate the following resources to the class to ensure
@@ -49,16 +63,13 @@ class HandleScan:
 
         self.vendors = self.vendors_col.get_all()
         logging.debug("Hydrage: Loaded %s Vendors" % len(self.vendors))
+        
+        if "User-Agent" in request.headers:
+            self.scan.scan_agent = request.headers["User-Agent"]
+        else:
+            self.scan.scan_agent = "Unknown"
         logging.info("Completed hydration")
         return True
-
-    def run(self, data: dict) -> bool:
-        """Run a single Scan's data through the system."""
-        logging.info("Starting Handle Scan")
-        self.hydrate()
-        # logging.info("Recived Scan: %s" % data)
-        for host_mac, host_data in data["hosts"].items():
-            self.handle_host(host_data)
 
     def handle_host(self, host_data: dict) -> bool:
         """Handle a single host data information coming from a scan."""
@@ -138,11 +149,20 @@ class HandleScan:
         device = self.devices[device_mac.device_id]
         if not device.first_seen:
             device.first_seen = device_mac.first_seen
+        if not device.vendor_id:
+            device.vendor_id = device_mac.vendor_id
         device.last_seen = device_mac.last_seen
+        device.ip = device_mac.last_ip
         if device.save():
             logging.info("Saved %s" % device)
         else:
             logging.error("Failed to saved %s" % device)
         return device
+
+    def handle_finalize(self):
+        """Handle the wrap up of the Scan import."""
+        import ipdb; ipdb.set_trace()
+        self.scan.scan_time = ""
+        import ipdb; ipdb.set_trace()
 
 # End File: politeauthroity/lan-nanny/src/lan_nanny/api/utils/handle_scan.py
