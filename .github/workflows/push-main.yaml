@@ -21,7 +21,7 @@ jobs:
 
   build-container:
     needs: [validate]
-    uses: ./.github/workflows/build-container-api.yaml
+    uses: ./.github/workflows/build-container.yaml
     secrets: inherit
     permissions:
       pull-requests: read
