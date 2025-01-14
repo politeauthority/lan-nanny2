@@ -125,7 +125,6 @@ class HandleScan:
 
         # If its a known mac address
         else:
-            # logging.debug(host_data)
             device_mac = self.device_macs[host_data["mac"]]
 
         device_mac.last_seen = arrow.utcnow()
@@ -161,8 +160,6 @@ class HandleScan:
 
     def handle_finalize(self):
         """Handle the wrap up of the Scan import."""
-        import ipdb; ipdb.set_trace()
         self.scan.scan_time = ""
-        import ipdb; ipdb.set_trace()
 
 # End File: politeauthroity/lan-nanny/src/lan_nanny/api/utils/handle_scan.py
