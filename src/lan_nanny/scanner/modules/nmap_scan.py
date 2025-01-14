@@ -101,7 +101,7 @@ class NmapScan:
 
     def run_port_scan(self, ip_address: str) -> dict:
         # ip_address = "192.168.50.1"
-        cmd = ["nmap", ip_address, "-oX", self.export_file]
+        cmd = ["nmap", "-Pn", ip_address, "-oX", self.export_file]
         logging.info("Running port scan command: %s" % " ".join(cmd))
         try:
             subprocess.check_output(cmd)
