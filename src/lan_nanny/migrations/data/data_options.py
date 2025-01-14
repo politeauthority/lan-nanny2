@@ -18,6 +18,9 @@ class DataOptions:
 
     def create_primary(self) -> bool:
         self.make_option("test-option", "str", "test-value")
+        self.make_option("scan-enabled", "bool", True)
+        self.make_option("scan-hosts-enabled", "bool", True)
+        self.make_option("scan-ports-enabled", "bool", True)
         return True
 
     def make_option(self, option_name, option_type: str, option_value=None, ) -> bool:

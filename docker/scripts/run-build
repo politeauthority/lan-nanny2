@@ -2,5 +2,5 @@
 # Run run-build
 # Builds the Python3 application Lan Nanny
 set -e
-cd  /work/lan_nanny
+cd  /work/lan_nanny/src/
 pip install .

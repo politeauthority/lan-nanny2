@@ -16,7 +16,7 @@ class NmapScan:
 
     def __init__(self):
         self.tmp_space = "/tmp"
-        self.export_file = ""
+        self.export_file = os.path.join(self.tmp_space, "output.xml")
         self.scan_start = None
         self.scan_end = None
         self.scan_total = None
@@ -31,7 +31,6 @@ class NmapScan:
 
     def run_scan(self):
         """Wrapper for the Nmap scan"""
-        self.export_file = os.path.join(self.tmp_space, "output.xml")
         scan_cidr = "192.168.50.1-255"
         # scan_options_cli = ""
         # scan_options = []
@@ -99,5 +98,52 @@ class NmapScan:
                 continue
             self.data["hosts"][device["mac"]] = device
         return True
+
+    def run_port_scan(self, ip_address: str) -> dict:
+        # ip_address = "192.168.50.1"
+        cmd = ["nmap", ip_address, "-oX", self.export_file]
+        logging.info("Running port scan command: %s" % " ".join(cmd))
+        try:
+            subprocess.check_output(cmd)
+        except Exception as e:
+            logging.error("Error running port scan: %s" % e)
+            return False
+        return self.parse_port_scan(ip_address)
+
+    def parse_port_scan(self, ip_address: str) -> bool:
+        """Parses an Nmap XML file for a scan on a single host, extracting port information.
+        """
+        if not self.export_file:
+            logging.crtiical("No Export file to read, unable to parse file")
+            exit(1)
+            return False
+        # Open and read the XML file
+        with open(self.export_file, "r") as file:
+            contents = file.read()
+        soup = BeautifulSoup(contents, 'xml')
+        ports = soup.find_all('port')
+        data = {
+            "host": ip_address,
+            "ports": []
+        }
+        for port in ports:
+            port_data = {
+                "protocol": "",
+                "port_id": "",
+                "reason": "",
+                "state": "",
+            }
+            port_data["port_id"] = int(port.attrs["portid"])
+            port_data["protocol"] = port.attrs["protocol"]
+            if hasattr(port, "state"):
+                print(port.state)
+                if port.state.attrs["state"] == "open":
+                    port_data["state"] = "open"
+            else:
+                print("NO PORT STATE")
+                port_data["state"] = "unknown"
+            data["ports"].append(port_data)
+        return data
+
 
 # End File: politeauthority/lan-nanny/src/lan_nanny/scanner/nmap_scan.py

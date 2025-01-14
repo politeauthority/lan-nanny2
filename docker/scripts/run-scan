@@ -2,7 +2,7 @@
 # Run Scan
 # Run the production webserver, which is gunicorn
 set -e
-if [ "$LAN_NANNY_ENV" = "dev" ]; then
+if [ "$LAN_NANNY_ENV" = "DEV" ]; then
     python3 /work/lan_nanny/src/lan_nanny/scanner/scan.py
 else
 	python3 /app/lan_nanny/scanner/scan.py

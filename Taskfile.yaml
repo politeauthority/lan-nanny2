@@ -33,10 +33,10 @@ tasks:
         NS=$"{{.K8S_NS_DEV}}"
         POD=$(kubectl get pods -l app=lan-nanny-api -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
         echo "Copying to pod $NS/$POD"
-        kubectl cp -n ${NS} -c lan-nanny-api src/ ${POD}:/work/lan_nanny
-        echo "Coppied Polite-Lib source"
+        kubectl cp -n ${NS} src/ ${POD}:/work/lan_nanny 
+        echo "Coppied Lan Nanny source"
         echo "Building"
-        kubectl exec -it -n ${NS} ${POD} -- sh -c "cd /work/lan_nanny/src && pip install ."
+        kubectl exec -it -n ${NS} ${POD} -- sh "cd /work/lan_nanny/src && pip install ."
 
   dev-exec-scanner:
     cmds:
