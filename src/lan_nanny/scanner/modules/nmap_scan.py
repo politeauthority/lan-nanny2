@@ -20,10 +20,12 @@ class NmapScan:
         self.scan_start = None
         self.scan_end = None
         self.scan_total = None
+        self.cmd = None
+        self.scan_meta = {
+            "type": "nmap",
+            "cmd": ""
+        }
         self.data = {
-            "meta": {
-                "scan_type": "nmap"
-            },
             "hosts": {}
         }
 
@@ -39,16 +41,17 @@ class NmapScan:
         #     for opt in scan_options:
         #         scan_options_cli += f" {opt}"
         scan_options_cli = "-sn"
-        cmd = ["nmap", scan_cidr, scan_options_cli, "-oX", self.export_file]
+        self.cmd = ["nmap", scan_cidr, scan_options_cli, "-oX", self.export_file]
         logging.info(
             f"Running scan {scan_cidr} options: {scan_options_cli} export file: {self.export_file}")
         self.scan_start = time.time()
-        subprocess.check_output(cmd)
+        subprocess.check_output(self.cmd)
         self.scan_end = time.time()
         self.scan_total = self.scan_end - self.scan_start
         logging.info("Finished Nmap scan in %s" % self.scan_total)
         # logging.debu("Finished Nmap Scan")
         self.parse_scan()
+        self.scan_meta["cmd"] = " ".join(self.cmd)
         return True
 
     def parse_scan(self) -> bool:

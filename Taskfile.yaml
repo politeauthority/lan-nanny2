@@ -74,10 +74,21 @@ tasks:
         kubectl delete -n {NS} deployment/lan-nanny-api
         kubectl delete -n {NS} deployment/lan-nanny-scanner
 
+  stage-logs-api:
+    cmds:
+      - |
+       stern deployment/lan-nanny-api -n lan-nanny-stage
+
+
   prod-deploy:
     cmds:
       - |
         kustomize build kubernetes-manifests/envs/prod | kubectl apply -f -
+
+  prod-logs-api:
+    cmds:
+      - |
+       stern deployment/lan-nanny-api -n lan-nanny
 
   update-semver:
     cmds:
@@ -130,3 +141,13 @@ tasks:
         echo "Updated Kustomize Prod"
 
         echo "Updated $CURRENT_VERSION > $NEW_VERSION"
+
+  open-gh:
+    cmds:
+      - |
+        open https://www.github.com/politeauthority/lan-nanny2
+
+  open-harbor:
+    cmds:
+      - |
+        open https://harbor.squid-ink.us/harbor/projects/2/repositories/lan-nanny/artifacts-tab

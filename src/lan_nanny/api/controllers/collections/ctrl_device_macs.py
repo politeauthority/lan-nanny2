@@ -7,7 +7,7 @@
 
 from flask import Blueprint, jsonify
 
-from lan_nanny.api.collects.devices import Devices
+from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.controllers.collections import ctrl_collection_base
 from lan_nanny.api.utils import auth
 
@@ -20,7 +20,7 @@ ctrl_device_macs = Blueprint("device_macs", __name__, url_prefix="/device-macs")
 @auth.auth_request
 def index():
     """Get Device Macs"""
-    data = ctrl_collection_base.get(Devices)
+    data = ctrl_collection_base.get(DeviceMacs)
     return jsonify(data)
 
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/controllers/collections/ctrl_device_macs.py

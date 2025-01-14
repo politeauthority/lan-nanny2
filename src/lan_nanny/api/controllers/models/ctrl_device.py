@@ -21,12 +21,12 @@ ctrl_device = Blueprint("device", __name__, url_prefix="/device")
 @ctrl_device.route("/")
 @ctrl_device.route("/<device_id>", methods=["GET"])
 @auth.auth_request
-def get_model(bookmark_id: int = None) -> Response:
+def get_model(device_id: int = None) -> Response:
     """GET operation for a Device.
     GET /device
     """
     logging.info("GET - /device")
-    data = ctrl_base.get_model(Device, bookmark_id)
+    data = ctrl_base.get_model(Device, device_id)
     if not isinstance(data, dict):
         return data
     return jsonify(data)

@@ -9,18 +9,16 @@ CREATE TABLE IF NOT EXISTS devices (
     id SERIAL PRIMARY KEY,
     created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    user_id INTEGER NOT NULL,
+    name VARCHAR,
     vendor_id INTEGER,
     ip VARCHAR,
     last_seen TIMESTAMP,
     first_seen TIMESTAMP,
-    hide BOOLEAN DEFAULT False,
-    icon VARCHAR,
     last_port_scan TIMESTAMP,
     port_scan_lock BOOLEAN,
-    host_names VARCHAR,
-    kind_id INTEGER,
     identified BOOLEAN,
+    hide BOOLEAN DEFAULT False,
+    icon VARCHAR,
     deleted BOOLEAN DEFAULT False
 );
 

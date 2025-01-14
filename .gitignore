@@ -4,6 +4,7 @@ docs/*
 docker/build-files
 *.bak
 tests/data
+src/lan_nanny/debug
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
