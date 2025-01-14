@@ -41,7 +41,7 @@ class HandleScan:
         # logging.info("Recived Scan: %s" % data)
         for host_mac, host_data in data["hosts"].items():
             self.handle_host(host_data)
-        self.handle_finalize()
+        # self.handle_finalize()
 
     def hydrate(self) -> bool:
         """To run this Host Scan we need to hydrate the following resources to the class to ensure
