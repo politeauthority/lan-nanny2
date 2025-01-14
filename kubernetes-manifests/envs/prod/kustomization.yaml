@@ -7,8 +7,18 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: latest
-    newTag: 0.0.0.35
+    newTag: 0.0.0.36
+
 patches:
+  - target:
+      kind: Deployment
+      name: lan-nanny-api
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: JWT_EXPIRE_MINUTES
+          value: "5760"
   - target:
       kind: Ingress
       name: lan-nanny-api

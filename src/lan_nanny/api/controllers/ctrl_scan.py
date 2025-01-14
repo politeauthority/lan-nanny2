@@ -11,6 +11,7 @@ import arrow
 from flask import Blueprint, jsonify, Response, request
 
 # from lan_nanny.api.utils import api_util
+from lan_nanny.api.models.device import Device
 from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.models.device_port import DevicePort
@@ -95,8 +96,12 @@ def submit_port_scan(device_mac_id: int) -> Response:
             logging.error("Failed to save: %s" % dp)
         else:
             logging.info("Saved %s" % dp)
-    device_mac.last_port_scan = arrow.utcnow()
+    device_mac.last_port_scan = now
     device_mac.save()
+    if device_mac.device_id:
+        device = Device()
+        device.last_port_scan = now
+        device.save()
 
     return jsonify(data), 201
 
