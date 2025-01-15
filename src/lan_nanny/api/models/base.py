@@ -137,7 +137,7 @@ class Base:
             self.cursor.execute(update_sql, set_values)
             self.conn.commit()
         except Exception as e:
-            logging.critical("Error updating to Postgres: %s" % e)
+            logging.critical("Error updating %s record Postgres: %s" % (self, e))
             return False
         return True
 
@@ -365,6 +365,13 @@ class Base:
                     setattr(self, field_name, field_value)
                 else:
                     setattr(self, field_name, [])
+
+            elif field['type'] == 'int':
+                logging.debug("Setting an integer field for model: %s" % self)
+                # if self.model_name == "device_macs":
+                # if isinstance(field_value, bool):
+                #     import ipdb; ipdb.set_trace()
+                setattr(self, field_name, field_value)
 
             # elif field["type"] == "json":
             #     import ipdb; ipdb.set_trace()

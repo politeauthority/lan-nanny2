@@ -48,7 +48,6 @@ class Scanner:
         logging.info("Running Scanner")
         self.api_login()
         self.hydrate()
-        logging.debug(self.options["scan-enabled"])
         if not self.options["scan-enabled"]["value"]:
             logging.warning("Scanning is not enabled by Lan Nanny Options, exiting")
             exit(0)

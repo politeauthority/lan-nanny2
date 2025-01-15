@@ -19,11 +19,4 @@ class Device(BaseEntityMeta):
         self.createable = True
         self.setup()
 
-    def __repr__(self):
-        """Device model representation."""
-        if self.id:
-            return "<%s: %s>" % (self.__class__.__name__, self.id)
-        else:
-            return "<%s>" % (self.__class__.__name__)
-
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/models/device.py

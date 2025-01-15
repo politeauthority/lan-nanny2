@@ -36,7 +36,7 @@ tasks:
         kubectl cp -n ${NS} src/ ${POD}:/work/lan_nanny 
         echo "Coppied Lan Nanny source"
         echo "Building"
-        kubectl exec -it -n ${NS} ${POD} -- sh "cd /work/lan_nanny/src && pip install ."
+        kubectl exec -it -n ${NS} ${POD} -- sh "/bin/run-build"
 
   dev-exec-scanner:
     cmds:
