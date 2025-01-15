@@ -63,7 +63,7 @@ class HandleScan:
 
         self.vendors = self.vendors_col.get_all()
         logging.debug("Hydrage: Loaded %s Vendors" % len(self.vendors))
-        
+
         if "User-Agent" in request.headers:
             self.scan.scan_agent = request.headers["User-Agent"]
         else:
@@ -91,6 +91,8 @@ class HandleScan:
         creating Vendor if needed.
         :ret: int
         """
+        if not vendor_name:
+            return None
         logging.info("Handling Vendor: %s" % vendor_name)
         create = True
         vendor_id = None
@@ -108,15 +110,12 @@ class HandleScan:
                 self.tasks["created"]["vendors"] = [vendor]
                 vendor_id = vendor.id
                 self.vendors.append(vendor)
-        if not vendor_id:
-            logging.error("Could not find a Vendor ID")
-            return False
         return vendor_id
 
     def handle_device_mac(self, host_data: dict, vendor_id: int) -> DeviceMac:
         """Handle the Scan's device mac address for a single discovered host. If the Device Mac is
         associated to known Device.id we will return that Device.Id, or False if not."""
-        logging.info("Standing Handling of Device Mac")
+        logging.info("Starting handling of Device Mac")
         # If it's a new DeviceMac
         if host_data["mac"] not in self.device_macs:
             device_mac = DeviceMac()
@@ -128,7 +127,8 @@ class HandleScan:
             device_mac = self.device_macs[host_data["mac"]]
 
         device_mac.last_seen = arrow.utcnow()
-        device_mac.vendor_id = vendor_id
+        if vendor_id:
+            device_mac.vendor_id = vendor_id
         device_mac.last_ip = host_data["ipv4"]
 
         if not device_mac.save():

@@ -36,7 +36,7 @@ tasks:
         kubectl cp -n ${NS} src/ ${POD}:/work/lan_nanny 
         echo "Coppied Lan Nanny source"
         echo "Building"
-        kubectl exec -it -n ${NS} ${POD} -- sh "cd /work/lan_nanny/src && pip install ."
+        kubectl exec -it -n ${NS} ${POD} -- sh "/bin/run-build"
 
   dev-exec-scanner:
     cmds:
@@ -141,6 +141,24 @@ tasks:
         echo "Updated Kustomize Prod"
 
         echo "Updated $CURRENT_VERSION > $NEW_VERSION"
+
+  manci-new-stage:
+    cmds:
+      - |
+        git stash
+        git fetch origin main
+        git checkout main
+        git pull origin main
+        git branch -D stage
+        git checkout -b stage
+        git push origin stage
+        git stash pop
+        # @todo:
+        #  - crank out new sem-ver and commit that
+        #  - commit that
+        #  - push that
+        #  - Create PR with that sem ver
+    silent: False
 
   open-gh:
     cmds:

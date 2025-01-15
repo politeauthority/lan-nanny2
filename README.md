@@ -1,10 +1,9 @@
-# Lan Nanny v0.0.0.36
-
+# Lan Nanny v0.0.0.38
+![Build Main](https://github.com/politeauthority/lan-nanny2/actions/workflows/push-main.yaml/badge.svg)
+Lan Nanny identifies, scans and helps organize devices on a single network, or many.
 ## Development
-### Api
- - work on `/scan-submit`
-   - Adding Scan entity
-   - Verify vendor scanving/ selection
-   - Fix issue with DevMac
 ### CICD
- - [ ] Auto Deploy to `staging` namespace
+#### Typical Process
+ - Create a PR on the `stage` branch from a feature branch.
+ - Once tests pass, merge to `stage`
+ - When we've vetted items in the `stage` branch we will merge down to `main`.
