@@ -3,7 +3,7 @@
 --- Lan Nanny Core tables
 ---
 ---
---- Create device ports
+--- Create Device  
 ---
 CREATE TABLE IF NOT EXISTS device_ports (
     id SERIAL PRIMARY KEY,

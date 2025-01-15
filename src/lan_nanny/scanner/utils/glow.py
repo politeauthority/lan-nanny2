@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
     Lan Nanny - Scanner
-    Modules - Glow
+    Utils
+    Glow
     Global variables for the Scanner
 
 """
@@ -17,14 +18,9 @@ general = {
     "VERSION": version,
     "BUILD": os.environ.get("BUILD"),
     "BUILD_SHORT": "",
-    "ENV": os.environ.get("BOOKMARKY_ENV"),
-    "JWT_EXPIRE_MINUTES": os.environ.get("JWT_EXPIRE_MINUTES", 60),
-    "SECRET_KEY": os.environ.get("SECRET_KEY", "hello-world123"),
+    "ENV": os.environ.get("LAN_NANNY_ENV"),
     "TEST": os.environ.get("TEST", False),
-    "LOG_HEALTH_CHECKS": os.environ.get("LOG_HEALTH_CHECKS", True),
     "DEPLOYED_AT": os.environ.get("DEPLOYED_AT", None),
-    "IMAGE_DIR": os.environ.get("PUBLIC_IMAGES", "/images"),
-    # "IMAGE_DIR": "/work/src/bookmarky/public/images",
 }
 if general["BUILD"]:
     general["BUILD_SHORT"] = general["BUILD"][:12]
@@ -32,10 +28,6 @@ if general["TEST"] == "true":
     general["TEST"] = True
 else:
     general["TEST"] = False
-if general["LOG_HEALTH_CHECKS"] == "true":
-    general["LOG_HEALTH_CHECKS"] = True
-else:
-    general["LOG_HEALTH_CHECKS"] = False
 
 global api
 api = {
@@ -44,5 +36,4 @@ api = {
     "API_KEY": os.environ.get("LAN_NANNY_API_KEY"),
 }
 
-
-# End File: politeauthority/lan-nanny/src/scanner/lan-nanny/api/utils/glow.py
+# End File: politeauthority/lan-nanny/src/scanner/lan_nanny/scanner/utils/glow.py

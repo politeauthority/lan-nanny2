@@ -1,10 +1,5 @@
 #!/bin/bash
 # Run the production webserver, which is gunicorn
 set -e
-if [ "$LAN_NANNY_ENV" = "dev" ]; then
-    cd /work/lan_nanny/src/lan_nanny/api
-else
-	cd /app/lan_nanny/api
-fi
-
+cd /work/lan_nanny/src/lan_nanny/api
 gunicorn web-app:app --bind 0.0.0.0:80

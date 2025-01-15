@@ -58,6 +58,8 @@ spec:
           ports:
             - containerPort: 80
           env:
+            - name: JWT_EXPIRE_MINUTES
+              value: "5760"
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:

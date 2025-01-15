@@ -43,6 +43,8 @@ class Scanner:
 
     def run(self) -> bool:
         """Primary entrypot for Scan"""
+        if glow.general["ENV"] == "DEV":
+            logging.info("\n\n  -- Development Environment -- ")
         logging.info("Running Scanner")
         self.api_login()
         self.hydrate()
@@ -52,13 +54,14 @@ class Scanner:
             exit(0)
         self.run_host_scan()
         self.run_extra_scans()
-    
+
     def hydrate(self):
         """Logs into the Lan Nanny Api. Setting a self.token variable if successfull."""
         logging.info(f"Getting options from {self.api_url}")
         headers = {
             "Token": self.token,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "LanNanny/Scanner v%s" % glow.general["VERSION"]
         }
         url = self.api_url + "/options"
         request = requests.get(url, headers=headers)
