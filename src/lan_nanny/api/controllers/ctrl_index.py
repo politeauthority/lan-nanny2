@@ -16,6 +16,7 @@ from polite_lib.utils import date_utils
 # from bookmarky.api.stats import tasks as tasks_stats
 from lan_nanny.api.utils import auth
 from lan_nanny.api.utils import glow
+from lan_nanny.api.utils import stats
 from lan_nanny.api.version import version
 from lan_nanny.api.models.user import User
 from lan_nanny.migrations.migrate import CURRENT_MIGRATION
@@ -86,6 +87,7 @@ def info() -> Response:
     """Get information on model totals and task success reports."""
     # model_totals = totals.get_model_totals()
     # task_totals = tasks_stats.get_task_totals()
+    import ipdb; ipdb.set_trace()
     data = {
         "info": "Lan Nanny Api",
         "version": version,
@@ -93,6 +95,7 @@ def info() -> Response:
         "build": glow.general["BUILD"],
         "build_short": glow.general["BUILD_SHORT"],
         "migration": CURRENT_MIGRATION,
+        "scans": stats.scan_stats(),
         # "tasks": task_totals,
         # "model_totals": model_totals,
         "deployed_at": glow.general["DEPLOYED_AT"],
