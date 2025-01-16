@@ -125,6 +125,7 @@ class Base:
             "where": "id = %s" % self.id
         }
         set_values = self._gen_update_set_parms()
+        # logging.debug("INVESTIGATE - 1: SET_VALUES %s" % str((set_values)))
         update_sql = """
             UPDATE %(table_name)s
             SET
@@ -132,6 +133,7 @@ class Base:
             WHERE
             %(where)s;""" % sql_args
         try:
+            # @debug: Debug Update Stables
             # logging.debug("We're about to run an UPDATE statement")
             # logging.debug(self.cursor.mogrify(update_sql, set_values))
             self.cursor.execute(update_sql, set_values)
@@ -711,14 +713,27 @@ class Base:
         return set_sql
 
     def _gen_update_set_parms(self) -> tuple:
-        """Generate the the values for the UPDATE statement."""
+        """Generate the the values for the UPDATE SET statement."""
         skip_fields = ["id", "created_ts"]
         set_values = []
         for field_name, field in self.field_map.items():
+            override_field = False
             # Skip fields we don't want included in db writes
             if field['name'] in skip_fields:
                 continue
-            set_values.append(getattr(self, field_name))
+            if field["type"] == "int":
+                field_value = getattr(self, field_name)
+                # @hack for badly typed bools coming in? should be resolved better INVESTIGATE: 1
+                if isinstance(field_value, bool):
+                    field_value = None
+                    override_field = True
+                    msg = "INVESTIGATE: 1\n"
+                    msg += "Having to cast for model %s field: %s from bool to none for int field"
+                    logging.warning(msg % (self, field_name))
+            if not override_field:
+                set_values.append(getattr(self, field_name))
+            else:
+                set_values.append(field_value)
         return tuple(set_values)
 
     def _gen_where_sql_and(self, fields: list) -> dict:

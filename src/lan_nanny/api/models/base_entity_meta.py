@@ -60,7 +60,7 @@ class BaseEntityMeta(Base):
         """
         super(BaseEntityMeta, self).save()
         if not self.metas:
-            logging.debug("No Meta to save, skipping")
+            # logging.debug("No Meta to save, skipping")
             return True
 
         if not self.id:
