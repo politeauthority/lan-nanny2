@@ -32,7 +32,7 @@ general = {
     "VERSION": version,
     "BUILD": os.environ.get("BUILD"),
     "BUILD_SHORT": "",
-    "ENV": os.environ.get("BOOKMARKY_ENV"),
+    "ENV": os.environ.get("LAN_NANNY_ENV"),
     "JWT_EXPIRE_MINUTES": os.environ.get("JWT_EXPIRE_MINUTES", 60),
     "SECRET_KEY": os.environ.get("SECRET_KEY", "hello-world123"),
     "TEST": os.environ.get("TEST", False),

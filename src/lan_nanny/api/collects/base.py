@@ -175,10 +175,10 @@ class Base:
         if limit == 0:
             limit = per_page
         query = self._generate_paginated_sql(page, where_and, order_by, limit)
-        log_msg = "\nPAGINATIED SQL\n \nMETHOD:get_paginatd\n"
-        log_msg += f"PARAMS:\n\tWHERE AND:{where_and}"
-        log_msg += f"{query['sql']}\n{query['params']}\n\n"
-        logging.debug(log_msg)
+        # log_msg = "\nPAGINATIED SQL\n \nMETHOD:get_paginatd\n"
+        # log_msg += f"PARAMS:\n\tWHERE AND:{where_and}"
+        # log_msg += f"{query['sql']}\n{query['params']}\n\n"
+        # logging.debug(log_msg)
         # if len(query["params"]) == 1:
         #     query["params"] = query["params"][0]
         self.cursor.execute(query["sql"], query["params"])

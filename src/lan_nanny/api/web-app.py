@@ -13,7 +13,7 @@ import sys
 from flask import Flask, jsonify, request
 from werkzeug.exceptions import HTTPException
 
-from lan_nanny.shared.utils.log_config import log_config
+from lan_nanny.shared.utils import log_configs
 from lan_nanny.api.utils import db
 from lan_nanny.api.utils import glow
 # from cver.api.utils import glow
@@ -42,8 +42,10 @@ from lan_nanny.api.controllers.models.ctrl_vendor import ctrl_vendor
 from lan_nanny.api.controllers.collections.ctrl_vendors import ctrl_vendors
 from lan_nanny.api.controllers.ctrl_scan import ctrl_scan
 
-
-logging.config.dictConfig(log_config)
+if glow.general["ENV"].lower() == "dev":
+    logging.config.dictConfig(log_configs.config_dev)
+else:
+    logging.config.dictConfig(log_configs.configs_prod)
 logger = logging.getLogger(__name__)
 logger.propagate = True
 

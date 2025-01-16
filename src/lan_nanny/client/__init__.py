@@ -9,6 +9,8 @@ import os
 
 from polite_lib.utils import xlate
 
+from lan_nanny.api.version import version
+
 import requests
 
 
@@ -19,6 +21,11 @@ class LanNannyClient:
         self.api_client_id = os.environ.get("LAN_NANNY_API_CLIENT_ID")
         self.api_key = os.environ.get("LAN_NANNY_API_KEY")
         self.token = None
+        self.headers = {
+            "Content-Type": "application/json",
+            "Token": None,
+            "User-Agent": "LanNannyClient/v%s" % version
+        }
 
     def login(self) -> bool:
         """Logs into the Lan Nanny Api. Setting a self.token variable if successfull."""
@@ -26,7 +33,7 @@ class LanNannyClient:
         headers = {
             "X-Api-Key": self.api_key,
             "Client-Id": self.api_client_id,
-            "Content-Type": "application/json"
+            "Content-Type": "application/v%s" % version
         }
         if not self._validate_login_request(headers):
             return False
@@ -39,6 +46,7 @@ class LanNannyClient:
             exit(1)
         response_json = request.json()
         self.token = response_json["token"]
+        self.headers["Token"] = self.token
         logging.info("Successfully got token from Lan Nanny Api")
         return True
 
@@ -51,6 +59,21 @@ class LanNannyClient:
             logging.critical("Missing Lan Nanny Client ID!")
             return False
         return True
+
+    def submit_host_scan(self, scan_meta: dict, scan_data: dict):
+        """Submit a Host Scan the Lan Nanny Api.
+        #@todo: This should probably be moved to somewhere more specific.
+        """
+        url = "/scan/submit-host"
+        payload = {
+            "meta": scan_meta,
+            "scan": scan_data,
+        }
+        # logging.info("Making request to %s" % url)
+        request = self.make_request(url, method="POST", payload=payload)
+        # if request.status_code < 399:
+        #     logging.error(request)
+        # logging.debug("Successful request: %s" % url)
 
     def make_request(self, url: str, method: str = "GET", payload: dict = {}):
         if not self.token:
@@ -110,15 +133,24 @@ class LanNannyClient:
             return False
         return True
 
+    def _handle_error(self, response, request_args) -> bool:
+        url = request_args["url"]
+        if "token" in request_args:
+            request_args.pop("token")
+        if "x-api-key" in request_args:
+            request_args.pop("x-api-key")
+        msg = f"\nISSUE WITH REQUEST: {response.status_code} - {url}\n"
+        msg += f"Api was sent: {request_args}\n"
+        msg += f"API Repsonsed: {response.text}\n"
+        logging.error(msg)
+        return False
+
     def _get_base_request_args(self, url: str, method: str) -> dict:
         """Get the base request args for requests on the Cver Api.
         :unit-test: TestClient::test___get_base_request_args
         """
         request_args = {
-            "headers": {
-                "token": self.token,
-                "content-type": "application/json",
-            },
+            "headers": self.headers,
             "method": method,
             "url": f"{self.api_url}/{url}"
         }

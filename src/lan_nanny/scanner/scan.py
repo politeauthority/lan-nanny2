@@ -9,8 +9,10 @@ from logging.config import dictConfig
 import arrow
 import requests
 
+from lan_nanny.shared.utils import log_configs
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
 from lan_nanny.scanner.utils import glow
+from lan_nanny.client import LanNannyClient
 
 dictConfig({
     'version': 1,
@@ -27,6 +29,14 @@ dictConfig({
         'handlers': ['wsgi']
     }
 })
+
+
+if glow.general["ENV"].lower() == "dev":
+    logging.config.dictConfig(log_configs.config_dev)
+else:
+    logging.config.dictConfig(log_configs.configs_prod)
+logger = logging.getLogger(__name__)
+logger.propagate = True
 
 
 class Scanner:
@@ -107,33 +117,12 @@ class Scanner:
     def scan_submit(self) -> bool:
         """Submit a Scan to the Lan Nanny Api"""
         logging.info("Starting to submit the Scan")
-        if not self.token:
-            logging.error("No Lan Nanny Api token found, cant continue")
-            logging.critical("Exiting")
-            exit(1)
-        if not self.scan_data:
-            logging.error("No Scan data to submit")
-            logging.critical("Exiting")
-            exit(1)
-        r_data = {
-            "meta": self.scan_meta,
-            "scan": self.scan_data,
-        }
-        url = self.api_url + "/scan/submit-host"
-        logging.info("\n\nSubmmitting scan data to %s\n\n" % url)
-        headers = {
-            "Token": self.token,
-            "Content-Type": "application/json"
-        }
-        # logging.info(f"Sending payload\n {r_data}")
-        logging.info("Sending host scan payload")
-        response = requests.post(url, headers=headers, json=r_data)
-        if response.status_code != 201:
-            msg = f"Failed to submit scan, got response code: {response.status_code}"
-            msg += f"\n{response.text}"
-            logging.error(msg)
-            exit(1)
-        logging.info("Scan submitted successfully!")
+        lnc = LanNannyClient()
+        submitted = lnc.submit_host_scan(self.scan_meta, self.scan_data)
+        if submitted:
+            logging.info("Submitted scan successfully")
+        else:
+            logging.error("Failed submitting scan")
         return True
 
     def api_login(self) -> bool:
