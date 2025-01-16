@@ -16,6 +16,7 @@ from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.models.device_port import DevicePort
 from lan_nanny.api.utils.handle_host_scan import HandleHostScan
+from lan_nanny.api.utils.handle_port_scan import HandlePortScan
 
 from lan_nanny.api.utils import auth
 
@@ -25,14 +26,14 @@ ctrl_scan = Blueprint("scan", __name__, url_prefix="/scan")
 @auth.auth_request
 @ctrl_scan.route("/submit-host", methods=["POST"])
 @ctrl_scan.route("/submit-host/", methods=["POST"])
-def scan_submit() -> Response:
-    """Scan Submit"""
+def scan_submit_hist() -> Response:
+    """Scan Submit Host"""
     data = {
         "info": "Lan Nanny",
     }
     data["scan"] = {}
     request_data = json.loads(request.get_data().decode('utf-8'))
-    logging.info("Recieved Scan from: %s" "User-Agent")
+    logging.info("Recieved Host Scan from: %s" "User-Agent")
     # logging.info("Got Scan Data:\n%s" % request_data)
     if "scan" not in request_data:
         data["status"] = "Error"
@@ -46,6 +47,34 @@ def scan_submit() -> Response:
     scan_meta = request_data["meta"]
     scan_data = request_data["scan"]
     scan_handled = HandleHostScan().run(scan_data, scan_meta)
+    logging.info(f"Scan Handled: {scan_handled}")
+    return jsonify(data), 201
+
+
+@auth.auth_request
+@ctrl_scan.route("/submit-port", methods=["POST"])
+@ctrl_scan.route("/submit-port/", methods=["POST"])
+def scan_submit_port() -> Response:
+    """Scan Submit Port"""
+    data = {
+        "info": "Lan Nanny",
+    }
+    data["scan"] = {}
+    request_data = json.loads(request.get_data().decode('utf-8'))
+    logging.info("Recieved Port Scan from: %s" "User-Agent")
+    # logging.info("Got Scan Data:\n%s" % request_data)
+    if "scan" not in request_data:
+        data["status"] = "Error"
+        return jsonify(data, 400)
+    if "scan" not in request_data:
+        logging.error("Scan request missing data")
+        return jsonify(data), 400
+    if "meta" not in request_data:
+        logging.error("Scan request missing data")
+        return jsonify(data), 400
+    scan_meta = request_data["meta"]
+    scan_data = request_data["scan"]
+    scan_handled = HandlePortScan().run(scan_meta, scan_data)
     logging.info(f"Scan Handled: {scan_handled}")
     return jsonify(data), 201
 

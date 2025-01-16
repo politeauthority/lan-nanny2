@@ -1,7 +1,7 @@
 """
     Lan Nanny - Api
     Model
-    Scan Hosts
+    Scan Host
 
 """
 from lan_nanny.shared.models.scan_host import FIELD_MAP
