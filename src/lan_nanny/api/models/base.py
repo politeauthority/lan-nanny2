@@ -369,7 +369,7 @@ class Base:
                     setattr(self, field_name, [])
 
             elif field['type'] == 'int':
-                logging.debug("Setting an integer field for model: %s" % self)
+                # logging.debug("Setting an integer field for model: %s" % self)
                 # if self.model_name == "device_macs":
                 # if isinstance(field_value, bool):
                 #     import ipdb; ipdb.set_trace()

@@ -74,8 +74,40 @@ class LanNannyClient:
         # if request.status_code < 399:
         #     logging.error(request)
         # logging.debug("Successful request: %s" % url)
+        return True
 
-    def make_request(self, url: str, method: str = "GET", payload: dict = {}):
+    def submit_port_scan(self, device_mac_id: str, scan_meta: dict, scan_data: dict):
+        """Submit a Host Scan the Lan Nanny Api.
+        #@todo: This should probably be moved to somewhere more specific.
+        """
+        url = "/scan/submit-port/%s" % device_mac_id
+        payload = {
+            "meta": scan_meta,
+            "scan": scan_data,
+        }
+        request = self.make_request(url, method="POST", payload=payload)
+        logging.info("Submit Port Scan Result: %s" % request)
+        return True
+
+    def get_port_scan_order(self):
+        """Submit a Host Scan the Lan Nanny Api.
+        #@todo: This should probably be moved to somewhere more specific.
+        """
+        url = "/scan/port-scan-order"
+        request_data = self.make_request(url, method="GET")
+        return request_data
+
+    def get_options(self) -> dict:
+        """Get all Options available to the current user, keyed by the Option.name."""
+        url = "/options"
+        request_data = self.make_request(url, method="GET")
+        options = {}
+        for opt in request_data["objects"]:
+            options[opt["name"]] = opt
+        return options
+
+    def make_request(self, url: str, method: str = "GET", payload: dict = {}) -> dict:
+        """Generic request maker to the Lan Nanny Api. Attempting to return a python dictionary."""
         if not self.token:
             if not self.login():
                 return False
@@ -140,7 +172,10 @@ class LanNannyClient:
         if "x-api-key" in request_args:
             request_args.pop("x-api-key")
         msg = f"\nISSUE WITH REQUEST: {response.status_code} - {url}\n"
-        msg += f"Api was sent: {request_args}\n"
+        msg += "Api was sent:\n {request_args}\n"
+        msg += "\tHeaders: \n\t %s " % request_args["headers"]
+        # msg += f"Payload: \t{request_args["headers"]}\n"
+        # msg += f"Payload: \n\5\n {request_args["headers"]}\n"
         msg += f"API Repsonsed: {response.text}\n"
         logging.error(msg)
         return False
