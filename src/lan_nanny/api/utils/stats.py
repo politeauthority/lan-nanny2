@@ -17,8 +17,6 @@ def scan_stats() -> dict:
     sh_col = ScanHosts()
     scan_hosts_total = sh_col.get_count_all()
     total_scans = scan_hosts_total
-    import ipdb; ipdb.set_trace()
-    
     ret = {
         "total_scan": total_scans,
         "hosts": {

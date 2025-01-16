@@ -8,16 +8,13 @@
 
 import logging
 
-import arrow
+# import arrow
 from flask import request
 
-from lan_nanny.api.models.device import Device
 from lan_nanny.api.collects.devices import Devices
-from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.models.scan_port import ScanPort
 from lan_nanny.api.collects.vendors import Vendors
-from lan_nanny.api.models.vendor import Vendor
 
 
 class HandlePortScan:
