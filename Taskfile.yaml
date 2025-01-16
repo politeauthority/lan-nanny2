@@ -38,6 +38,24 @@ tasks:
         echo "Building"
         kubectl exec -it -n ${NS} ${POD} -- sh "/bin/run-build"
 
+  dev-cp-api-examples:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD=$(kubectl get pods -l app=lan-nanny-api -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Copying examples to pod $NS/$POD"
+        kubectl cp -n ${NS} examples/ ${POD}:/work/ 
+        echo "Coppied Lan Nanny examples Api"
+
+  dev-cp-scanner-examples:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD=$(kubectl get pods -l app=lan-nanny-scanner -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Copying examples to pod $NS/$POD"
+        kubectl cp -n ${NS} examples/ ${POD}:/work/ 
+        echo "Coppied Lan Nanny examples to Scanner"
+
   dev-exec-scanner:
     cmds:
       - |
