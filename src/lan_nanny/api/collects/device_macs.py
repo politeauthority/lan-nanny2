@@ -37,7 +37,7 @@ class DeviceMacs(BaseEntityMetas):
             SELECT *
             FROM device_macs
             WHERE
-                port_scan_enabled = true AND
+                port_scan_enabled = true
             ORDER BY last_port_scan DESC
             LIMIT 10;
         """
