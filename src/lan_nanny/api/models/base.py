@@ -233,7 +233,9 @@ class Base:
             FROM {self.table_name}
             WHERE {sql_fields["sql"]}
             LIMIT 1;"""
-        # logging.debug(self.cursor.mogrify(sql, sql_fields["values"]))
+        logging.debug("\n\nMODEL BASE GET BY FIELDS QUERY")
+        logging.debug(self.cursor.mogrify(sql, sql_fields["values"]))
+        logging.debug("END MODEL BASE GET BY FIELDS QUERY\n\n")
         self.cursor.execute(sql, sql_fields["values"])
         raw = self.cursor.fetchone()
         if not raw:

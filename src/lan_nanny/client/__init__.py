@@ -50,16 +50,6 @@ class LanNannyClient:
         logging.info("Successfully got token from Lan Nanny Api")
         return True
 
-    def _validate_login_request(self, headers: dict) -> bool:
-        """Validate that we have the correct headers for an authentication request."""
-        if "X-Api-Key" not in headers:
-            logging.critical("Missing Lan Nanny Api Key!")
-            return False
-        if "Client-Id" not in headers:
-            logging.critical("Missing Lan Nanny Client ID!")
-            return False
-        return True
-
     def submit_host_scan(self, scan_meta: dict, scan_data: dict):
         """Submit a Host Scan the Lan Nanny Api.
         #@todo: This should probably be moved to somewhere more specific.
@@ -108,7 +98,6 @@ class LanNannyClient:
 
     def make_request(self, url: str, method: str = "GET", payload: dict = {}) -> dict:
         """Generic request maker to the Lan Nanny Api. Attempting to return a python dictionary."""
-
         if not self.token:
             if not self.login():
                 return False
@@ -158,6 +147,16 @@ class LanNannyClient:
         self.response_last = response
         self.response_last_json = response_json
         return response_json
+
+    def _validate_login_request(self, headers: dict) -> bool:
+        """Validate that we have the correct headers for an authentication request."""
+        if "X-Api-Key" not in headers:
+            logging.critical("Missing Lan Nanny Api Key!")
+            return False
+        if "Client-Id" not in headers:
+            logging.critical("Missing Lan Nanny Client ID!")
+            return False
+        return True
 
     def _validate_request(self, headers: dict) -> bool:
         """Validate that we have the correct headers for an authentication request."""
