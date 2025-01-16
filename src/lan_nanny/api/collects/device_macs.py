@@ -1,11 +1,12 @@
 """
     Lan Nanny - Api
-    Collection DeviceMacs
+    Collection
+    DeviceMacs
 
 """
 import logging
 
-import arrow
+# import arrow
 
 from lan_nanny.api.collects.base_entity_metas import BaseEntityMetas
 from lan_nanny.api.models.device_mac import DeviceMac
@@ -24,7 +25,7 @@ class DeviceMacs(BaseEntityMetas):
         self.collect_model = DeviceMac
         self.field_map = self.collect_model().field_map
         self.per_page = 20
-    
+
     def ready_for_port_scan(self) -> list:
         """Gets a list of DeviceMacs that are allowed to have port scans and have been recently
         seen online.

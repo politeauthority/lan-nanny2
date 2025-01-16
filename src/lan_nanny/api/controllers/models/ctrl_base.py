@@ -319,7 +319,6 @@ def _determine_entity_search_type(entity, entity_id=None, request_args: dict = N
     if entity_id:
         logging.debug("Getting model 'by-id'")
         return "by-id"
-
     # Check for UX keys within the model and the request
     if entity.ux_key:
         has_all_ux_key_fields = True

@@ -70,7 +70,8 @@ class LanNannyClient:
             "scan": scan_data,
         }
         # logging.info("Making request to %s" % url)
-        request = self.make_request(url, method="POST", payload=payload)
+        response = self.make_request(url, method="POST", payload=payload)
+        logging.info("Request: %s" % response)
         # if request.status_code < 399:
         #     logging.error(request)
         # logging.debug("Successful request: %s" % url)

@@ -87,7 +87,6 @@ def info() -> Response:
     """Get information on model totals and task success reports."""
     # model_totals = totals.get_model_totals()
     # task_totals = tasks_stats.get_task_totals()
-    import ipdb; ipdb.set_trace()
     data = {
         "info": "Lan Nanny Api",
         "version": version,
