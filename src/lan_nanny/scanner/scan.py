@@ -133,7 +133,6 @@ class Scanner:
         if not results:
             logging.error("Couldnt get results from port scan")
             return False
-        import ipdb; ipdb.set_trace()
         # self.scan_data = results["data"]
         self.scan_meta = nmap.scan_meta
         self.scan_data = results["ports"]
