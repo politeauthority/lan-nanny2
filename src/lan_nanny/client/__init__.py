@@ -108,6 +108,7 @@ class LanNannyClient:
 
     def make_request(self, url: str, method: str = "GET", payload: dict = {}) -> dict:
         """Generic request maker to the Lan Nanny Api. Attempting to return a python dictionary."""
+
         if not self.token:
             if not self.login():
                 return False
@@ -176,6 +177,7 @@ class LanNannyClient:
         msg += "\tHeaders: \n\t %s " % request_args["headers"]
         # msg += f"Payload: \t{request_args["headers"]}\n"
         # msg += f"Payload: \n\5\n {request_args["headers"]}\n"
+
         msg += f"API Repsonsed: {response.text}\n"
         logging.error(msg)
         return False

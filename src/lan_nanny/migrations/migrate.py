@@ -21,6 +21,7 @@ from lan_nanny.api.models.migration import Migration
 
 CURRENT_MIGRATION = 4
 
+
 dictConfig({
     'version': 1,
     'formatters': {'default': {
