@@ -7,7 +7,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: latest
-    newTag: 0.0.0.40
+    newTag: 0.0.0.41
 
 patches:
   - target:
