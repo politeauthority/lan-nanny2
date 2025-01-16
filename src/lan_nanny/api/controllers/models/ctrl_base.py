@@ -1,7 +1,8 @@
 """
-    Bookmarky Api
+    Lan Nanny - Api
     Controller Model
     Base
+    Most base level of a model object. All api controller models should inherit this class.
 
 """
 import json
@@ -14,7 +15,7 @@ from lan_nanny.shared.utils import xlate
 
 def get_model(model, entity_id: int = None) -> dict:
     """Base GET operation for a model.
-    :unit-test: TestCtrlModelsBase::test__get_model
+    :unit-test: TestCtrlModelsBase::test__get_modelget
     @todo: This is just stupidy written.
     @todo: Throw an error if we return multiple results
     @todo: Gate based on user's access to records that only belong to them
@@ -36,6 +37,7 @@ def get_model(model, entity_id: int = None) -> dict:
             return make_response(jsonify(data), 501)
     else:
         search_type = _determine_entity_search_type(entity, entity_id, request_args)
+        logging.debug("FEATURE/CLIENT MODELS: %s GET MODEL SEARCH TYPE: %s" % (model, search_type))
         if search_type == "cant":
             data["message"] = "Missing required search ctriteria."
             return make_response(jsonify(data), 400)
@@ -56,10 +58,22 @@ def get_model(model, entity_id: int = None) -> dict:
             entity_found = get_entity_by_ux_keys(entity, request_args)
             not_found_msg = f"{entity.model_name.title()} not found by ux key"
 
+        # Get entity by a singular field "by-field"
+        elif search_type == "by-field":
+            logging.debug("GETTING MODEL: %s BUY FIELD: %s" % (entity, request_args))
+            import ipdb; ipdb.set_trace()
+            print(request_args["field_name"])
+            
+            entity_found = get_entity_by_field(entity, request_args)
+            not_found_msg = f"{entity.model_name.title()} not found by fields"
+
         # Get the entity by it's fields.
         elif search_type == "by-fields":
             entity_found = get_entity_by_fields(entity, request_args)
             not_found_msg = f"{entity.model_name.title()} not found by fields"
+        
+        else:
+            logging.critical("Know search type by requeste: %s" % search_type)
 
         if not entity_found:
             data["message"] = not_found_msg
@@ -126,6 +140,12 @@ def post_model(model, entity_id: int = None, generated_data: dict = {}):
         if not entity_found:
             not_found_msg = f"{entity.model_name.title()} not found by id {entity_id}"
             return make_response(jsonify(data), 404)
+
+    # Get the entity by it's UX field
+    elif search_type == "by-field":
+        entity_found = get_entity_by_ux_field(entity, request_args)
+        not_found_msg = f"{entity.model_name.title()} not found by ux field"
+        logging.warning(not_found_msg)
 
     # Get the entity by it's UX field
     elif search_type == "by-ux-field":
@@ -239,6 +259,16 @@ def get_entity_by_ux_keys(entity, request_args: dict):
     return entity.get_by_ux_key(**fields)
 
 
+def get_entity_by_field(entity, field_name: str, field_value):
+    """Finds an entity based on request fields sent along with the request.
+    NOTE: If the entity model does not have "api_searchable = True" the field will not be able to
+    be searched through the API interface!!
+    :unit-test:
+    """
+    logging.info("Getting entity by field: field_name: %s \t field_value: %s " % (
+        field_name, field_value))
+    return entity.get_by_field(field_name, field_value)
+
 def get_entity_by_fields(entity, request_args: dict):
     """Finds an entity based on request fields sent along with the request.
     NOTE: If the entity model does not have "api_searchable = True" the field will not be able to
@@ -319,6 +349,9 @@ def _determine_entity_search_type(entity, entity_id=None, request_args: dict = N
     if entity_id:
         logging.debug("Getting model 'by-id'")
         return "by-id"
+
+    if "by_field" in request_args:
+        return "by-field"
 
     # Check for UX keys within the model and the request
     if entity.ux_key:
