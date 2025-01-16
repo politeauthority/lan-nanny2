@@ -23,4 +23,12 @@ def index():
     data = ctrl_collection_base.get(Devices)
     return jsonify(data)
 
+
+@ctrl_devices.route("/online")
+@auth.auth_request
+def online():
+    """Get Devices currently online"""
+    data = ctrl_collection_base.get(Devices)
+    return jsonify(data)
+
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/controllers/collections/ctrl_devices.py
