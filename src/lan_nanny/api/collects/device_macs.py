@@ -3,6 +3,8 @@
     Collection DeviceMacs
 
 """
+import logging
+
 import arrow
 
 from lan_nanny.api.collects.base_entity_metas import BaseEntityMetas
@@ -27,20 +29,26 @@ class DeviceMacs(BaseEntityMetas):
         """Gets a list of DeviceMacs that are allowed to have port scans and have been recently
         seen online.
         """
-        last_seen = arrow.utcnow()
-        last_seen_search = last_seen.shift(minutes=-120)
+        # last_seen = arrow.utcnow()
+        # READY_FOR_SCAN_MINUTES = 360  # 6 housrs!
+        # last_seen_search = last_seen.shift(minutes=READY_FOR_SCAN_MINUTES)
         sql = """
             SELECT *
             FROM device_macs
             WHERE
                 port_scan_enabled = true AND
-                last_seen >= %s
             ORDER BY last_port_scan DESC
             LIMIT 10;
         """
-        self.cursor.execute(sql, (last_seen_search.datetime,))
+        # the_values = (last_seen_search.datetime,)
+        logging.debug("We're about to run a READY FOR PORT SCAN statement")
+        logging.info(self.cursor.mogrify(sql))
+        self.cursor.execute(sql)
+        # logging.info(self.cursor.mogrify(sql, the_values))
+        # self.cursor.execute(sql, the_values)
         raws = self.cursor.fetchall()
         prestines = self.build_from_lists(raws)
+        logging.debug("FETURE/PORT-SCAN: Found %s DeviceMac for Port Scanning" % len(prestines))
         return prestines
 
 # End File: politeauthority/lan-nanny/src/lan_nannyy/api/collects/device_macs.py

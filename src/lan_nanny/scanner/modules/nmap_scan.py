@@ -108,9 +108,10 @@ class NmapScan:
         except Exception as e:
             logging.error("Error running port scan: %s" % e)
             return False
+
         return self.parse_port_scan(ip_address)
 
-    def parse_port_scan(self, ip_address: str) -> bool:
+    def parse_port_scan(self, ip_address: str) -> dict:
         """Parses an Nmap XML file for a scan on a single host, extracting port information.
         """
         if not self.export_file:
