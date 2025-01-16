@@ -15,7 +15,7 @@ from lan_nanny.api.models.device import Device
 from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.models.device_port import DevicePort
-from lan_nanny.api.utils.handle_scan import HandleScan
+from lan_nanny.api.utils.handle_host_scan import HandleHostScan
 
 from lan_nanny.api.utils import auth
 
@@ -37,8 +37,15 @@ def scan_submit() -> Response:
     if "scan" not in request_data:
         data["status"] = "Error"
         return jsonify(data, 400)
+    if "scan" not in request_data:
+        logging.error("Scan request missing data")
+        return jsonify(data), 400
+    if "meta" not in request_data:
+        logging.error("Scan request missing data")
+        return jsonify(data), 400
+    scan_meta = request_data["meta"]
     scan_data = request_data["scan"]
-    scan_handled = HandleScan().run(scan_data)
+    scan_handled = HandleHostScan().run(scan_data, scan_meta)
     logging.info(f"Scan Handled: {scan_handled}")
     return jsonify(data), 201
 

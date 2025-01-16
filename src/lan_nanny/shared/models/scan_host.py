@@ -1,6 +1,7 @@
 """
     Lan Nanny - Shared
-    Model Scan
+    Model
+    Scan Hosts
 
 """
 
@@ -57,15 +58,4 @@ FIELD_MAP = {
 }
 
 
-# FIELD_MAP_METAS = {
-#     "display_hidden": {
-#         "name": "display_hidden",
-#         "type": "bool"
-#     },
-#     "beta_features": {
-#         "name": "beta_features",
-#         "type": "bool"
-#     }
-# }
-
-# End File: politeauthority/lan-nanny/src/lan-nanny/shared/models/scan.py
+# End File: politeauthority/lan-nanny/src/lan-nanny/shared/models/scan_host.py
