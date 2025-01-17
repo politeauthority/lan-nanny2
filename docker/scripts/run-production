@@ -2,4 +2,9 @@
 # Run the production webserver, which is gunicorn
 set -e
 cd /work/lan_nanny/src/lan_nanny/api
-gunicorn web-app:app --bind 0.0.0.0:80
+gunicorn api-app:app --bind 0.0.0.0:80
+
+
+
+CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0:80"]
+gunicron web-app:app --chdir /work/lan_nanny/src/lan_nanny/api --bind=0.0.0.0:80

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lan-nanny-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lan-nanny-web
+  template:
+    metadata:
+      labels:
+        app: lan-nanny-web
+    spec:
+      imagePullSecrets:
+        - name: harbor-registry
+      containers:
+        - name: lan-nanny-web
+          image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: LOG_LEVEL
+              value: "DEBUG"
+            - name: LAN_NANNY_ENV
+              value: "prod"
+          command: ["tail", "-f", "/dev/null"]
+          # resources:
+          #   requests:
+          #     memory: "250Mi"
+          #     cpu: "250m"
+          #   limits:
+          #     memory: "500Mi"
+          #     cpu: "500m"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 80
+          #   initialDelaySeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 80
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 30

@@ -47,6 +47,28 @@ tasks:
         kubectl cp -n ${NS} examples/ ${POD}:/work/ 
         echo "Coppied Lan Nanny examples Api"
 
+  dev-exec-web:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD_LABEL="lan-nanny-web"
+        POD=$(kubectl get pods -n ${NS} -l app=${POD_LABEL} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Execing to pod $POD"
+        kubectl exec -n ${NS} -it ${POD} -- sh
+
+  dev-cp-web:
+    cmds:
+      - |
+        NS=$"{{.K8S_NS_DEV}}"
+        POD_LABEL="lan-nanny-web"
+        POD=$(kubectl get pods -l app=${POD_LABEL} -n ${NS} --no-headers --field-selector=status.phase=Running | cut -d' ' -f1)
+        echo "Copying to pod $NS/$POD"
+        kubectl cp -n ${NS} src/ ${POD}:/work/lan_nanny 
+        echo "Coppied Lan Nanny source to"
+        echo "Building"
+        kubectl exec -it -n ${NS} ${POD} -- sh "/bin/run-build"
+        echo "Copied source to: ${POD_LABEL}"
+
   dev-cp-scanner-examples:
     cmds:
       - |

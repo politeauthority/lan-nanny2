@@ -1,0 +1,43 @@
+{#
+    Lan Nanny
+    Login
+
+#}
+{% extends 'layout.jinja' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/login.css">
+{%endblock%}
+
+{% block content %}
+<h1>Lan Nanny</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-center"">
+            <div id="login-loading" class="spinner-border text-center" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="login-form" class="col-4 text-center mx-auto">
+            <input id="client_id" class="form-control form-control-lg" name="user" type="text" placeholder="Client ID">
+            <br>
+            <input id="api_key" class="form-control form-control-lg" name="password" type="password"
+                placeholder="Api Key">
+            <br>
+            <button id="login_submit" type="button" class="btn btn-primary">Login</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/login.js"></script>
+{% endblock %}

@@ -8,8 +8,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: stage-latest
-    newTag: stage-0.0.0.43
-
+    newTag: stage-0.0.0.44
 
 patches:
   - target:
@@ -39,16 +38,6 @@ patches:
       - op: remove
         path: /spec/template/spec/containers/0/readinessProbe
   - target:
-      kind: Deployment
-      name: lan-nanny-scanner
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/0/imagePullPolicy
-        value: Always
-      - op: add
-        path: /spec/template/spec/containers/0/command
-        value: ["tail", "-f", "/dev/null"]
-  - target:
       kind: CronJob
       name: lan-nanny-scanner
     patch: |-
@@ -71,3 +60,19 @@ patches:
       - op: replace
         path: /spec/tls/0/hosts/0
         value: api.lan-nanny-dev.alix.lol
+  - target:
+      kind: Ingress
+      name: lan-nanny-web
+    patch: |-
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt-prod
+      - op: replace
+        path: /spec/ingressClassName
+        value: nginx-public
+      - op: replace
+        path: /spec/rules/0/host
+        value: lan-nanny-dev.alix.lol
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: lan-nanny-dev.alix.lol

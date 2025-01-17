@@ -1,0 +1,190 @@
+/*
+    Main Css
+*/
+a {
+    font-weight: 800;
+}
+
+.hide{
+    display: None;
+}
+
+#loading-spinner {
+    z-index: 10;
+}
+
+#page-header i {
+    font-size: 26px;
+    padding-right: 5px;
+}
+/* #loading-spinner { visibility:hidden; } 
+body.busy .loading-spinner { visibility:visible !important; } */
+
+#login_bookmarky_url {
+    display: none;
+}
+
+#notify{
+    display: none;
+}
+
+#search-box {
+    margin-top: 73px;
+}
+
+/* Bookmark Display */
+/* #bookmarks_list ul {
+    padding-top: 5px;
+    padding-bottom: 40px;
+    float: left;
+} */
+
+.bookmark-tags li {
+    float: left;
+}
+
+#bookmarks li {
+    padding-top: 5px;
+    padding-bottom: 40px;
+    text-align: left;
+}
+
+.bookmark-notes {
+    margin-top: 5px;
+    margin-left: 2px;
+    padding-left: 10px;
+    font-style: italic;
+    border-left: 2px solid rgb(169, 169, 169);
+    color: gray;
+}
+
+.bookmark_created{
+    font-size: small;
+}
+.bookmark-created-ts{
+    color: gray;
+}
+
+.the-url {
+    font-size: .9em;
+    text-decoration: underline;
+}
+
+.list-group-item {
+    border: 0;
+}
+
+.bookmark-fav {
+    color: #ebcc34;
+}
+
+/* Tag - Slug */
+.tag-btn a{
+    color: white;
+    text-decoration: none;
+}
+
+/* Bookmark Dir Button */
+.btn-dir {
+    background-color: #4CC31D;
+    color: white;
+}
+
+.btn-dir a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Bookmark Tag Display */
+.bookmark-tags {
+    border: 0px;
+}
+
+.bookmark-tags li {
+    border: 0px;
+}
+.bookmark-tag button a {
+    color: white;
+    text-decoration: none;
+}
+.bookmark-tag-boiler {
+    display: none;
+}
+
+
+/* Tag Roster */
+.tag_boiler_item {
+    display: none;
+}
+
+
+/* Dirs Roster */
+.directory_boiler_item {
+    display: none;
+}
+.dir-bookmark-list {
+    margin-left: 20px;
+}
+.dir-icon {
+    float: left;
+    margin-right: 5px;
+}
+.dir-name {
+    float: left
+}
+
+
+/* Bookmark Recent Side Bar Shit */
+#tags-popular {
+    list-style: none;
+}
+#tags-popular li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#tags-popular a {
+    color: white;
+    text-decoration: none;
+
+}
+#stat_tags li{
+    padding-top: 5px;
+}
+
+#stat_tags li button a{
+    color: white;
+}
+
+/* Badge Look */
+.b-badge {
+    background-color: white;
+    border-radius:  10px;
+    padding: 4px;
+    color: black;
+    font-size: x-small;
+    margin-left: 5px;
+}
+
+
+/* Generic */
+.alert-box{
+    position: fixed; 
+    top: 5px; 
+    right: 5px;
+    z-index:9999; 
+    border-radius: 15px;
+    /* display: none; */
+}
+
+.pad-5 {
+    padding: 5px;
+}
+
+.margin-5 {
+    padding: 5px;
+}
+
+.boiler_item {
+    display: none;
+}
