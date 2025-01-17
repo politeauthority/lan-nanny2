@@ -2,4 +2,4 @@
 # Run the development web server
 set -e
 cd /work/lan_nanny/src/lan_nanny/api
-python3 web-app.py
+python3 api-app.py

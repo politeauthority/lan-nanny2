@@ -7,7 +7,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: latest
-    newTag: 0.0.0.42
+    newTag: 0.0.0.45
 
 patches:
   - target:
@@ -19,6 +19,13 @@ patches:
         value:
           name: JWT_EXPIRE_MINUTES
           value: "5760"
+  - target:
+      kind: Deployment
+      name: lan-nanny-web
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/command
+        value: ["gunicorn", "web-app:app", "--chdir", "/app/lan_nanny/web", "--bind=0.0.0.0:80"]
   - target:
       kind: Ingress
       name: lan-nanny-api
@@ -35,3 +42,19 @@ patches:
       - op: replace
         path: /spec/tls/0/hosts/0
         value: api.lan-nanny.alix.lol
+  - target:
+      kind: Ingress
+      name: lan-nanny-web
+    patch: |-
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt-prod
+      - op: replace
+        path: /spec/ingressClassName
+        value: nginx-public
+      - op: replace
+        path: /spec/rules/0/host
+        value: lan-nanny.alix.lol
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: lan-nanny.alix.lol

@@ -1,0 +1,8 @@
+#!/bin/bash
+# Lan Nanny CLI entrypoint
+set -e
+if [ "$LAN_NANNY_ENV" = "DEV" ]; then
+    python3 /work/lan_nanny/src/lan_nanny/cli/__init__.py ${1}
+else
+	python3 /app/lan_nanny/cli/__init__.py ${1}
+fi

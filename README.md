@@ -1,4 +1,5 @@
-# Lan Nanny v0.0.0.42
+# Lan Nanny v0.0.0.45
+
 ![Build Main](https://github.com/politeauthority/lan-nanny2/actions/workflows/push-main.yaml/badge.svg)
 
 Lan Nanny identifies, scans and helps organize devices on a single network, or many.
