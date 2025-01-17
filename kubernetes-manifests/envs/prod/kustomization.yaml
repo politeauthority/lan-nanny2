@@ -7,7 +7,7 @@ resources:
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
     # newTag: latest
-    newTag: 0.0.0.44
+    newTag: 0.0.0.45
 
 patches:
   - target:
@@ -25,7 +25,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/command
-        value: ["gunicorn", "web-app:app", "--chdir", "/work/lan_nanny/src/lan_nanny/web", "--bind=0.0.0.0:80"]
+        value: ["gunicorn", "web-app:app", "--chdir", "/app/lan_nanny/web", "--bind=0.0.0.0:80"]
   - target:
       kind: Ingress
       name: lan-nanny-api

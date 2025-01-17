@@ -1,4 +1,4 @@
-# Lan Nanny v0.0.0.44
+# Lan Nanny v0.0.0.45
 
 ![Build Main](https://github.com/politeauthority/lan-nanny2/actions/workflows/push-main.yaml/badge.svg)
 
