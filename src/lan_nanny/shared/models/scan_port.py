@@ -64,4 +64,4 @@ FIELD_MAP = {
 }
 
 
-# End File: politeauthority/lan-nanny/src/lan-nanny/shared/models/scan_port.py
+# End File: politeauthority/lan-nanny/src/lan_nanny/shared/models/scan_port.py
