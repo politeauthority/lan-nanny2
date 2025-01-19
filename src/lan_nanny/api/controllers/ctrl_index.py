@@ -88,13 +88,17 @@ def info() -> Response:
     # model_totals = totals.get_model_totals()
     # task_totals = tasks_stats.get_task_totals()
     data = {
+        "scans": stats.scan_stats(),
+        "entities": stats.entity_stats(),
+    }
+    data = {
         "info": "Lan Nanny Api",
         "version": version,
         "env": glow.general["ENV"],
         "build": glow.general["BUILD"],
         "build_short": glow.general["BUILD_SHORT"],
         "migration": CURRENT_MIGRATION,
-        "scans": stats.scan_stats(),
+        "data": data,
         # "tasks": task_totals,
         # "model_totals": model_totals,
         "deployed_at": glow.general["DEPLOYED_AT"],

@@ -168,6 +168,7 @@ class Scanner:
             logging.info("Submmited port scan error.")
 
 
+
 if __name__ == "__main__":
     Scanner().run()
 

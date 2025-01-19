@@ -7,14 +7,10 @@
 import logging
 import json
 
-import arrow
 from flask import Blueprint, jsonify, Response, request
 
 # from lan_nanny.api.utils import api_util
-from lan_nanny.api.models.device import Device
-from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_macs import DeviceMacs
-from lan_nanny.api.models.device_port import DevicePort
 from lan_nanny.api.utils.handle_host_scan import HandleHostScan
 from lan_nanny.api.utils.handle_port_scan import HandlePortScan
 
