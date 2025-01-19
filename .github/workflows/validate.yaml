@@ -25,7 +25,7 @@ jobs:
       - name: Validate K8s Manifests
         run: |
           kustomize build kubernetes-manifests/base >> /dev/null
-          # kustomize build kubernetes-manifests/envs/prod >> /dev/null
+          kustomize build kubernetes-manifests/envs/prod >> /dev/null
           kustomize build kubernetes-manifests/envs/stage >> /dev/null
           kustomize build kubernetes-manifests/envs/dev >> /dev/null
       # - name: Install Dependancies
