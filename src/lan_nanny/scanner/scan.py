@@ -8,11 +8,8 @@ import logging
 from logging.config import dictConfig
 
 import arrow
-<<<<<<< Updated upstream
 
 from polite_lib.utils import date_utils
-=======
->>>>>>> Stashed changes
 
 from lan_nanny.shared.utils import log_configs
 from lan_nanny.scanner.modules.nmap_scan import NmapScan

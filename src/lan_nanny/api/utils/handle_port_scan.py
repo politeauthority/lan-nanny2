@@ -12,9 +12,7 @@ import arrow
 from flask import request
 
 from lan_nanny.api.models.device import Device
-from lan_nanny.api.collects.devices import Devices
 from lan_nanny.api.models.device_port import DevicePort
-from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.models.device_mac import DeviceMac
 from lan_nanny.api.collects.device_ports import DevicePorts
 from lan_nanny.api.models.scan_port import ScanPort
@@ -51,6 +49,7 @@ class HandlePortScan:
 
         self.setup_scan()
 
+        self.scan.scan_success = True
         if not self.hydrate():
             logging.error("Hydrate failed exiting Handle Port Scan")
             return False
@@ -164,7 +163,7 @@ class HandlePortScan:
     def _match_existing_device_port(self, port_data: dict):
         for device_port in self.device_ports:
             if (
-                device_port.protocol == port_data["protocol"] and 
+                device_port.protocol == port_data["protocol"] and
                 device_port.port_num == port_data["port_id"]):
                 return device_port
         else:

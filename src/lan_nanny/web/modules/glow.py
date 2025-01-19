@@ -14,10 +14,11 @@ general = {
     "LOG_LEVEL": os.environ.get("LOG_LEVEL", "INFO"),
     "ENV": os.environ.get("LAN_NANNY_ENV", "PROD"),
     "API_URL": "https://api.lan_nanny-%s.alix.lol" % (
-        os.environ.get("BOOKMARKY_ENV", "PROD").lower()),
+        os.environ.get("LAN_NANNY_ENV", "PROD").lower()),
     "VERSION_WEB": "",
     # "VERSION_WEB": version.version
 }
+general["API_URL"] = "https://api.lan_nanny-dev.alix.lol"
 if general["ENV"] == "PROD":
     general["API_URL"] = "https://api.lan_nanny.alix.lol"
 
