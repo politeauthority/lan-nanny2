@@ -158,6 +158,7 @@ class Scanner:
             logging.error("Failed submitting scan")
         return True
 
+<<<<<<< Updated upstream
     def handle_error_port_scan(self, mac_address: str, scan_meta: dict) -> bool:
         logging.error("Got error running port scan, lets handle it")
         scan_meta["scan_time"] = date_utils.json_date(arrow.utcnow().datetime)
@@ -168,6 +169,8 @@ class Scanner:
             logging.info("Submmited port scan error.")
 
 
+=======
+>>>>>>> Stashed changes
 
 if __name__ == "__main__":
     Scanner().run()
