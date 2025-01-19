@@ -69,22 +69,29 @@ class LanNannyClient:
             "meta": scan_meta,
             "scan": scan_data,
         }
-        # logging.info("Making request to %s" % url)
-        response = self.make_request(url, method="POST", payload=payload)
-        logging.info("Request: %s" % response)
-        # if request.status_code < 399:
-        #     logging.error(request)
-        # logging.debug("Successful request: %s" % url)
+        self.make_request(url, method="POST", payload=payload)
         return True
 
-    def submit_port_scan(self, device_mac_id: str, scan_meta: dict, scan_data: dict):
-        """Submit a Host Scan the Lan Nanny Api.
+    def submit_port_scan(self, device_mac_address: str, scan_meta: dict, scan_data: dict):
+        """Submit a Port Scan the Lan Nanny Api.
         #@todo: This should probably be moved to somewhere more specific.
         """
-        url = "/scan/submit-port/%s" % device_mac_id
+        url = "/scan/submit-port/%s" % device_mac_address
         payload = {
             "meta": scan_meta,
             "scan": scan_data,
+        }
+        request = self.make_request(url, method="POST", payload=payload)
+        logging.info("Submit Port Scan Result: %s" % request)
+        return True
+
+    def submit_port_scan_error(self, device_mac_address: str, scan_meta: dict):
+        """Submit a Port Scan error the Lan Nanny Api.
+        #@todo: This should probably be moved to somewhere more specific.
+        """
+        url = "/scan/submit-port-error/%s" % device_mac_address
+        payload = {
+            "meta": scan_meta,
         }
         request = self.make_request(url, method="POST", payload=payload)
         logging.info("Submit Port Scan Result: %s" % request)
@@ -132,10 +139,10 @@ class LanNannyClient:
                     payload.pop("id")
         request_args["verify"] = False     # @todo fix
         # debug
-        logging.info("\n\n%s - %s\n%s" % (
-            request_args["method"],
-            request_args["url"],
-            request_args))
+        # logging.debug("\n\n%s - %s\n%s" % (
+        #     request_args["method"],
+        #     request_args["url"],
+        #     request_args))
 
         response = requests.request(**request_args)
 

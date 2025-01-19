@@ -19,6 +19,8 @@ spec:
           image: harbor.squid-ink.us/politeauthority/lan-nanny:latest
           imagePullPolicy: IfNotPresent
           env:
+            - name: APPLICATION
+              value: "lan-nann-api"
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:

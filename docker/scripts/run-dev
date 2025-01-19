@@ -1,5 +1,20 @@
 #!/bin/bash
-# Run the development web server
+# Run the development webserver.
 set -e
-cd /work/lan_nanny/src/lan_nanny/api
-python3 api-app.py
+APPLICATION_PATH=""
+if [ "$LAN_NANNY_ENV" = "dev" ]; then
+    APPLICATION_PATH="/work/lan_nanny/src/lan_nanny"
+else
+    APPLICATION_PATH="/app/lan_nanny"
+fi
+
+if [ "$APPLICATION" = "lan-nanny-api" ]; then
+    APPLICATION_PATH="${APPLICATION_PATH}/api"
+    PYTHON_APP="api-app.py"
+else
+    APPLICATION_PATH="${APPLICATION_PATH}/web"
+    PYTHON_APP="web-app.py"
+fi
+
+cd ${APPLICATION_PATH}
+python3 ${PYTHON_APP}

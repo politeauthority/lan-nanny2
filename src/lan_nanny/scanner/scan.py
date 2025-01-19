@@ -1,13 +1,15 @@
 """
     Lan Nanny - Scanner
     Scan
-    Main entrypoint to the Scan portion of Lan Nanny
+    Main entrypoint to the Scan portion of Lan Nanny.
+
 """
 import logging
 from logging.config import dictConfig
 
 import arrow
-import requests
+
+from polite_lib.utils import date_utils
 
 from lan_nanny.shared.utils import log_configs
 from lan_nanny.scanner.modules.nmap_scan import NmapScan
@@ -66,7 +68,7 @@ class Scanner:
         """
         logging.info("Getting options")
         self.options = self.api_client.get_options()
-        logging.info("Successfully got Options from Lan Nanny Api")
+        # logging.debug("Successfully got Options from Lan Nanny Api")
         return True
 
     def run_host_scan(self) -> bool:
@@ -127,29 +129,44 @@ class Scanner:
                 attempt_threshold
             ))
         device_mac = port_scan_order["scan_targets"][0]
-        logging.debug("CLIENT: HANDLE PORT SCAN: Chose first DeviceMac: %s" % device_mac)
+        logging.info("\n\nChose DeviceMac ID: %s MAC: %s" % (
+            device_mac["id"], device_mac["address"]))
+        # logging.debug("CLIENT: HANDLE PORT SCAN: Chose first DeviceMac: %s" % device_mac)
         nmap = NmapScan()
         results = nmap.run_port_scan(device_mac["last_ip"])
+        # results = nmap.run_port_scan("192.168.50.60")
         if not results:
+            self.handle_error_port_scan(device_mac["address"], nmap.scan_meta)
             logging.error("Couldnt get results from port scan")
             return False
         # self.scan_data = results["data"]
         self.scan_meta = nmap.scan_meta
         self.scan_data = results["ports"]
         logging.info("SCAN_META: \n%s" % self.scan_meta)
-        logging.info("SCAN_RESULTS: \n%s" % self.scan_data)
-        self.port_scan_submit(device_mac["id"], self.scan_meta, self.scan_data)
+        # logging.info("SCAN_RESULTS: \n%s" % self.scan_data)
+        logging.info("Found %s Ports for device" % len(results["ports"]))
+        self.port_scan_submit(results["host"]["mac_address"], self.scan_meta, self.scan_data)
         return True
 
-    def port_scan_submit(self, device_mac_id: int, scan_meta: dict, scan_data: dict) -> bool:
+    def port_scan_submit(self, mac_address: str, scan_meta: dict, scan_data: dict) -> bool:
         """Submit a Port Scan to the Lan Nanny Api"""
         logging.info("Starting to submit the Port Scan")
-        submitted = self.api_client.submit_port_scan(device_mac_id, scan_meta, scan_data)
+        submitted = self.api_client.submit_port_scan(mac_address, scan_meta, scan_data)
         if submitted:
             logging.info("Submitted scan successfully")
         else:
             logging.error("Failed submitting scan")
         return True
+
+    def handle_error_port_scan(self, mac_address: str, scan_meta: dict) -> bool:
+        logging.error("Got error running port scan, lets handle it")
+        scan_meta["scan_time"] = date_utils.json_date(arrow.utcnow().datetime)
+        submitted = self.api_client.submit_port_scan_error(mac_address, scan_meta)
+        if not submitted:
+            logging.error("Failed to submit port scan results")
+        else:
+            logging.info("Submmited port scan error.")
+
 
 if __name__ == "__main__":
     Scanner().run()

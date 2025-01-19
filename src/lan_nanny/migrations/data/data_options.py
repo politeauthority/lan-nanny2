@@ -6,7 +6,6 @@
 import logging
 
 from lan_nanny.api.models.option import Option
-# from bookmarky.api.utils import glow
 
 
 class DataOptions:

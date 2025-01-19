@@ -1,10 +1,21 @@
 #!/bin/bash
 # Run the production webserver, which is gunicorn
 set -e
-cd /work/lan_nanny/src/lan_nanny/api
-gunicorn api-app:app --bind 0.0.0.0:80
+APPLICATION_PATH=""
+
+if [ "$LAN_NANNY_ENV" = "dev" ]; then
+    APPLICATION_PATH="/work/lan_nanny/src/lan_nanny"
+else
+    APPLICATION_PATH="/app/lan_nanny"
+fi
+
+if [ "$APPLICATION" = "lan-nanny-web" ]; then
+    APPLICATION_PATH="${APPLICATION_PATH}/api"
+    GUNICORN_APP="web-app:app"
+else
+    APPLICATION_PATH="${APPLICATION_PATH}/web"
+    GUNICORN_APP="api-app:app"
+fi
 
 
-
-CMD ["gunicorn", "web-app:app", "--chdir", "/app/bookmarky/api", "--bind=0.0.0.0:80"]
-gunicron web-app:app --chdir /work/lan_nanny/src/lan_nanny/api --bind=0.0.0.0:80
+gunicorn ${GUNICORN_APP} --bind 0.0.0.0:80

@@ -1,6 +1,7 @@
 """
     Lan Nanny - Api
-    Model Device Port
+    Model
+    Device Port
 
 """
 from lan_nanny.shared.models.device_port import FIELD_MAP

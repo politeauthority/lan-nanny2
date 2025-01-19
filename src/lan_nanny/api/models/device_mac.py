@@ -19,5 +19,18 @@ class DeviceMac(BaseEntityMeta):
         self.createable = True
         self.setup()
 
+    def __repr__(self):
+        """Model representation.
+        """
+        if self.id:
+            if self.address:
+                return "<%s: %s - %s>" % (self.__class__.__name__, self.id, self.address)
+            else:
+                return "<%s: %s>" % (self.__class__.__name__, self.id)
+        return "<%s>" % self.__class__.__name__
+
+    def get_by_mac(self, mac_address: str) -> bool:
+        """Get a DeviceMac by a mac address."""
+        return self.get_by_field("address", mac_address)
 
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/models/device_mac.py
