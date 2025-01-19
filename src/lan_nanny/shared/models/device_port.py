@@ -30,8 +30,14 @@ FIELD_MAP = {
         "api_writeable": True,
         "api_searchable": True
     },
-    "status": {
-        "name": "status",
+    "last_scan_port_id": {
+        "name": "last_scan_port_id",
+        "type": "int",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "state": {
+        "name": "state",
         "type": "varchar",
         "api_writeable": True,
         "api_searchable": True
@@ -54,32 +60,13 @@ FIELD_MAP = {
         "api_searchable": True,
         "api_writeable": True,
     },
-    "port_id": {
-        "name": "port_id",
+    "port_num": {
+        "name": "port_num",
         "type": "int",
         "api_searchable": True,
         "api_writeable": True,
     },
-    "services": {
-        "name": "services",
-        "type": "list",
-        "api_searchable": True,
-        "api_writeable": True,
-    },
-    "reason": {
-        "name": "reason",
-        "type": "str",
-        "api_searchable": True,
-        "api_writeable": True,
-    },
-    "current_state": {
-        "name": "current_state",
-        "type": "str",
-        "api_searchable": True,
-        "api_writeable": True,
-    },
 }
-
 
 # FIELD_MAP_METAS = {
 #     "display_hidden": {
@@ -91,5 +78,10 @@ FIELD_MAP = {
 #         "type": "bool"
 #     }
 # }
+
+FIELD_META = {
+    "ux_key": ["device_mac_id", "protocol", "port_num"]
+}
+
 
 # End File: politeauthority/bookmarky-api/src/bookmarky/shared/models/device_ports.py

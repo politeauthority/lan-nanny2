@@ -48,15 +48,13 @@ CREATE TABLE IF NOT EXISTS device_ports (
     updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     device_id INTEGER,
     device_mac_id INTEGER NOT NULL,
-    status VARCHAR,
+    last_scan_port_id INTEGER NOT NULL,
+    state VARCHAR,
     last_seen TIMESTAMP,
     first_seen TIMESTAMP,
     protocol VARCHAR,
-    port_id INTEGER NOT NULL,
-    services TEXT,
-    reason VARCHAR,
-    current_state VARCHAR,
-    UNIQUE (device_mac_id, protocol, port_id)
+    port_num INTEGER NOT NULL,
+    UNIQUE (device_mac_id, protocol, port_num)
 );
 
 CREATE TABLE IF NOT EXISTS device_kinds (
@@ -74,7 +72,7 @@ CREATE TABLE IF NOT EXISTS vendors (
     name VARCHAR NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS scans (
+CREATE TABLE IF NOT EXISTS scan_hosts (
     id SERIAL PRIMARY KEY,
     created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -83,6 +81,31 @@ CREATE TABLE IF NOT EXISTS scans (
     hosts_found INTEGER NOT NULL,
     scan_command VARCHAR,
     scan_time INTEGER,
+    raw_data TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scan_host_results (
+    id SERIAL PRIMARY KEY,
+    created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    scan_host_id INTEGER NOT NULL,
+    device_mac_id INTEGER NOT NULL,
+    device_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS scan_ports (
+    id SERIAL PRIMARY KEY,
+    created_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    scan_agent VARCHAR NOT NULL,
+    scan_type VARCHAR NOT NULL,
+    device_id INTEGER,
+    device_mac_id INTEGER NOT NULL,
+    elapsed_time NUMERIC,
+    ports_found INTEGER,
+    scan_command VARCHAR,
+    scan_time TIMESTAMP,
+    scan_success BOOLEAN,
     raw_data TEXT
 );
 

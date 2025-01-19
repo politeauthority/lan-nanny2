@@ -26,7 +26,7 @@ ctrl_scan = Blueprint("scan", __name__, url_prefix="/scan")
 @auth.auth_request
 @ctrl_scan.route("/submit-host", methods=["POST"])
 @ctrl_scan.route("/submit-host/", methods=["POST"])
-def scan_submit_hist() -> Response:
+def scan_submit_host() -> Response:
     """Scan Submit Host"""
     data = {
         "info": "Lan Nanny",
@@ -52,34 +52,6 @@ def scan_submit_hist() -> Response:
 
 
 @auth.auth_request
-@ctrl_scan.route("/submit-port", methods=["POST"])
-@ctrl_scan.route("/submit-port/", methods=["POST"])
-def scan_submit_port() -> Response:
-    """Scan Submit Port"""
-    data = {
-        "info": "Lan Nanny",
-    }
-    data["scan"] = {}
-    request_data = json.loads(request.get_data().decode('utf-8'))
-    logging.info("Recieved Port Scan from: %s" "User-Agent")
-    # logging.info("Got Scan Data:\n%s" % request_data)
-    if "scan" not in request_data:
-        data["status"] = "Error"
-        return jsonify(data, 400)
-    if "scan" not in request_data:
-        logging.error("Scan request missing data")
-        return jsonify(data), 400
-    if "meta" not in request_data:
-        logging.error("Scan request missing data")
-        return jsonify(data), 400
-    scan_meta = request_data["meta"]
-    scan_data = request_data["scan"]
-    scan_handled = HandlePortScan().run(scan_meta, scan_data)
-    logging.info(f"Scan Handled: {scan_handled}")
-    return jsonify(data), 201
-
-
-@auth.auth_request
 @ctrl_scan.route("/port-scan-order", methods=["GET"])
 @ctrl_scan.route("/port-scan-order/", methods=["GET"])
 def take_port_scan() -> Response:
@@ -100,45 +72,33 @@ def take_port_scan() -> Response:
 
 
 @auth.auth_request
-@ctrl_scan.route("/submit-port/<device_mac_id>", methods=["POST"])
-def submit_port_scan(device_mac_id: int) -> Response:
-    """Scan Submit"""
+@ctrl_scan.route("/submit-port/<mac_address>", methods=["POST"])
+def submit_port_scan(mac_address: int) -> Response:
+    """Port Scan Submit.
+    """
     data = {
         "info": "Lan Nanny",
     }
     data["scan"] = {}
     request_data = json.loads(request.get_data().decode('utf-8'))
-    device_mac = DeviceMac()
-    device_mac.get_by_id(device_mac_id)
-    logging.info("Handling port scan for %s" % device_mac)
-    now = arrow.utcnow()
-    logging.debug("Recieved data on %s ports for device" % len(request_data["ports"]))
-    for port in request_data["ports"]:
-        dp = DevicePort()
-        if dp.get_by_scan_details(device_mac.id, port["port_id"], port["protocol"]):
-            logging.info("Found Device Port existings already")
-        else:
-            logging.info("Did not find Device Port already")
-            dp.port_id = port["port_id"]
-            dp.device_mac_id = device_mac.id
-            dp.first_seen = now
-            dp.protocol = port["protocol"]
-
-        dp.last_seen = now
-        dp.current_state = "open"
-        if device_mac.device_id:
-            dp.device_id = device_mac.device_id
-        if not dp.save():
-            logging.error("Failed to save: %s" % dp)
-        else:
-            logging.info("Saved %s" % dp)
-    device_mac.last_port_scan = now
-    device_mac.save()
-    if device_mac.device_id:
-        device = Device()
-        device.last_port_scan = now
-        device.save()
-
+    handle_scan = HandlePortScan().run(mac_address, request_data["meta"], request_data["scan"])
+    print(handle_scan)
     return jsonify(data), 201
+
+
+@auth.auth_request
+@ctrl_scan.route("/submit-port-error/<mac_address>", methods=["POST"])
+def submit_port_scan_error(mac_address: int) -> Response:
+    """Port Scan Submit error."""
+    data = {
+        "info": "Lan Nanny",
+    }
+    data["scan"] = {}
+    request_data = json.loads(request.get_data().decode('utf-8'))
+    handle_scan = HandlePortScan().run_error(mac_address, request_data["meta"])
+    print(handle_scan)
+    data["scan"] = {}
+    return jsonify(data), 201
+
 
 # End File: politeauthroity/bookmark-apiy/src/bookmarky/api/controllers/ctrl_stats.py

@@ -10,7 +10,7 @@ from lan_nanny.api.models.base_entity_meta import BaseEntityMeta
 
 class ScanHostResult(BaseEntityMeta):
 
-    model_name = "scan_host_"
+    model_name = "scan_host_result"
 
     def __init__(self, conn=None, cursor=None):
         """Create the instance."""

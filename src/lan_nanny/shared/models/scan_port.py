@@ -37,6 +37,18 @@ FIELD_MAP = {
         "api_writeable": True,
         "api_searchable": True
     },
+    "device_mac_id": {
+        "name": "device_mac_id",
+        "type": "int",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "elapsed_time": {
+        "name": "elapsed_time",
+        "type": "float",
+        "api_writeable": True,
+        "api_searchable": True
+    },
     "ports_found": {
         "name": "ports_found",
         "type": "int",
@@ -51,7 +63,13 @@ FIELD_MAP = {
     },
     "scan_time": {
         "name": "scan_time",
-        "type": "int",
+        "type": "datetime",
+        "api_writeable": True,
+        "api_searchable": True
+    },
+    "scan_success": {
+        "name": "scan_success",
+        "type": "bool",
         "api_writeable": True,
         "api_searchable": True
     },

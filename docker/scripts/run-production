@@ -9,12 +9,12 @@ else
     APPLICATION_PATH="/app/lan_nanny"
 fi
 
-if [ "$APPLICATION" = "lan-nanny-api" ]; then
+if [ "$APPLICATION" = "lan-nanny-web" ]; then
     APPLICATION_PATH="${APPLICATION_PATH}/api"
-    GUNICORN_APP="api-app:app"
+    GUNICORN_APP="web-app:app"
 else
     APPLICATION_PATH="${APPLICATION_PATH}/web"
-    GUNICORN_APP="web-app:app"
+    GUNICORN_APP="api-app:app"
 fi
 
 
