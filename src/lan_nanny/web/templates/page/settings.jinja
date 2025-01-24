@@ -1,0 +1,38 @@
+{#
+    Lan Nanny Web
+    Settings
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
+{% endblock %}
+
+{% block content %}
+
+<!-- Container -->
+<div class="container"">
+    <div class="row">
+        <div class="col-8">
+            <h3>Settings</h3>
+            <ul id="settings_roster" class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Scans Hosts <button id="scan-hosts-enabled" class="option-btn btn btn-success btn-sm">Enabled</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- End: Container -->
+
+{% endblock %}
+
+{%block modals%}
+{%endblock%}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/settings.js"></script>
+{% endblock %}
+
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/settings.jinja #}

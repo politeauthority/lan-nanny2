@@ -32,8 +32,14 @@ def info() -> Response:
 
 @ctrl_index.route("/dashboard")
 def dashboard() -> Response:
-    """Get information on Bookmark Web"""
+    """Lan Nanny Dashboard"""
     return render_template("page/dashboard.jinja")
+
+
+@ctrl_index.route("/scans")
+def scans() -> Response:
+    """Scans page"""
+    return render_template("page/scans.jinja")
 
 
 @ctrl_index.route("/settings")

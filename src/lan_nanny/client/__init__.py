@@ -112,7 +112,6 @@ class LanNannyClient:
         url = "/scan/port-scan-order"
         request_data = self.make_request(url, method="GET")
         return request_data
-    
 
     def get_options(self) -> dict:
         """Get all Options available to the current user, keyed by the Option.name."""

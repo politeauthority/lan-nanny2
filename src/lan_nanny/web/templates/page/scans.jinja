@@ -1,0 +1,39 @@
+{#
+    Lan Nanny Web
+    Scans
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
+{% endblock %}
+
+{% block content %}
+
+<!-- Device Display -->
+<div class="container"">
+    <div class="row">
+        <div class="col-8">
+            <h3>Scans</h3>
+            <ul id="device_roster" class="list-group list-group-flush">
+                {# <li class="list-group-item">Device Name</li> #}
+            </ul>
+            <div class="row">
+                <div id="recent-load-more" data-next-page="2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End: Container -->
+
+{% endblock %}
+
+{%block modals%}
+{%endblock%}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/scans.js"></script>
+{% endblock %}
+
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/scans.jinja #}

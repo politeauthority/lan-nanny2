@@ -38,6 +38,7 @@ def post_model(option_id: int = None):
     POST /option
     """
     logging.info("POST Option")
+    import ipdb; ipdb.set_trace()
     return ctrl_base.post_model(Option, option_id)
 
 
