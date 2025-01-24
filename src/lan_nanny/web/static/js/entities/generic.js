@@ -11,7 +11,6 @@ import * as main from "/static/js/main.js";
 
 export function get_collection(collection_name){
   /* Get a collection of entities */
-  console.log("fetching: " + collection_name);
   var return_first = function () {
     var response = null;
     $.ajax({
