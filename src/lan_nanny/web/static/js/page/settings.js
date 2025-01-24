@@ -5,10 +5,8 @@
 
 */
 
-// import { API_URL } from "/config.js";
-// import * as main from "/static/js/main.js";
 import * as generic from "/static/js/entities/generic.js";
-// import * as tags from "/static/js/entities/tags.js";
+import * as options from "/static/js/entities/options.js";
 
 function initial_load_options(data){
   data.objects.forEach(option => {
@@ -16,7 +14,15 @@ function initial_load_options(data){
     if(option.name == "scan-hosts-enabled"){
       if(option.value != true){
         set_btn_disabled("scan-hosts-enabled");
-
+      } else {
+        set_btn_enabled("scan-hosts-enabled");
+      }
+    } else if (option.name == "scan-ports-enabled"){
+      console.log("WE got scan ports");
+      if(option.value != true){
+        set_btn_disabled("scan-ports-enabled");
+      } else {
+        set_btn_enabled("scan-ports-enabled");
       }
     }
   });
@@ -29,6 +35,28 @@ function set_btn_disabled(button_name){
   the_btn.text("Disabled");
 }
 
+function set_btn_enabled(button_name){
+  var the_btn = $("#" + button_name);
+  the_btn.removeClass("btn-danger");
+  the_btn.addClass("btn-success");
+  the_btn.text("Enabled");
+}
+
+function update_option(the_btn){
+  console.log("button clicked");
+  var option_name = the_btn.attr("id");
+  var the_value = "";
+  if(the_btn.hasClass("btn-danger")){
+    console.log("Turn it True");
+    the_value = true;
+    set_btn_enabled(option_name);
+  } else {
+    console.log("Turn it false");
+    the_value = false;
+    set_btn_disabled(option_name);
+  }
+  options.save_option(option_name, the_value);
+}
 
 $(document).ready(function(){
     console.log("Starting Settings")
@@ -42,11 +70,9 @@ $(document).ready(function(){
       .catch(error => {
         console.error('Error fetching data:', error);
     });
-
  	
     $( ".option-btn" ).on( "click", function() {
-      console.log("button clicked");
-
-    } );
+      update_option($(this));
+    });
 
 });
