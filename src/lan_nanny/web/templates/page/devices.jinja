@@ -1,11 +1,11 @@
 {#
     Lan Nanny Web
-    Scans
+    Devices
 #}
 {% extends 'layout_internal.jinja' %}
 
 {%block header%}
-    <link rel="stylesheet" href="/static/css/scans.css">
+    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
 {% endblock %}
 
 {% block content %}
@@ -14,21 +14,16 @@
 <div class="container"">
     <div class="row">
         <div class="col-8">
-            <h3>Scans</h3>
+            <h3>Devices</h3>
             <ul id="scan_host_roster" class="list-group list-group-flush">
-                <li class="list-group-item boiler-item hide">
-                    <span class="scan-hosts-found"></span> Hosts
-                    <span class="scan-time">the time</span>  
+                
+                <li class="list-group-item">
+                    Found 10 Hosts at <span class="scan-time">the time</span>
                 </li>
             </ul>
             <div class="row">
                 <div id="recent-load-more" data-next-page="2"></div>
             </div>
-        </div>
-        <div class="col-4">
-            <ul>
-                <li>Total Host Scans: <span id="total-scan-hosts"></span></li>
-            </ul>
         </div>
     </div>
 </div>
@@ -44,4 +39,4 @@
 <script type="module" src="/static/js/page/scans.js"></script>
 {% endblock %}
 
-{# End File: politeauthority/bookmarky-web-simple/src/templates/page/scans.jinja #}
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/devices.jinja #}

@@ -45,7 +45,6 @@ export function get_devices_dashboard(){
         "Content-Type": "application/json"
     },
     success: function(data){
-      console.log(data);
       show_devices(data, true, "#bookmarks_recent");
       // var next_page = Number(data.info["current_page"]) + 1;
       // $("#recent-load-more").attr("data-next-page", next_page);

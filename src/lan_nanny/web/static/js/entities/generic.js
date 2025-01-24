@@ -11,6 +11,7 @@ import * as main from "/static/js/main.js";
 
 export function get_collection(collection_name){
   /* Get a collection of entities */
+  console.log("fetching: " + collection_name);
   var return_first = function () {
     var response = null;
     $.ajax({
@@ -22,8 +23,6 @@ export function get_collection(collection_name){
       },
       dataType: "json",
       success: function(data){
-        console.log("Successfully got options")
-        console.log(data);
         response = data;
         // var next_page = Number(data.info["current_page"]) + 1;
         // $("#recent-load-more").attr("data-next-page", next_page);
@@ -31,8 +30,6 @@ export function get_collection(collection_name){
     });
     return response
   }();
-  console.log("Here in Get collections");
-  console.log(return_first);
   return return_first;
 }
 

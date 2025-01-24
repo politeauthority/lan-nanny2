@@ -36,6 +36,12 @@ def dashboard() -> Response:
     return render_template("page/dashboard.jinja")
 
 
+@ctrl_index.route("/devices")
+def devices() -> Response:
+    """Lan Nanny Devices"""
+    return render_template("page/devices.jinja")
+
+
 @ctrl_index.route("/scans")
 def scans() -> Response:
     """Scans page"""
