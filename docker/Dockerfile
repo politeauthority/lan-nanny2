@@ -43,8 +43,9 @@ FROM base as dev
 RUN apk add bash curl vim screen && mkdir -p /work/lan_nanny
 
 ADD ./scripts/lan-nanny /bin
-ADD ./scripts/run-dev /bin
-ADD ./scripts/run-production /bin
+ADD ./scripts/run-dev-api /bin
+ADD ./scripts/run-prod-api /bin
+ADD ./scripts/run-prod-web /bin
 ADD ./scripts/run-scan /bin
 ADD ./scripts/run-kill /bin
 ADD ./scripts/run-build /bin

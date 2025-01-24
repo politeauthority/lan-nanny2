@@ -1,0 +1,61 @@
+{#
+    Lan Nanny Web
+    Dashboard
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- Device Display -->
+<div class="container bookmark-display"">
+    <div class="row">
+        <div class="col-8">
+            <h3>Devices</h3>
+            <ul id="device_roster" class="list-group list-group-flush">
+                <li class="list-group-item">Device Name</li>
+            </ul>
+            <div class="row">
+                <div id="recent-load-more" data-next-page="2"></div>
+            </div>
+        </div>
+        <!-- Most Used Tags -->
+        <div class="col-4">
+            <div>
+                <h4>Details</h4>
+                <ul id="">
+                    <li>Total Bookmarks: <span id="bookmarks-total"></span></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Most Used Tags</h4>
+                <ul id="tags-popular">
+                </ul>
+            </div>
+            {# <div id="stat_tags">
+                <h4>Most Clicked Links</h4>
+                <ul>
+                    <li>This is one</li>
+                </ul>
+            </div> #}
+        </div>
+        <!-- END: Most Used Tags -->
+    </div>
+
+</div>
+
+<!-- End: Recent Bookmarks -->
+
+{% endblock %}
+
+{%block modals%}
+{%endblock%}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/dashboard.js"></script>
+{% endblock %}
+
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/bookmarks-recent.jinja #}

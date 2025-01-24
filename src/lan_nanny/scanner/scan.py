@@ -110,10 +110,10 @@ class Scanner:
     def run_extra_scans(self) -> bool:
         """Ask the api for other scan operations for the Agent to run.
         """
-        self.run_port_scan()
+        self.run_port_scans()
         return True
 
-    def run_port_scan(self) -> bool:
+    def run_port_scans(self) -> bool:
         """Run Port Scans against a suggested target on the network."""
         if not self.options["scan-ports-enabled"]["value"]:
             logging.info("Port scanning is not enabled by Lan Nanny Options, exiting")
@@ -158,7 +158,6 @@ class Scanner:
             logging.error("Failed submitting scan")
         return True
 
-<<<<<<< Updated upstream
     def handle_error_port_scan(self, mac_address: str, scan_meta: dict) -> bool:
         logging.error("Got error running port scan, lets handle it")
         scan_meta["scan_time"] = date_utils.json_date(arrow.utcnow().datetime)
@@ -168,9 +167,6 @@ class Scanner:
         else:
             logging.info("Submmited port scan error.")
 
-
-=======
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     Scanner().run()

@@ -6,7 +6,6 @@
 */
 import { API_URL } from "/config.js";
 import * as main from "/static/js/main.js";
-import * as directories from "/static/js/entities/directories.js";
 
 
 let BOOKMARKS = {}
@@ -35,42 +34,50 @@ export function get_bookmark_by_id(bookmark_id, from_api=false){
 
 }
 
-export function get_boomarks_recent(){
+export function get_devices_dashboard(){
   /* Get recent bookmarks */
   $.ajax({
     type: "GET",
-    url: API_URL + "/bookmarks",
+    url: API_URL + "/devices",
     // url: API_URL + "/bookmarks?limit=1",
     headers: {
         "Token": main.get_cookie("Token"),
         "Content-Type": "application/json"
     },
     success: function(data){
-      show_bookmarks(data, true, "#bookmarks_recent");
-      var next_page = Number(data.info["current_page"]) + 1;
-      $("#recent-load-more").attr("data-next-page", next_page);
+      console.log(data);
+      show_devices(data, true, "#bookmarks_recent");
+      // var next_page = Number(data.info["current_page"]) + 1;
+      // $("#recent-load-more").attr("data-next-page", next_page);
 
     },
     dataType: "json"
     });
 }
 
-export function show_bookmarks(data, append_top, the_list){
+export function show_devices(data, append_top, the_list){
   /* Add bookmarks to the DOM, appending to the list provided. */
   /* Show recent Bookmarks on page load*/
   // console.log("Recent bookmarks show");
   // console.log(data.info.total_objects);
+  data.objects.forEach( item => {
+    var html = '<li class="list-group-item">'+ item.name  +'</li>'
+    $("#device_roster").append(html);
 
-  // If we have a bookmarks-total span lets update it with the info
-  $("#bookmarks-total").html(data.info.total_objects);
-  store_bookmarks(data); 
-  // console.log("Showing bookmarks, append: " + append_top);
-  const reversed_bookmarks = data.objects.reverse();
-  reversed_bookmarks.forEach( item => {
-    add_bookmark_to_dom(item, append_top, the_list);
+    console.log(item);
   });
-  // recent_bookmarks_load_more(data.info);
-  $(".loading-spinner").hide();
+  
+
+  // // If we have a bookmarks-total span lets update it with the info
+  // $("#bookmarks-total").html(data.info.total_objects);
+  // store_bookmarks(data); 
+  // // console.log("Showing bookmarks, append: " + append_top);
+  // const reversed_bookmarks = data.objects.reverse();
+  // reversed_bookmarks.forEach( item => {
+  //   add_bookmark_to_dom(item, append_top, the_list);
+  // });
+  // // recent_bookmarks_load_more(data.info);
+  // $(".loading-spinner").hide();
 }
 
 export function add_bookmark_to_dom(bookmark_obj, append_top, the_list){
