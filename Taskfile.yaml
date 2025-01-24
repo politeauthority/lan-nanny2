@@ -102,6 +102,13 @@ tasks:
       - |
         kustomize build kubernetes-manifests/envs/dev | kubectl apply -f -
 
+  dev-destroy:
+    cmds:
+      - |
+        kubectl delete deployment/lan-nanny-api -n lan-nanny-dev
+        kubectl delete deployment/lan-nanny-web -n lan-nanny-dev
+        kubectl delete deployment/lan-nanny-scanner -n lan-nanny-dev
+
   stage-deploy:
     cmds:
       - |
