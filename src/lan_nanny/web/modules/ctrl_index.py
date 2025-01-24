@@ -23,11 +23,23 @@ def index() -> Response:
 
 @ctrl_index.route("/info")
 def info() -> Response:
-    """Get information on Bookmark Web"""
+    """Get information on Lan Nanny"""
     data = {
         "info": "Lan Nanny Web",
     }
     return jsonify(data)
+
+
+@ctrl_index.route("/dashboard")
+def dashboard() -> Response:
+    """Lan Nanny Dashboard"""
+    return render_template("page/dashboard.jinja")
+
+
+@ctrl_index.route("/scans")
+def scans() -> Response:
+    """Scans page"""
+    return render_template("page/scans.jinja")
 
 
 @ctrl_index.route("/settings")
@@ -43,7 +55,7 @@ def settings() -> Response:
 @ctrl_index.route("/config.js")
 def config_js() -> Response:
     data = {
-        "API_URL": glow.general["API_URL"], 
+        "API_URL": glow.general["API_URL"],
         "VERSION_WEB": glow.general["VERSION_WEB"]
     }
     config_js = render_template("js_config.jinja", **data)

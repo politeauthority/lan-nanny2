@@ -7,11 +7,11 @@ import logging
 import json
 import os
 
+import requests
+
 from polite_lib.utils import xlate
 
 from lan_nanny.api.version import version
-
-import requests
 
 
 class LanNannyClient:
@@ -98,6 +98,14 @@ class LanNannyClient:
         return True
 
     def get_port_scan_order(self):
+        """Submit a Host Scan the Lan Nanny Api.
+        #@todo: This should probably be moved to somewhere more specific.
+        """
+        url = "/scan/port-scan-order"
+        request_data = self.make_request(url, method="GET")
+        return request_data
+
+    def get_whoami(self):
         """Submit a Host Scan the Lan Nanny Api.
         #@todo: This should probably be moved to somewhere more specific.
         """

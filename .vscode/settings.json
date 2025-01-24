@@ -1,0 +1,22 @@
+{
+	"flake8.args": ["--config=/Users/alix/Programming/repos/lan-nanny2/src/flake8"],
+	"files.autoSave": "off",
+	"python.analysis.typeCheckingMode": "off",
+	"saveAndRun": {
+		"commands": [
+			{
+			"match": "./src/lan-nanny/web",
+			"cmd": "task dev-cp-web",
+			"useShortcut": false,
+			"silent": false
+			},
+			{
+			"match": "./bookmarky-web-simple/src",
+			"cmd": "task dev-cp-web",
+			"useShortcut": false,
+			"silent": false
+			}
+		]
+	},
+    "editor.fontSize": 14
+}

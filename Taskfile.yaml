@@ -69,6 +69,19 @@ tasks:
         kubectl exec -it -n ${NS} ${POD} -- sh "/bin/run-build"
         echo "Copied source to: ${POD_LABEL}"
 
+  dev-docker-web:
+    cmds:
+      - |
+        docker run \
+          --name lan-nanny-web \
+          -e LAN_NANNY_ENV="dev" \
+          --rm \
+          -d \
+          -p 3001:80 \
+          -v ./src:/work/lan_nanny \
+          harbor.squid-ink.us/politeauthority/lan-nanny \
+          tail -f /dev/null
+
   dev-cp-scanner-examples:
     cmds:
       - |
@@ -101,6 +114,13 @@ tasks:
     cmds:
       - |
         kustomize build kubernetes-manifests/envs/dev | kubectl apply -f -
+
+  dev-destroy:
+    cmds:
+      - |
+        kubectl delete deployment/lan-nanny-api -n lan-nanny-dev
+        kubectl delete deployment/lan-nanny-web -n lan-nanny-dev
+        kubectl delete deployment/lan-nanny-scanner -n lan-nanny-dev
 
   stage-deploy:
     cmds:

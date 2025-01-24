@@ -57,4 +57,50 @@ def post_model(device_mac_id: int = None):
     return jsonify(ret_data), return_code
 
 
+@ctrl_device_mac.route("/<device_mac_id>/port-lock", methods=["POST"])
+@ctrl_device_mac.route("/<device_mac_id>/port-lock/", methods=["POST"])
+@auth.auth_request
+def post_port_lock(device_mac_id: int = None):
+    """POST operation to set the port_loc on a DeviceMac
+    POST /device-mac/<devce_mac_id>/port-lock
+    """
+    logging.info("POST DeviceMac Port Lock")
+    if isinstance(device_mac_id, str):
+        try:
+            device_mac_id = int(device_mac_id)
+        except ValueError:
+            return {"status": "error"}, 400
+    update = {
+        "port_scan_lock": True
+    }
+    response, return_code = ctrl_base.post_model(DeviceMac, device_mac_id, update)
+    if isinstance(response, Response):
+        return response, return_code
+    ret_data = response
+    return jsonify(ret_data), return_code
+
+
+@ctrl_device_mac.route("/<device_mac_id>/port-unlock", methods=["POST"])
+@ctrl_device_mac.route("/<device_mac_id>/port-unlock/", methods=["POST"])
+@auth.auth_request
+def post_port_unlock(device_mac_id: int = None):
+    """POST operation to set the port_loc on a DeviceMac
+    POST /device-mac/<devce_mac_id>/port-lock
+    """
+    logging.info("POST DeviceMac Port Lock")
+    if isinstance(device_mac_id, str):
+        try:
+            device_mac_id = int(device_mac_id)
+        except ValueError:
+            return {"status": "error"}, 400
+    update = {
+        "port_scan_lock": False
+    }
+    response, return_code = ctrl_base.post_model(DeviceMac, device_mac_id, update)
+    if isinstance(response, Response):
+        return response, return_code
+    ret_data = response
+    return jsonify(ret_data), return_code
+
+
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/controllers/ctrl_models/ctrl_device_mac.py

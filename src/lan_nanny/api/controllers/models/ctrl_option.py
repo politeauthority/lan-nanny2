@@ -38,6 +38,12 @@ def post_model(option_id: int = None):
     POST /option
     """
     logging.info("POST Option")
+    if option_id and not option_id.isdigit():
+        option_name = option_id
+        opt = Option()
+        if opt.get_by_name(option_name):
+            option_id = opt.id
+            logging.info("Got option by name: %s" % option_name)
     return ctrl_base.post_model(Option, option_id)
 
 

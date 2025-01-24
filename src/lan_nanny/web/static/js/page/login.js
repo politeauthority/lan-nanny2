@@ -37,7 +37,7 @@ function succes_login(data){
     // localStorage.setItem('jwt', String(data.token));
     console.log("setting API_URL");
     console.log(data.token);
-    location.href = '/bookmarks';
+    location.href = '/dashboard';
 }
 
 function error_login(){

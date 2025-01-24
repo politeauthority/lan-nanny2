@@ -33,4 +33,5 @@ class DeviceMac(BaseEntityMeta):
         """Get a DeviceMac by a mac address."""
         return self.get_by_field("address", mac_address)
 
+
 # End File: politeauthority/lan-nanny/src/lan_nanny/api/models/device_mac.py

@@ -4,15 +4,19 @@ metadata:
   name: lan-nanny-api
   annotations:
     cert-manager.io/cluster-issuer: example-issuer
-    # nginx.ingress.kubernetes.io/upstream-vhost: $host
-    # nginx.ingress.kubernetes.io/configuration-snippet: |
-    #   more_set_headers "Access-Control-Allow-Origin: $http_origin";
-    #   more_set_headers "Access-Control-Request-Headers: DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,Client-Id,X-Api-Key";
-    #   more_set_headers "Access-Control-Request-Method: *";
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "https://lan-nanny-dev.alix.lol, https://lan-nanny-stage.alix.lol, https://lan-nanny.alix.lol http://localhost:3001"
+    nginx.ingress.kubernetes.io/cors-allow-headers: User-Agent,If-Modified-Since,Content-Type,Authorization,Client-Id,X-Api-Key,Token
+    nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE, PATCH
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Access-Control-Allow-Origin: *";
+      more_set_headers "Access-Control-Request-Method: *";
+      more_set_headers "Access-Control-Request-Headers: DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,Client-Id,X-Api-Key";
     # nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    # nginx.ingress.kubernetes.io/cors-allow-headers: User-Agent,If-Modified-Since,Content-Type,Authorization,Client-Id,X-Api-Key,Token
-    # nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE, PATCH
-    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    # nginx.ingress.kubernetes.io/upstream-vhost: $host
+
+
 spec:
   ingressClassName: example-ingress-class
   rules:

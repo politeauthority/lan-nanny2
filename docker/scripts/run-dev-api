@@ -1,0 +1,5 @@
+#!/bin/bash
+# Run the development webserver.
+set -e
+APPLICATION_PATH="/work/lan_nanny/src/lan_nanny/api/api-app.py"
+python3 ${APPLICATION_PATH}
