@@ -15,20 +15,46 @@
     <div class="row">
         <div class="col-8">
             <h3>Scans</h3>
-            <ul id="scan_host_roster" class="list-group list-group-flush">
-                <li class="list-group-item boiler-item hide">
-                    <span class="scan-hosts-found"></span> Hosts
-                    <span class="scan-time">the time</span>  
-                </li>
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Host Scans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Port Scans</a>
+                    </li>
+                </ul>
 
-            </ul>
-            <div class="row">
-                <div id="recent-load-more" data-next-page="2"></div>
+                {# <div class="row">
+                    <h5>Host Scans</h5>
+                    <ul id="scan_host_roster" class="list-group list-group-flush">
+                        <li class="list-group-item boiler-item hide">
+                            <span class="scan-hosts-found"></span> Hosts
+                            <span class="scan-time">the time</span>  
+                        </li>
+                    </ul>
+                </div> #}
+                <div class="row">
+                    <h5>Port Scans</h5>
+                    <ul id="scan_ports_roster" class="list-group list-group-flush">
+                        <li class="list-group-item boiler-item hide">
+                            <a class="scan-ports-device-mac-link" href="/device-mac">
+                                <b>Device Mac ID: <span class="scan-ports-device-mac-id"></span></b>
+                            </a>
+                            <span class="scan-ports-device-id">Device ID: <span class="scan-ports-device-id-value"></span> <br></span>
+                            <span class="scan-time">the time</span><br>
+                            <div class="smaller-stuff">
+                            Scan Type: <span class="scan-ports-scan-type"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="col-4">
             <ul>
                 <li>Total Host Scans: <span id="total-scan-hosts"></span></li>
+                <li>Total Ports Scans: <span id="total-scan-ports"></span></li>
             </ul>
         </div>
     </div>

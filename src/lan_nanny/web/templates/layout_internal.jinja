@@ -1,3 +1,5 @@
+{% from 'macros//model_device_add.jinja' import modal_device_add %}
+
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 
@@ -38,28 +40,18 @@
                         <a class="nav-link" aria-current="page" href="/scans">Scans</a>
                     </li>
                 </ul>
-                {# <div class="dropdown float-right">
+                <div class="dropdown float-right">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-plus"></i>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a data-bs-toggle="modal" data-bs-target="#modal-bookmark-add" class="dropdown-item"
-                                href="#">Add Bookmark</a>
-                        </li>
-                        <li>
-                            <a data-bs-toggle="modal" data-bs-target="#modal-tag-add" class="dropdown-item"
-                                href="#">Add
-                                Tag</a>
-                        </li>
-                        <li>
-                            <a data-bs-toggle="modal" data-bs-target="#modal-directory-add" class="dropdown-item"
-                                href="#">Add
-                                Folder</a>
+                            <a data-bs-toggle="modal" data-bs-target="#modal-device-add" class="dropdown-item"
+                                href="#">Add Device</a>
                         </li>
                     </ul>
-                </div> #}
+                </div>
                 <div class="dropdown float-right">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -118,6 +110,8 @@
     {% block content %}{% endblock %}
 
     <!-- Start Modals -->
+    {{ modal_device_add() }}
+    {% block modals %}{% endblock %}
 
     <!-- END Modals -->
 
@@ -138,6 +132,7 @@
         crossorigin="anonymous"></script>
     <script src="/static/lib/jquery.3.7.1.min.js"></script>
     <script type="module" src="/config.js"></script>
+    <script type="module" src="/static/js/app.js"></script>
 
     {%block javascript%}{%endblock%}
 </body>

@@ -42,6 +42,12 @@ def devices() -> Response:
     return render_template("page/devices.jinja")
 
 
+@ctrl_index.route("/device-mac/<device_mac_id>")
+def device_mac(device_mac_id) -> Response:
+    """Device Mac"""
+    return render_template("page/device_mac.jinja")
+
+
 @ctrl_index.route("/scans")
 def scans() -> Response:
     """Scans page"""

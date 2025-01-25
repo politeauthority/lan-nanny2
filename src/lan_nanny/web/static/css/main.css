@@ -188,3 +188,16 @@ body.busy .loading-spinner { visibility:visible !important; } */
 .boiler_item {
     display: none;
 }
+
+
+
+
+.number {
+    color: pink;
+    background-color: lightgray;
+}
+
+
+.entity-value {
+    font-weight: 900;
+}

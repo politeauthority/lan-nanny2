@@ -4,7 +4,7 @@
 
 */
 import { API_URL } from "/config.js";
-import * as bookmarks from "/static/js/entities/bookmarks.js";
+// import * as bookmarks from "/static/js/entities/bookmarks.js";
 import * as main from "/static/js/main.js";
 
 

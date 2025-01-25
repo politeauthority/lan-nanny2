@@ -5,6 +5,8 @@
 */
 import { API_URL } from "/config.js";
 import * as main from "/static/js/main.js";
+import * as device from "/static/js/entities/device.js";
+// import * as device_mac from "/static/js/entities/device_mac.js";
 
 function handle_logout(){
   /* Tasks to run when we've hit the logout button */
@@ -45,12 +47,17 @@ function success_who_am_i(){
   // console.log("We're logged in");
 }
 
+function modal_device_add_submit(){
+  var device_name = $("#modal_device_add_name").val();
+  device.post_device(device_name);
+  $("#modal-device-add").modal("hide");
+}
 
 $(document).ready(function(){
-  get_whoami()
-
-  $("#nav-logout").click( function(){
-    handle_logout()
+  console.log("HERES THE APP");
+  $("#modal-device-add-submit").click(function(){
+    modal_device_add_submit();
+    console.log("clicked submit")
   });
 
 });

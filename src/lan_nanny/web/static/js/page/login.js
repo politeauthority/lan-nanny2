@@ -92,7 +92,7 @@ function check_if_logged_in(){
     },
     success: function(data, textStatus, jqXHR) {
       if (jqXHR.status === 200) {
-        location.href = '/bookmarks';
+        location.href = '/dashboard';
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
