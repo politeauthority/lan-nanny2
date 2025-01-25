@@ -12,8 +12,6 @@ export function save_option(option_name, option_value){
   var payload = {
     "value": option_value
   }
-  console.log("sending");
-  console.log(payload);
   payload = JSON.stringify(payload);
   $.ajax({
     type: "POST",
@@ -36,7 +34,6 @@ export function get_options(){
   $.ajax({
     type: "GET",
     url: API_URL + "/options",
-    // url: API_URL + "/bookmarks?limit=1",
     headers: {
         "Token": main.get_cookie("Token"),
         "Content-Type": "application/json"

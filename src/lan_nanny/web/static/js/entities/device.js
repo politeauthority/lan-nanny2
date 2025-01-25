@@ -8,44 +8,60 @@ import { API_URL } from "/config.js";
 import * as main from "/static/js/main.js";
 
 
-let BOOKMARKS = {}
-
-export function get_bookmark_by_id(bookmark_id, from_api=false){
-  /* Get a Bookmark by ID from memory or local storage, which ever method is working better at the
-  time.
-  */
-  if(from_api === true){
-    $.ajax({
-      type: "GET",
-      url: API_URL + "/bookmark/" + bookmark_id,
-      headers: {
-          "Token": main.get_cookie("Token"),
-          "Content-Type": "application/json"
-      },
-      success: function(data){
-      },
-      dataType: "json"
-      });
-  } else {
-
-    var the_bookmark = BOOKMARKS[bookmark_id];
-    return the_bookmark;
+export function post_device(device_name){
+  /* */
+  var payload = {
+    "name": device_name
   }
-
+  payload = JSON.stringify(payload);
+  $.ajax({
+    type: "POST",
+    url: API_URL + "/device",
+    headers: {
+        "Token": main.get_cookie("Token"),
+        "Content-Type": "application/json"
+    },
+    dataType: "json",
+    data: payload,
+    success: function(data){
+      main.notify("Saved Device", "success")
+    },
+    error: function(data){
+      main.notify("Error Saving Device", "error")
+    }
+  });
 }
+
+export function delete_device(device_id){
+  /* */
+  $.ajax({
+    type: "DELETE",
+    url: API_URL + "/device/" + device_id,
+    headers: {
+        "Token": main.get_cookie("Token"),
+        "Content-Type": "application/json"
+    },
+    dataType: "json",
+    success: function(data){
+      main.notify("Deleted Device successfully", "success")
+    },
+    error: function(data){
+      main.notify("Error Deleting Device", "error")
+    }
+  });
+}
+
 
 export function get_devices_dashboard(){
   /* Get recent bookmarks */
   $.ajax({
     type: "GET",
     url: API_URL + "/devices",
-    // url: API_URL + "/bookmarks?limit=1",
     headers: {
         "Token": main.get_cookie("Token"),
         "Content-Type": "application/json"
     },
     success: function(data){
-      console.log(data);
       show_devices(data, true, "#bookmarks_recent");
       // var next_page = Number(data.info["current_page"]) + 1;
       // $("#recent-load-more").attr("data-next-page", next_page);
@@ -61,10 +77,9 @@ export function show_devices(data, append_top, the_list){
   // console.log("Recent bookmarks show");
   // console.log(data.info.total_objects);
   data.objects.forEach( item => {
-    var html = '<li class="list-group-item">'+ item.name  +'</li>'
+    var html = '<li class="list-group-item"><a href="/device/'+ item.id+ '">'+ item.name  +'</a></li>';
+    // var html = '<li class="list-group-item">'+ item.name  +'</li>'
     $("#device_roster").append(html);
-
-    console.log(item);
   });
   
 

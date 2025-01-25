@@ -40,9 +40,12 @@ from lan_nanny.api.controllers.models.ctrl_device_mac import ctrl_device_mac
 from lan_nanny.api.controllers.collections.ctrl_device_macs import ctrl_device_macs
 from lan_nanny.api.controllers.models.ctrl_device_port import ctrl_device_port
 from lan_nanny.api.controllers.collections.ctrl_device_ports import ctrl_device_ports
+from lan_nanny.api.controllers.collections.ctrl_scan_hosts import ctrl_scan_hosts
+from lan_nanny.api.controllers.collections.ctrl_scan_ports import ctrl_scan_ports
 from lan_nanny.api.controllers.models.ctrl_vendor import ctrl_vendor
 from lan_nanny.api.controllers.collections.ctrl_vendors import ctrl_vendors
 from lan_nanny.api.controllers.ctrl_scan import ctrl_scan
+from lan_nanny.api.controllers.ctrl_stats import ctrl_stats
 
 if glow.general["ENV"].lower() == "dev":
     logging.config.dictConfig(log_configs.config_dev)
@@ -72,10 +75,13 @@ def register_blueprints(app: Flask) -> bool:
     app.register_blueprint(ctrl_device_macs)
     app.register_blueprint(ctrl_device_port)
     app.register_blueprint(ctrl_device_ports)
+    app.register_blueprint(ctrl_scan_hosts)
+    app.register_blueprint(ctrl_scan_ports)
     app.register_blueprint(ctrl_vendor)
     app.register_blueprint(ctrl_vendors)
 
     app.register_blueprint(ctrl_scan)
+    app.register_blueprint(ctrl_stats)
 
     return True
 
@@ -137,7 +143,8 @@ def after_request(response):
         response.status,
         response.content_length
     )
-    db.close()
+    if db:
+        db.close()
     return response
 
 

@@ -10,6 +10,7 @@ from flask import Blueprint, jsonify, Response
 
 from lan_nanny.api.controllers.models import ctrl_base
 from lan_nanny.api.models.device import Device
+from lan_nanny.api.collects.device_macs import DeviceMacs
 from lan_nanny.api.utils import auth
 from lan_nanny.api.utils import api_util
 from lan_nanny.api.utils import glow
@@ -27,6 +28,15 @@ def get_model(device_id: int = None) -> Response:
     """
     logging.info("GET - /device")
     data = ctrl_base.get_model(Device, device_id)
+    if "object" in data:
+        dm_col = DeviceMacs()
+        device_macs = dm_col.get_by_device_id(data["object"]["id"])
+        device_macs_ret = []
+        if device_macs:
+            for dm in device_macs:
+                # device_macs_ret.append(dm.id)
+                device_macs_ret.append(dm.json())
+        data["object"]["device_macs"] = device_macs_ret
     if not isinstance(data, dict):
         return data
     return jsonify(data)
@@ -73,15 +83,9 @@ def delete_model(device_id: int = None):
         "status": "Error",
         "message": "Could not find Device ID: %s" % device_id
     }
-    logging.debug("DELETE Bookmark")
+    logging.debug("DELETE Device")
     device = Device()
     if not device.get_by_id(device_id):
-        return jsonify(data), 404
-    if device.user_id != glow.user["user_id"]:
-        logging.warning("User %s tried to delete Bookmark beloning to User: %s" % (
-            glow.user["user_id"],
-            device.user_id
-        ))
         return jsonify(data), 404
     return ctrl_base.delete_model(Device, device.id)
 

@@ -36,6 +36,24 @@ def dashboard() -> Response:
     return render_template("page/dashboard.jinja")
 
 
+@ctrl_index.route("/devices")
+def devices() -> Response:
+    """Lan Nanny Devices"""
+    return render_template("page/devices.jinja")
+
+
+@ctrl_index.route("/device/<device_id>")
+def device(device_id) -> Response:
+    """Device Mac"""
+    return render_template("page/device.jinja")
+
+
+@ctrl_index.route("/device-mac/<device_mac_id>")
+def device_mac(device_mac_id) -> Response:
+    """Device Mac"""
+    return render_template("page/device_mac.jinja")
+
+
 @ctrl_index.route("/scans")
 def scans() -> Response:
     """Scans page"""
@@ -47,7 +65,9 @@ def settings() -> Response:
     """Provide the User settings page."""
     logging.info("Serving /settings")
     data = {
-        "ENV": glow.general["ENV"]
+        "ENV": glow.general["ENV"],
+        "API_URL": glow.general["API_URL"],
+        "VERSION": glow.general["VERSION"]
     }
     return render_template("page/settings.jinja", **data)
 
@@ -56,7 +76,7 @@ def settings() -> Response:
 def config_js() -> Response:
     data = {
         "API_URL": glow.general["API_URL"],
-        "VERSION_WEB": glow.general["VERSION_WEB"]
+        "VERSION": glow.general["VERSION"]
     }
     config_js = render_template("js_config.jinja", **data)
     return Response(config_js, mimetype="text/javascript")

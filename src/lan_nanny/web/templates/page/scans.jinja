@@ -5,7 +5,7 @@
 {% extends 'layout_internal.jinja' %}
 
 {%block header%}
-    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
+    <link rel="stylesheet" href="/static/css/scans.css">
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,53 @@
     <div class="row">
         <div class="col-8">
             <h3>Scans</h3>
-            <ul id="device_roster" class="list-group list-group-flush">
-                {# <li class="list-group-item">Device Name</li> #}
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Host Scans</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Port Scans</a>
+                </li>
             </ul>
-            <div class="row">
-                <div id="recent-load-more" data-next-page="2"></div>
+
+            <!-- Tab content -->
+            <div class="tab-content mt-3" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                    <h5>Host Scans</h5>
+                    <div class="row">
+                        <ul id="scan_host_roster" class="list-group list-group-flush">
+                            <li class="list-group-item boiler-item hide">
+                                <span class="scan-hosts-found"></span> Hosts
+                                <span class="scan-time">the time</span>  
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                    <h5>Port Scans</h5>
+                    <div class="row">
+                        <ul id="scan_ports_roster" class="list-group list-group-flush">
+                            <li class="list-group-item boiler-item hide">
+                                <a class="scan-ports-device-mac-link" href="/device-mac">
+                                    <b>Device Mac ID: <span class="scan-ports-device-mac-id"></span></b>
+                                </a>
+                                <span class="scan-ports-device-id">Device ID: <span class="scan-ports-device-id-value"></span> <br></span>
+                                <span class="scan-time">the time</span><br>
+                                <div class="smaller-stuff">
+                                Scan Type: <span class="scan-ports-scan-type"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="col-4">
+            <ul>
+                <li>Total Host Scans: <span id="total-scan-hosts"></span></li>
+                <li>Total Ports Scans: <span id="total-scan-ports"></span></li>
+            </ul>
         </div>
     </div>
 </div>

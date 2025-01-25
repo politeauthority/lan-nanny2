@@ -5,6 +5,7 @@
 
 */
 
+import * as main from "/static/js/main.js";
 import * as generic from "/static/js/entities/generic.js";
 import * as options from "/static/js/entities/options.js";
 
@@ -58,17 +59,16 @@ function update_option(the_btn){
   options.save_option(option_name, the_value);
 }
 
-$(document).ready(function(){
+$(document).ready(function(){``
     console.log("Starting Settings")
 
     // Handle Initial Page Load
     generic.get_data("options")
       .then(data => {
-        console.log('Data received:', data);
         initial_load_options(data)
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
+        main.notify("Error Getting Options", "error");
     });
  	
     $( ".option-btn" ).on( "click", function() {

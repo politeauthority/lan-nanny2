@@ -1,0 +1,17 @@
+/*
+    Lan Nanny Web
+    Scans
+
+*/
+
+#device_roster {
+    list-style-type: none;
+}
+
+.scan-hosts-found {
+    color: pink;
+}
+
+.scan-time {
+    color: gray;
+}

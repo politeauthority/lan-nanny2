@@ -14,7 +14,6 @@ export function get_devices_dashboard(){
   $.ajax({
     type: "GET",
     url: API_URL + "/scans",
-    // url: API_URL + "/bookmarks?limit=1",
     headers: {
         "Token": main.get_cookie("Token"),
         "Content-Type": "application/json"

@@ -1,0 +1,104 @@
+{#
+    Lan Nanny Web
+    Device Mac
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
+{% endblock %}
+
+{% block content %}
+
+<!-- Device Display -->
+<div class="container"">
+    <div class="row">
+        <div class="col-8">
+            <h3>Device Mac</h3>
+            <table class="table table-striped">
+                <tr>
+                    <td>Last Seen</td>
+                    <td><span class="entity-value device-mac-last-seen"></span></td>
+                </tr>
+                <tr>
+                    <td>Mac Address</td>
+                    <td><span class="entity-value device-mac-address"></span></td>
+                </tr>
+                <tr>
+                    <td>Last Ip</td>
+                    <td><span class="entity-value device-mac-last-ip"></span></td>
+                </tr>
+                <tr>
+                    <td>First Seen</td>
+                    <td><span class="entity-value device-mac-first-seen"></span></td>
+                </tr>
+                <tr>
+                    <td>Last Port Scan</td>
+                    <td> <span class="entity-value device-mac-last-port-scan"></span></td>
+                </tr> 
+            </table>
+        </div>
+        <div class="col-4">
+            <h4>Details</h3>
+            <ul id="" class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Device Mac ID: <span class="entity-value device-mac-id"></span>
+                </li>
+                <li class="list-group-item">
+                    Created: <span class="entity-value device-mac-created-ts"></span>
+                </li>
+                <li class="list-group-item">
+                    Updated: <span class="entity-value device-mac-updated-ts"></span>
+                </li>
+            </ul>
+            <div id="device-mac-device" class="hide">
+                <h4>Device</h3>
+                <ul id="" class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Device Name: <a class="device-mac-device-page" href="/device/"><span class="entity-value device-mac-device-name"></span></a>
+                    </li>
+                    <li class="list-group-item">
+                        Device ID: <span class="entity-value device-mac-device-id"></span>
+
+                    </li>
+
+                </ul>
+            </div>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-device-mac-device-pair">Pair to Device</a>
+        </div>
+    </div>
+</div>
+
+<!-- End: Container -->
+
+{% endblock %}
+
+{%block modals%}
+<!-- Device Mac - Device Pair moal -->
+<div id="modal-device-mac-device-pair" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pair Device Mac to Device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input id="modal_device_mac_device_pair_id" class="form-control form-control-lg" type="text" placeholder="Device ID">
+                <br>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="modal-device-mac-device-pair-submit" type="button" class="btn btn-success">Pair Device</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Device add modal -->
+{%endblock%}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/device-mac.js"></script>
+{% endblock %}
+
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/device_mac.jinja #}

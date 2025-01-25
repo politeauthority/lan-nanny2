@@ -65,6 +65,7 @@ class LanNannyClient:
         #@todo: This should probably be moved to somewhere more specific.
         """
         url = "/scan/submit-host"
+        logging.info("SENDING HOST SCAB RESULSTS: %s" % url)
         payload = {
             "meta": scan_meta,
             "scan": scan_data,
@@ -81,6 +82,7 @@ class LanNannyClient:
             "meta": scan_meta,
             "scan": scan_data,
         }
+
         request = self.make_request(url, method="POST", payload=payload)
         logging.info("Submit Port Scan Result: %s" % request)
         return True

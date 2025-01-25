@@ -22,8 +22,6 @@ export function get_collection(collection_name){
       },
       dataType: "json",
       success: function(data){
-        console.log("Successfully got options")
-        console.log(data);
         response = data;
         // var next_page = Number(data.info["current_page"]) + 1;
         // $("#recent-load-more").attr("data-next-page", next_page);
@@ -31,8 +29,6 @@ export function get_collection(collection_name){
     });
     return response
   }();
-  console.log("Here in Get collections");
-  console.log(return_first);
   return return_first;
 }
 
