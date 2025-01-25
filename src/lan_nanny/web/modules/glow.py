@@ -6,7 +6,8 @@
 
 """
 import os
-# from . import version
+
+from lan_nanny.api.version import version
 
 # Collect General Details
 global general
@@ -15,11 +16,11 @@ general = {
     "ENV": os.environ.get("LAN_NANNY_ENV", "PROD"),
     "API_URL": "https://api.lan-nanny-%s.alix.lol" % (
         os.environ.get("LAN_NANNY_ENV", "PROD").lower()),
-    "VERSION_WEB": "",
+    "VERSION": version,
     # "VERSION_WEB": version.version
 }
 general["API_URL"] = "https://api.lan-nanny-dev.alix.lol"
-if general["ENV"] == "PROD":
+if general["ENV"] == "prod":
     general["API_URL"] = "https://api.lan-nanny.alix.lol"
 
 

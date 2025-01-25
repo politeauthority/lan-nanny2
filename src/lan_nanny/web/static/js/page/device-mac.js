@@ -28,6 +28,7 @@ function initial_device_mac(data){
 }
 
 function get_device(device_id){
+  /* Get a Device by it's ID and put it on the page. */
   console.log("getting device id: " + device_id)
   generic.get_data("device/" + device_id)
   .then(data => {
@@ -47,6 +48,7 @@ $( "#modal-device-mac-device-pair-submit" ).on( "click", function() {
 function initial_device(data){
   console.log("DEVICE DATA");
   console.log(data);
+  $("#device-mac-device").removeClass("hide");
   $(".device-mac-device-name").text(data.object.name);
   $(".device-mac-device-page").attr("href", "/device/" + data.object.id);
 }

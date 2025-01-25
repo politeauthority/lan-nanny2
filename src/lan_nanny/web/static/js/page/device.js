@@ -7,6 +7,7 @@
 
 import * as generic from "/static/js/entities/generic.js";
 import * as main from "/static/js/main.js";
+import * as device from "/static/js/entities/device.js";
 import * as device_mac from "/static/js/entities/device_mac.js";
 
 
@@ -24,16 +25,28 @@ function initial_device(data){
   if(data.object.last_port_scan){
     $(".device-last-port-scan").text(main.time_since(data.object.last_port_scan));
   }
+  if(data.object.device_macs.length > 0){
+    initial_device_macs(data.object.device_macs);
+  }
 }
 
-function modal_device_mac_pair_submit(){
-    const path = window.location.pathname;
-    const segments = path.split('/');
-    var device_mac_id = segments[segments.length - 1];
-    console.log("Submitting the pair");
-    var device_id = $("#modal_device_mac_device_pair_id").val()
-    console.log("device id: " + device_id);
-    device_mac.post_pair_device_mac_device(device_mac_id, device_mac_id)
+
+function initial_device_macs(device_macs){
+    $("#device-macs").show();
+    console.log("We got device macs");
+    console.log(device_macs);
+    var the_copy = null;
+    device_macs.forEach(dm => {
+      the_copy = $('#device-mac-list li:first').clone();
+      the_copy.find(".device-mac-address").text(dm.address);
+      the_copy.find(".device-mac-url").attr("href", "/device-mac/" + dm.id);
+      the_copy.removeClass("hide");
+      $("#device-mac-list").append(the_copy);
+    });
+}
+
+function modal_device_delete(device_id){
+    device.delete_device(device_id);
 
 }
 
@@ -54,8 +67,8 @@ $(document).ready(function(){
         console.error('Error fetching data:', error);
     });
 
-    // $( "#modal-device-mac-device-pair-submit" ).on( "click", function() {
-    //     modal_device_mac_pair_submit();
-    //   });
+    $( "#modal-device-delete-submit" ).on( "click", function() {
+        modal_device_delete(device_id);
+    });
 
 });

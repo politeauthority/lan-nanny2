@@ -32,6 +32,25 @@ export function post_device(device_name){
   });
 }
 
+export function delete_device(device_id){
+  /* */
+  $.ajax({
+    type: "DELETE",
+    url: API_URL + "/device/" + device_id,
+    headers: {
+        "Token": main.get_cookie("Token"),
+        "Content-Type": "application/json"
+    },
+    dataType: "json",
+    success: function(data){
+      main.notify("Deleted Device successfully", "success")
+    },
+    error: function(data){
+      main.notify("Error Deleting Device", "error")
+    }
+  });
+}
+
 
 export function get_devices_dashboard(){
   /* Get recent bookmarks */

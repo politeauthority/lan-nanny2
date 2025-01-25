@@ -83,15 +83,9 @@ def delete_model(device_id: int = None):
         "status": "Error",
         "message": "Could not find Device ID: %s" % device_id
     }
-    logging.debug("DELETE Bookmark")
+    logging.debug("DELETE Device")
     device = Device()
     if not device.get_by_id(device_id):
-        return jsonify(data), 404
-    if device.user_id != glow.user["user_id"]:
-        logging.warning("User %s tried to delete Bookmark beloning to User: %s" % (
-            glow.user["user_id"],
-            device.user_id
-        ))
         return jsonify(data), 404
     return ctrl_base.delete_model(Device, device.id)
 

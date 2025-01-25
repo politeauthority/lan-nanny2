@@ -38,9 +38,18 @@
                     <td></td>
                     
                 </tr>
-            </table>    
-            <h4>Device Macs</h4>
+            </table>
+            <div id="device-macs" class="hide">
+                <h4>Device Macs</h4>
+                <ul id="device-mac-list" class="list-group list-group-flush">
+                    <li class="list-group-item hide"><a class="device-mac-url" href="/device-mac"><span class="device-mac-address">First</span></a></li>
+                </ul>
+                <span id="device-mac-dump"></span>
+            </div>   
         </div>
+
+
+
         <div class="col-4">
             <div class="dropdown float-right">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -51,7 +60,6 @@
                     <li class=" nav-item">
                         <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-device-delete" >Delete</a>
                     </li>
-
                 </ul>
             </div>
             <h4>Details</h3>
