@@ -249,6 +249,18 @@ class Base:
         raws = self.cursor.fetchall()
         return self.load_presiteines(raws)
 
+    def get_by_field(self, field_name: str, field_value) -> list:
+        """Get a collection by field name."""
+        sql = f"""
+            SELECT *
+            FROM {self.table_name}
+            WHERE
+                {field_name} = %s;
+        """
+        self.cursor.execute(sql, (field_value,))
+        raws = self.cursor.fetchall()
+        return self.load_presiteines(raws)
+
     def _generate_paginated_sql(
         self,
         page: int,
