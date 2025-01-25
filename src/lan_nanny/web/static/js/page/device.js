@@ -16,8 +16,9 @@ function initial_device(data){
   $(".device-id").text(data.object.id);
   $(".device-name").text(data.object.name);
   $(".device-ip").text(data.object.ip);
-  $(".device-created-ts").text(data.object.created_ts);
+  $(".device-created-ts").text(main.human_time(data.object.created_ts));
   $(".device-created-ts").attr("href", "/device/" + data.object.id);
+  $(".device-updated-ts").text(main.human_time(data.object.updated_ts));
   $(".device-first-seen").text(main.time_since(data.object.first_seen));
   $(".device-last-seen").text(main.time_since(data.object.last_seen));
   if(data.object.last_port_scan){

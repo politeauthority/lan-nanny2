@@ -23,16 +23,16 @@
                     IP: <span class="entity-value device-ip">No IP yet</span>
                 </li>
                 <li class="list-group-item">
-                    First Seen: <span class="entity-value device-first-seen"></span>
+                    Last Seen: <span class="entity-value device-last-seen"></span>
                 </li>
                 <li class="list-group-item">
-                    Last Seen: <span class="entity-value device-last-seen"></span>
+                    First Seen: <span class="entity-value device-first-seen"></span>
                 </li>
                 <li class="list-group-item">
                     Last Port Scan: <span class="entity-value device-last-port-scan"></span>
                 </li>
-
             </ul>
+            <h4>Device Macs</h4>
         </div>
         <div class="col-4">
             <div class="dropdown float-right">
@@ -69,18 +69,15 @@
 {% endblock %}
 
 {%block modals%}
-<!-- Device Mac - Device Pair moal -->
-<div id="modal-device-mac-device-pair" class="modal" tabindex="-1">
+<!-- Device - Delete -->
+<div id="modal-device-delete" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Pair Device Mac to Device</h5>
+                <h5 class="modal-title">Delete Device</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input id="modal_device_mac_device_pair_id" class="form-control form-control-lg" type="text" placeholder="Device ID">
-                <br>
-                <br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
