@@ -24,7 +24,7 @@ class DeviceMacs(BaseEntityMetas):
         self.table_name = DeviceMac().table_name
         self.collect_model = DeviceMac
         self.field_map = self.collect_model().field_map
-        self.per_page = 20
+        self.per_page = 100
 
     def ready_for_port_scan(self) -> list:
         """Gets a list of DeviceMacs that are allowed to have port scans and have been recently

@@ -14,11 +14,13 @@
 <div class="container"">
     <div class="row">
         <div class="col-8">
-            <h3>Devices</h3>
-            <ul id="scan_host_roster" class="list-group list-group-flush">
-                
-                <li class="list-group-item">
-                    Found 10 Hosts at <span class="scan-time">the time</span>
+            <h3>Device Macs</h3>
+            <ul id="devices_device_mac_roster" class="list-group list-group-flush">
+                <li class="list-group-item hide">
+                    <b>
+                        <a class="device-device-mac-url" href="/device-mac/"><span class="device-device-mac-address">MAC ADDRESS</span></b></a>
+                    <br/>
+                    Last IP: <span class="device-device-mac-last-ip">IP ADRESS</span><br>
                 </li>
             </ul>
             <div class="row">
@@ -36,7 +38,7 @@
 {%endblock%}
 
 {%block javascript%}
-<script type="module" src="/static/js/page/scans.js"></script>
+<script type="module" src="/static/js/page/devices.js"></script>
 {% endblock %}
 
 {# End File: politeauthority/bookmarky-web-simple/src/templates/page/devices.jinja #}

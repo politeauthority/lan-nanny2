@@ -58,7 +58,8 @@ export function show_devices(data, append_top, the_list){
   // console.log("Recent bookmarks show");
   // console.log(data.info.total_objects);
   data.objects.forEach( item => {
-    var html = '<li class="list-group-item">'+ item.name  +'</li>'
+    var html = '<li class="list-group-item"><a href="/device/'+ item.id+ '">'+ item.name  +'</a></li>';
+    // var html = '<li class="list-group-item">'+ item.name  +'</li>'
     $("#device_roster").append(html);
   });
   
