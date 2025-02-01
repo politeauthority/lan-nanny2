@@ -64,12 +64,19 @@ def scans() -> Response:
 def settings() -> Response:
     """Provide the User settings page."""
     logging.info("Serving /settings")
+    return render_template("page/settings.jinja")
+
+
+@ctrl_index.route("/debug")
+def debug() -> Response:
+    """A place to dump things"""
+    logging.info("Serving /debug")
     data = {
         "ENV": glow.general["ENV"],
         "API_URL": glow.general["API_URL"],
         "VERSION": glow.general["VERSION"]
     }
-    return render_template("page/settings.jinja", **data)
+    return render_template("page/debug.jinja", **data)
 
 
 @ctrl_index.route("/config.js")

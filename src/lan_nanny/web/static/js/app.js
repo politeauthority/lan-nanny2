@@ -6,7 +6,17 @@
 import { API_URL } from "/config.js";
 import * as main from "/static/js/main.js";
 import * as device from "/static/js/entities/device.js";
-// import * as device_mac from "/static/js/entities/device_mac.js";
+import * as generic from "/static/js/entities/generic.js";
+import * as vendors from "/static/js/entities/vendors.js";
+
+
+export function initial_web_app_load(){
+  /* Initial Web App Load
+  */
+  console.log("Running initiail web app load");
+  vendors.get_vendors();
+  return true;
+}
 
 function handle_logout(){
   /* Tasks to run when we've hit the logout button */
@@ -52,6 +62,7 @@ function modal_device_add_submit(){
   device.post_device(device_name);
   $("#modal-device-add").modal("hide");
 }
+
 
 $(document).ready(function(){
   console.log("HERES THE APP");

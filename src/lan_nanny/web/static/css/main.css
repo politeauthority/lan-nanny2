@@ -201,3 +201,9 @@ body.busy .loading-spinner { visibility:visible !important; } */
 .entity-value {
     font-weight: 900;
 }
+
+
+.code-format {
+    color: gray
+    /* background-color: lightgray; */
+}
