@@ -5,6 +5,7 @@
 
 */
 
+import { API_URL } from "/config.js";
 import * as main from "/static/js/main.js";
 import * as generic from "/static/js/entities/generic.js";
 import * as options from "/static/js/entities/options.js";
@@ -59,6 +60,26 @@ function update_option(the_btn){
   options.save_option(option_name, the_value);
 }
 
+function get_data_counts(){
+    $.ajax({
+        type: "GET",
+        url: API_URL + "/info",
+        headers: {
+            "Token": main.get_cookie("Token"),
+            "Content-Type": "application/json"
+        },
+        dataType: "json",
+        success: function(data){
+          console.log("got info data");
+          console.log(data);
+          $("#data-info-device-count").text(data.data.entities.devices);
+          $("#data-info-device-mac-count").text(data.data.entities.device_macs);
+          $("#data-info-device-ports-count").text(data.data.entities.device_ports);
+
+        },
+    });
+}
+
 $(document).ready(function(){``
     console.log("Starting Settings")
 
@@ -71,6 +92,8 @@ $(document).ready(function(){``
         main.notify("Error Getting Options", "error");
     });
  	
+    get_data_counts();
+
     $( ".option-btn" ).on( "click", function() {
       update_option($(this));
     });

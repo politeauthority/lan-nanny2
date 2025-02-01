@@ -1,0 +1,65 @@
+{#
+    Lan Nanny Web
+    Debug
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    {# <link rel="stylesheet" href="/static/css/dashboard.css"> #}
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Container -->
+<div class="container"">
+    <h3>DEBUG</h3>
+    <div class="row">
+        <div class="col-8">
+            <div class="container"">
+                <div class="row">
+                    <h5>General</h5>
+                    <ul id="" class="list-group list-group-flush">
+                        <li class="list-group-item">Env: {{ENV}}</li>
+                        <li class="list-group-item">Api Url: {{API_URL}}</li>
+                        <li class="list-group-item">Version: {{VERSION}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container"">
+                <div class="row">
+                    <h5>Entity Counts</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Devices</td>
+                            <td><span id="data-info-device-count"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Device Macs</td>
+                            <td><span id="data-info-device-mac-count"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Device Ports</td>
+                            <td><span id="data-info-device-ports-count"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End: Container -->
+{% endblock %}
+
+{%block modals%}
+{%endblock%}
+
+{%block javascript%}
+<script type="module" src="/static/js/page/settings.js"></script>
+{% endblock %}
+
+{# End File: politeauthority/bookmarky-web-simple/src/templates/page/settings.jinja #}

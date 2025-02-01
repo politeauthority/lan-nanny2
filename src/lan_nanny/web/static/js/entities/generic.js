@@ -1,7 +1,7 @@
 /*
   Lan Nanny Web
-  Entities 
-  Options
+  Entities
+  Generic
 
 */
 import { API_URL } from "/config.js";

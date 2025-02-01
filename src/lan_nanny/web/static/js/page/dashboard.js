@@ -5,6 +5,7 @@
 */
 
 import { API_URL } from "/config.js";
+import * as app from "/static/js/app.js";
 import * as main from "/static/js/main.js";
 import * as device from "/static/js/entities/device.js";
 // import * as tags from "/static/js/entities/tags.js";
@@ -35,9 +36,9 @@ function draw_dashboard_stats(data){
 }
 
 
-
 $(document).ready(function(){
     console.log("hello world");
+    app.initial_web_app_load();
     device.get_devices_dashboard();
     get_dashboard_stats();
 });

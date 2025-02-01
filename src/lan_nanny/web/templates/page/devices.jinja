@@ -12,20 +12,55 @@
 
 <!-- Device Display -->
 <div class="container"">
+    <h3>Devices</h3>
     <div class="row">
         <div class="col-8">
-            <h3>Device Macs</h3>
-            <ul id="devices_device_mac_roster" class="list-group list-group-flush">
-                <li class="list-group-item hide">
-                    <b>
-                        <a class="device-device-mac-url" href="/device-mac/"><span class="device-device-mac-address">MAC ADDRESS</span></b></a>
-                    <br/>
-                    Last IP: <span class="device-device-mac-last-ip">IP ADRESS</span><br>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Devices</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Device Macs</a>
                 </li>
             </ul>
-            <div class="row">
-                <div id="recent-load-more" data-next-page="2"></div>
+
+            <div class="tab-content mt-3" id="device_tab_content">
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                    <h5>Devices</h5>
+                    <div class="row">
+                        <ul id="devices_roster" class="list-group list-group-flush">
+                            <li data-id="" class="list-group-item hide">
+                                <b>
+                                    <a class="device-url" href="/device/"><span class="device-name">Name</span></b></a>
+                                <br/>
+                                IP: <span class="device-ip code-format">IP ADRESS</span><br>
+                                {# <span class="device-device-mac-vendor">Vendor ID:  <span class="device-device-mac-vendor-name code-format">Vendor</span></span> #}
+                                Last Seen: <span class="device-last-seen code-format">IP ADRESS</span><br>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Device Macs -->
+                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+
+                    <h5>Device Macs</h5>
+                    <ul id="devices_device_mac_roster" class="list-group list-group-flush">
+                        <li data-device-mac-id="" class="list-group-item hide">
+                            <b>
+                                <a class="device-device-mac-url" href="/device-mac/"><span class="device-device-mac-address">MAC ADDRESS</span></b></a>
+                            <br/>
+                            Last IP: <span class="device-device-mac-last-ip code-format">IP ADRESS</span><br>
+                            <span class="device-device-mac-vendor">Vendor ID:  <span class="device-device-mac-vendor-name code-format">Vendor</span></span>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div id="recent-load-more" data-next-page="2"></div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
