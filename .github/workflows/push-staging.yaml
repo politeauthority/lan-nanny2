@@ -30,24 +30,24 @@ jobs:
       tag-prefix: "stage"
       build-target: "dev"
 
-  deploy:
-    runs-on: self-hosted
-    needs: [build-container]
-    container:
-      image: harbor.squid-ink.us/politeauthority/polite-cicd:${{ vars.CICD_VERSION }}
-      credentials:
-        username: ${{ vars.HARBOR_USER }}
-        password: ${{ secrets.HARBOR_PASSWORD }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT }}
-      - name: Deploy Staging
-        run: |
-          mkdir ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config.yaml
-          export KUBECONFIG=~/.kube/config.yaml
-          chmod 600 ~/.kube/config.yaml
-          task stage-deploy
+  # deploy:
+  #   runs-on: self-hosted
+  #   needs: [build-container]
+  #   container:
+  #     image: harbor.squid-ink.us/politeauthority/polite-cicd:${{ vars.CICD_VERSION }}
+  #     credentials:
+  #       username: ${{ vars.HARBOR_USER }}
+  #       password: ${{ secrets.HARBOR_PASSWORD }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         token: ${{ secrets.PAT }}
+  #     - name: Deploy Staging
+  #       run: |
+  #         mkdir ~/.kube
+  #         echo "${{ secrets.KUBECONFIG }}" | base64 -d > ~/.kube/config.yaml
+  #         export KUBECONFIG=~/.kube/config.yaml
+  #         chmod 600 ~/.kube/config.yaml
+  #         task stage-deploy
 
 # End File: politeauthority/lan-nanny.github/workflows/push-staging.yaml
