@@ -1,0 +1,40 @@
+{#
+    Lan Nanny Web
+    Scan Port
+#}
+{% extends 'layout_internal.jinja' %}
+
+{%block header%}
+    <link rel="stylesheet" href="/static/css/scans.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- Scan Display -->
+<div class="container"">
+    <div class="row">
+        <div class="col-8">
+            <h3>Port Scan</h3>
+            <div class="row">
+                <ul id="scan_port" class="list-group list-group-flush">
+                    <li class="list-group-item boiler-item">
+                        <span class="scan-port-id">ID</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End: Container -->
+
+{% endblock %}
+
+{%block modals%}
+{%endblock%}
+
+{%block javascript%}
+{# <script type="module" src="/static/js/page/scan-port.js"></script> #}
+{% endblock %}
+
+{# End File: politeauthority/lan-nanny/src/lan-nanny/web/templates/page/scan-port.jinja #}

@@ -42,6 +42,7 @@ from lan_nanny.api.controllers.models.ctrl_device_port import ctrl_device_port
 from lan_nanny.api.controllers.collections.ctrl_device_ports import ctrl_device_ports
 from lan_nanny.api.controllers.collections.ctrl_scan_hosts import ctrl_scan_hosts
 from lan_nanny.api.controllers.collections.ctrl_scan_ports import ctrl_scan_ports
+from lan_nanny.api.controllers.models.ctrl_scan_port import ctrl_scan_port
 from lan_nanny.api.controllers.models.ctrl_vendor import ctrl_vendor
 from lan_nanny.api.controllers.collections.ctrl_vendors import ctrl_vendors
 from lan_nanny.api.controllers.ctrl_search import ctrl_search
@@ -78,6 +79,7 @@ def register_blueprints(app: Flask) -> bool:
     app.register_blueprint(ctrl_device_ports)
     app.register_blueprint(ctrl_scan_hosts)
     app.register_blueprint(ctrl_scan_ports)
+    app.register_blueprint(ctrl_scan_port)
     app.register_blueprint(ctrl_vendor)
     app.register_blueprint(ctrl_vendors)
 

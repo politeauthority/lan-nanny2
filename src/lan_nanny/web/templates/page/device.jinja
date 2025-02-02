@@ -58,6 +58,8 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li class=" nav-item">
+                    
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-device-edit" >Edit</a>
                         <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-device-delete" >Delete</a>
                     </li>
                 </ul>
@@ -84,6 +86,27 @@
 {% endblock %}
 
 {%block modals%}
+
+<!-- Device - Edit -->
+<div id="modal-device-edit" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input id="modal_device_edit_name" class="form-control form-control-lg" type="text" placeholder="Name">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {# <button id="modal-device-delete-submit" type="button" class="btn btn-danger">Delete</button> #}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Device edit modal -->
+
 <!-- Device - Delete -->
 <div id="modal-device-delete" class="modal" tabindex="-1">
     <div class="modal-dialog">
@@ -102,7 +125,8 @@
         </div>
     </div>
 </div>
-<!-- End Device add modal -->
+<!-- End Device delete modal -->
+
 {%endblock%}
 
 {%block javascript%}

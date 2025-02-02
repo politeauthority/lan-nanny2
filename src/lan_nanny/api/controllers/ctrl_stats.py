@@ -7,7 +7,7 @@
 # import logging
 # import json
 
-from flask import Blueprint, jsonify, Response, request
+from flask import Blueprint, jsonify, Response
 
 # from lan_nanny.api.utils import api_util
 # from lan_nanny.api.collects.device_macs import DeviceMacs
@@ -31,7 +31,6 @@ def dashboard() -> Response:
         }
     }
     return jsonify(data), 201
-
 
 
 # End File: politeauthroity/bookmark-apiy/src/bookmarky/api/controllers/ctrl_stats.py

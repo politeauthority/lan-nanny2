@@ -45,15 +45,16 @@ class DeviceMacs(BaseEntityMetas):
         self.cursor.execute(sql, (query, query))
         raws = self.cursor.fetchall()
         return self.build_from_lists(raws)
-        
 
     def ready_for_port_scan(self) -> list:
         """Gets a list of DeviceMacs that are allowed to have port scans and have been recently
         seen online.
+        @todo: make sure the order here is correct
         """
         device_macs_to_scan = []
         never_scanned = self._rfp_never_scanned()
         the_rest = self._rfp_last_scaned()
+        device_macs_to_scan = device_macs_to_scan + never_scanned
         device_macs_to_scan = device_macs_to_scan + the_rest
         return device_macs_to_scan
 
@@ -109,8 +110,8 @@ class DeviceMacs(BaseEntityMetas):
             # 20 minutes
             online_threshold = (sec_per_min * 20) * -1
         last_seen = str(now.shift(seconds=online_threshold).datetime)[:-13]
-        logging.info("\n\nSQL:\n%s"  % sql)
-        logging.info("\n\nVALUES\n%s"  % last_seen)
+        logging.info("\n\nSQL:\n%s" % sql)
+        logging.info("\n\nVALUES\n%s" % last_seen)
         self.cursor.execute(sql, (last_seen,))
         raw = self.cursor.fetchone()
         logging.info("Got this back: %s" % raw)

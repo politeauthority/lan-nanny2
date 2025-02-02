@@ -22,7 +22,6 @@ FIELD_MAP = {
     "scan_agent": {
         "name": "scan_agent",
         "type": "str",
-        "api_writeable": True,
         "api_searchable": True
     },
     "scan_type": {
@@ -34,13 +33,11 @@ FIELD_MAP = {
     "device_id": {
         "name": "device_id",
         "type": "int",
-        "api_writeable": True,
         "api_searchable": True
     },
     "device_mac_id": {
         "name": "device_mac_id",
         "type": "int",
-        "api_writeable": True,
         "api_searchable": True
     },
     "elapsed_time": {

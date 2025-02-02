@@ -60,6 +60,15 @@ def scans() -> Response:
     return render_template("page/scans.jinja")
 
 
+@ctrl_index.route("/scan-port/<scan_port_id>")
+def scan_port(scan_port_id: int) -> Response:
+    """Scan Port"""
+    data = {
+        "scan_id": scan_port_id
+    }
+    return render_template("page/scan-port.jinja", **data)
+
+
 @ctrl_index.route("/search")
 def search() -> Response:
     """Search results page"""
