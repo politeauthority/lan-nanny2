@@ -22,6 +22,11 @@ config_dev = {
             "class": "logging.StreamHandler",
             "stream": "ext://flask.logging.wsgi_errors_stream",
             "formatter": "default"
+        },
+        'requests': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+            "level": "ERROR"
         }
     },
     "root": {

@@ -64,7 +64,7 @@ class LanNannyClient:
         """Submit a Host Scan the Lan Nanny Api.
         #@todo: This should probably be moved to somewhere more specific.
         """
-        url = "/scan/submit-host"
+        url = "scan/submit-host"
         logging.info("SENDING HOST SCAB RESULSTS: %s" % url)
         payload = {
             "meta": scan_meta,
@@ -117,7 +117,7 @@ class LanNannyClient:
 
     def get_options(self) -> dict:
         """Get all Options available to the current user, keyed by the Option.name."""
-        url = "/options"
+        url = "options"
         request_data = self.make_request(url, method="GET")
         options = {}
         for opt in request_data["objects"]:
@@ -126,11 +126,13 @@ class LanNannyClient:
 
     def make_request(self, url: str, method: str = "GET", payload: dict = {}) -> dict:
         """Generic request maker to the Lan Nanny Api. Attempting to return a python dictionary."""
-
         if not self.token:
             if not self.login():
                 return False
         request_args = self._get_base_request_args(url, method)
+        logging.debug("\n\nREQUEST ARGS\n")
+        logging.debug(request_args)
+        logging.debug("----\n\n")
         if request_args:
             if method == "GET":
                 apply_query_field = False
@@ -207,7 +209,8 @@ class LanNannyClient:
         request_args = {
             "headers": self.headers,
             "method": method,
-            "url": f"{self.api_url}/{url}"
+            "url": f"{self.api_url}/{url}",
+            "verify": True,
         }
         request_args["headers"].update(self.headers)
         return request_args

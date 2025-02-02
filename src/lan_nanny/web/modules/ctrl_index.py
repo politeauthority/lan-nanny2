@@ -6,7 +6,7 @@
 """
 import logging
 
-from flask import Blueprint, jsonify, Response, render_template
+from flask import Blueprint, jsonify, Response, render_template, request
 
 from . import glow
 
@@ -58,6 +58,15 @@ def device_mac(device_mac_id) -> Response:
 def scans() -> Response:
     """Scans page"""
     return render_template("page/scans.jinja")
+
+
+@ctrl_index.route("/search")
+def search() -> Response:
+    """Search results page"""
+    data = {}
+    if "query" in request.args:
+        data["query"] = request.args
+    return render_template("page/search-results.jinja", **data)
 
 
 @ctrl_index.route("/settings")

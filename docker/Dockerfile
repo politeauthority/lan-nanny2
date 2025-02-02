@@ -52,7 +52,7 @@ ADD ./scripts/run-build /bin
 ADD ./scripts/dev-destroy /bin
 
 RUN pip install -r /app/requirements-dev.txt && mkdir -p /work
-RUN export PS1="\[\e[32m\]\h\[\e[m\] $ "
+ENV PS1="\[\e[32m\]\h\[\e[m\] $ "
 WORKDIR /work/
 
 ADD build-files/tests /work/tests

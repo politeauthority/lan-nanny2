@@ -14,7 +14,6 @@ function initial_devices(data){
   console.log("The Devices");
   console.log(data);
   var the_copy = null;
-  const vendors = JSON.parse(localStorage.getItem('vendors'));
   data.objects.forEach(device => {
       the_copy = $('#devices_roster li:first').clone();
       the_copy.find('.device-url').attr("href", "/device/" + device.id);
