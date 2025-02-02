@@ -27,10 +27,25 @@ class DeviceMacs(BaseEntityMetas):
         self.per_page = 100
 
     def get_by_device_id(self, device_id: int) -> list:
-        """
-        """
+        """Get a Device by it's ID."""
         prestines = self.get_by_field("device_id", device_id)
         return prestines
+
+    def search(self, query: str):
+        """Run a general search on DeviceMacs, returning a hyradted list if any results are found.
+        """
+        sql = """
+            SELECT *
+            FROM device_macs
+            WHERE
+                address LIKE %s OR
+                last_ip LIKE %s;
+        """
+        query = f"%{query}%"
+        self.cursor.execute(sql, (query, query))
+        raws = self.cursor.fetchall()
+        return self.build_from_lists(raws)
+        
 
     def ready_for_port_scan(self) -> list:
         """Gets a list of DeviceMacs that are allowed to have port scans and have been recently

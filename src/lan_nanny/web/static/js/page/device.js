@@ -12,6 +12,7 @@ import * as device_mac from "/static/js/entities/device_mac.js";
 
 
 function initial_device(data){
+  /* Initial load of Device page */
   console.log("DEVICE DATA");
   console.log(data);
   $(".device-id").text(data.object.id);

@@ -21,13 +21,20 @@ dictConfig({
     'formatters': {'default': {
         'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
     }},
-    'handlers': {'wsgi': {
-        'class': 'logging.StreamHandler',
-        'stream': 'ext://flask.logging.wsgi_errors_stream',
-        'formatter': 'default'
-    }},
+    'handlers': {
+        'wsgi': {
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://flask.logging.wsgi_errors_stream',
+            'formatter': 'default'
+        },
+        'requests': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+            "level": "ERROR"
+        }
+    },
     'root': {
-        'level': 'DEBUG',
+        'level': 'ERROR',
         'handlers': ['wsgi']
     }
 })

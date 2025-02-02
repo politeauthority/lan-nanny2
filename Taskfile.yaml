@@ -150,6 +150,11 @@ tasks:
       - |
        stern deployment/lan-nanny-api -n lan-nanny
 
+  prod-logs-web:
+    cmds:
+      - |
+       stern deployment/lan-nanny-web -n lan-nanny
+
   prod-logs-scanner:
     cmds:
       - |
