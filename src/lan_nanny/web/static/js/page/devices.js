@@ -8,6 +8,7 @@
 import * as generic from "/static/js/entities/generic.js";
 import * as main from "/static/js/main.js";
 import * as device_mac from "/static/js/entities/device_mac.js";
+import * as vendors from "/static/js/entities/vendors.js";
 
 
 function initial_devices(data){
@@ -33,7 +34,6 @@ function initial_devices(data){
 
 function initial_devices_macs(data){
     var the_copy = null;
-    const vendors = JSON.parse(localStorage.getItem('vendors'));
     data.objects.forEach(device_mac => {
         the_copy = $('#devices_device_mac_roster li:first').clone();
         the_copy.find('.device-device-mac-address').text(device_mac.address);
@@ -43,10 +43,9 @@ function initial_devices_macs(data){
         // Show the Vendor
         var show_vendor = false;
         if(device_mac.vendor_id){
-          if(device_mac.vendor_id in vendors){
-            the_copy.find('.device-device-mac-vendor-name').text(vendors[device_mac.vendor_id].name);
-            show_vendor = true
-          }
+          var vendor_name = vendors.get_vendor_name(device_mac.vendor_id)
+          the_copy.find('.device-device-mac-vendor-name').text(vendor_name);
+          show_vendor = true
         }
         if(show_vendor == false){
           the_copy.find('.device-device-mac-vendor').hide();

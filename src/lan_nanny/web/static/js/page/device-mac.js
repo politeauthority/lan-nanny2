@@ -8,6 +8,7 @@
 import * as generic from "/static/js/entities/generic.js";
 import * as main from "/static/js/main.js";
 import * as device_mac from "/static/js/entities/device_mac.js";
+import * as device_ports from "/static/js/entities/device-ports.js";
 
 function initial_device_mac(data){
     $(".device-mac-id").text(data.object.id);
@@ -82,6 +83,8 @@ $(document).ready(function(){
 
     $( "#modal-device-mac-device-pair-submit" ).on( "click", function() {
         modal_device_mac_pair_submit();
-      });
+    });
+
+    device_ports.get_device_ports(device_mac_id, "device-mac")
 
 });

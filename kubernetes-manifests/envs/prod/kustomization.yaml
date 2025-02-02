@@ -6,8 +6,8 @@ resources:
   # - secrets.yaml
 images:
   - name: harbor.squid-ink.us/politeauthority/lan-nanny
-    newTag: latest
-    # newTag: 0.0.0.58
+    # newTag: latest
+    newTag: 0.0.0.59
 
 patches:
   - target:

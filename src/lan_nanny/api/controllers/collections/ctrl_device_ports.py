@@ -19,7 +19,7 @@ ctrl_device_ports = Blueprint("device_ports", __name__, url_prefix="/device-port
 @ctrl_device_ports.route("/")
 @auth.auth_request
 def index():
-    """Get Device Macs"""
+    """Get Device Ports"""
     data = ctrl_collection_base.get(DevicePorts)
     return jsonify(data)
 

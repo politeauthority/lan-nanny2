@@ -28,10 +28,21 @@ export function get_vendors(){
             }, {});
             console.log(vendor_dict);
             localStorage.setItem('vendors', JSON.stringify(vendor_dict));
-
-
         },
     });
-    return
+    return true
 }
 
+
+export function get_vendor_name(vendor_id){
+    /* Get a Vendor name from a Vendor.ID */
+    const vendors = JSON.parse(localStorage.getItem('vendors'));
+    // if(vendors.length == 0){
+    //     return false
+    // }
+    if(vendor_id in vendors){
+        return vendors[vendor_id].name;
+    } else {
+        return false;
+    }
+}
