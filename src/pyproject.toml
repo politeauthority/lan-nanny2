@@ -16,7 +16,7 @@ dependencies = [
     
     # Scan Dependencaies
     "requests==2.32.3",
-    "lxml==5.3.0",
+    "lxml==6.1.0",
     "bs4==0.0.2",
 
 ]
